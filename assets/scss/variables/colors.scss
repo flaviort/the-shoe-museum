@@ -1,0 +1,34 @@
+$transparent:           transparent;
+$pure-white:            #fff;
+$white:                 #f2f1ed;
+$gray-lightest:         #e4e4e4;
+$gray-lighter:          #ccc;
+$gray-light:            #aaa;
+$gray-medium:           #666;
+$gray-dark:             #444;
+$gray-darker:           #222;
+$black:                 #0d0e13;
+$pure-black:            #000;
+
+$green:                 #72af59;
+$green-dark:            #4e7f3c;
+$red:                   #FF3030;
+
+// create a color map
+$colors: (
+    'transparent':          $transparent,
+    'pure-white':           $pure-white,
+    'white':                $white,
+    'gray-lightest':        $gray-lightest,
+    'gray-lighter':         $gray-lighter,
+    'gray-light':           $gray-light,
+    'gray-medium':          $gray-medium,
+    'gray-dark':            $gray-dark,
+    'gray-darker':          $gray-darker,
+    'black':                $black,
+    'pure-black':           $pure-black,
+
+    'green':                $green,
+    'green-dark':           $green-dark,
+    'red':                  $red
+);

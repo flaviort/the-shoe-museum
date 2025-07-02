@@ -1,0 +1,17 @@
+@use '../variables' as *;
+
+form {
+    &.is-sending {
+        pointer-events: none;
+
+        button[type='submit'] {
+            .button__text {
+                opacity: 0;
+            }
+
+            .button__loading {
+                opacity: 1;
+            }
+        }
+    }
+}

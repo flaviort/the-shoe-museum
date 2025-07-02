@@ -1,0 +1,156 @@
+@use '../variables' as *;
+
+.skip-content {
+	position: fixed;
+	z-index: 99999999;
+	top: .25rem;
+	left: .25rem;
+	opacity: 0;
+	pointer-events: none;
+	padding: .275rem .5rem;
+	font-size: .8rem;
+	border-radius: .125rem;
+
+	&:focus-visible {
+		opacity: 1;
+		background-color: $white;
+		color: $black;
+		border: none;
+		outline: none;
+	}
+}
+
+.hover-underline {
+    @include hover-underline;
+
+    &:hover,
+    &:focus-visible,
+    &.active {
+        background-size: 100% var(--border-width);
+    }
+}
+
+.button {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 3rem;
+    transition: .3s ease-in-out;
+    font-weight: $bold;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+    line-height: 1;
+    width: fit-content;
+
+    @media #{$mq-sm-max} {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background-color: $white;
+        color: $black;
+    }
+
+    &--has-icon {
+        padding-left: 2rem;
+        padding-right: 1.5rem;
+    }
+
+    &--hollow-white {
+        border: 1px solid $white;
+        color: $white;
+
+        .icon {
+            background-color: $white;
+            color: $black;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background-color: $white;
+            color: $black;
+        }
+    }
+
+    &--hollow {
+        border: 1px solid $black;
+        color: $black;
+
+        .icon {
+            background-color: $black;
+            color: $white;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background-color: $black;
+            color: $white;
+        }
+    }
+
+    &--green {
+        background-color: $green;
+        color: $white;
+
+        .icon {
+            background-color: $white;
+            color: $green;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background-color: $white;
+            color: $green;
+        }
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        padding: .5rem;
+        border-radius: 50%;
+        transition: .3s ease-in-out;
+
+        svg {
+            width: 100%;
+        }
+    }
+
+    &__loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0;
+        transition: .2s ease-in-out;
+
+        > span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+
+            svg {
+                width: auto;
+                height: 100%;
+            }
+        }
+    }
+}

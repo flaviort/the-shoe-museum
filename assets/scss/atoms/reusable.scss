@@ -1,0 +1,123 @@
+@use '../variables' as *;
+
+.cover {
+	position: absolute;
+	z-index: 0;
+    top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.relative {
+	position: relative;
+}
+
+.z0 { z-index: 0; }
+.z1 { z-index: 1; }
+.z2 { z-index: 2; }
+.z3 { z-index: 3; }
+.z4 { z-index: 4; }
+.z5 { z-index: 5; }
+.z9 { z-index: 9; }
+
+.nowrap { white-space: nowrap; }
+.uppercase { text-transform: uppercase; }
+.capitalize { text-transform: capitalize; }
+
+[data-stagger] > * { will-change: transform, opacity; }
+
+.w-20 { width: 20rem; }
+.h-auto { height: auto; }
+
+.max-w-10 { max-width: 10%; }
+.max-w-20 { max-width: 20%; }
+.max-w-30 { max-width: 30%; }
+.max-w-40 { max-width: 40%; }
+.max-w-50 { max-width: 50%; }
+.max-w-60 { max-width: 60%; }
+.max-w-70 { max-width: 70%; }
+.max-w-80 { max-width: 80%; }
+.max-w-90 { max-width: 90%; }
+.max-w-100 { max-width: 100%; }
+
+.flex-md {
+	display: flex;
+	gap: .5rem;
+	flex-direction: column;
+
+	@media #{$mq-md-min} {
+		gap: 1rem;
+		flex-direction: row;
+	}
+}
+
+.flex-lg {
+	display: flex;
+	gap: .5rem;
+	flex-direction: column;
+
+	@media #{$mq-lg-min} {
+		gap: 1rem;
+		flex-direction: row;
+	}
+}
+
+.align-center {
+	align-items: center;
+}
+
+.align-center-md {
+	@media #{$mq-md-min} {
+		align-items: center;
+	}
+}
+
+.align-center-lg {
+	@media #{$mq-lg-min} {
+		align-items: center;
+	}
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-center-md {
+	@media #{$mq-md-min} {
+		justify-content: center;
+	}
+}
+
+.justify-center-lg {
+	@media #{$mq-lg-min} {
+		justify-content: center;
+	}
+}
+
+.ul {
+	position: relative;
+
+	li {
+		display: block;
+		position: relative;
+		padding-left: .75rem;
+		margin-bottom: .25rem;
+
+		&:before {
+			content: '\2219';
+			position: absolute;
+			left: 0;
+		}
+	}
+}
+
+:root {
+	--smallest: clamp(1rem, 3vw, 2rem);
+	--smaller: clamp(2rem, 4vw, 3rem);
+	--small: clamp(2.5rem, 6vw, 5rem);
+	--medium: clamp(3rem, 9vw, 7rem);
+	--big: clamp(4rem, 10vw, 9rem);
+	--bigger: clamp(7rem, 17vw, 15rem);
+}

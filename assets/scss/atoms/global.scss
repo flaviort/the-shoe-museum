@@ -1,0 +1,121 @@
+@use '../variables' as *;
+
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+
+sub {
+    bottom: -0.25em
+}
+
+sup {
+    top: -0.5em
+}
+
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+li, ul, ol, figure { 
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.cf::after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: '';
+	clear: both;
+	height: 0;
+}
+
+canvas, img, video, picture, figure {
+	max-width: 100%;
+	height: auto;
+	box-sizing: border-box;
+	display: block;
+}
+
+svg:not(.lucide) {
+    max-width: 100%;
+	height: auto;
+    fill: currentColor;
+}
+
+button {
+	appearance: none;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 0;
+}
+
+a, button {
+	color: currentColor;
+}
+
+a, a:hover {
+	text-decoration: none;
+}
+
+textarea, input, select {
+	appearance: none;
+}
+
+textarea {
+	resize: vertical;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, li, ul, ol, span, strong, em {
+	padding: 0;
+	margin: 0;
+	margin-block-start: 0;
+    margin-block-end: 0;
+	font-weight: inherit;
+	font-size: inherit;
+}
+
+strong, b {
+	font-weight: $bold;
+}
+
+br {
+	line-height: inherit;
+}
+
+section,
+main,
+.container {
+	position: relative;
+}
+
+html,
+body {
+	-webkit-font-smoothing: antialiased;
+    background-color: $white;
+    font-family: $font;
+	color: $gray-darker;
+	font-weight: $regular;
+	font-style: normal;
+	font-size: clamp(16px, 1.33vw, 18px);
+	line-height: 1.6;
+	ascent-override: 110%;
+	scroll-behavior: smooth;
+	width: 100%;
+
+	@media #{$mq-3xl-min} {
+		font-size: 1vw;
+	}
+}
+
+body:has(dialog[open]),
+body.no-scroll {
+    overflow: hidden;
+}

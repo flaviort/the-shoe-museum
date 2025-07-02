@@ -1,0 +1,18 @@
+@use '../variables' as *;
+
+::-webkit-scrollbar {
+	width: .25rem;
+}
+
+::-webkit-scrollbar-track {
+	background: $white;
+}
+
+::-webkit-scrollbar-thumb {
+	background: $gray-dark;
+	border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	cursor: grab;
+}
