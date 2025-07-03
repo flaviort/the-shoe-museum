@@ -28,13 +28,13 @@
 
 		<div class='content pt-small'>
 
-			<h3 class='text-45'>
+			<h3 class='text-45 text-reveal'>
 				<strong>
 					Every shoe has a history
 				</strong>
 			</h3>
 
-			<p class='text-30 mt-smallest mx-auto'>
+			<p class='text-30 mt-smallest mx-auto text-reveal'>
 				At The Shoe Museum we understand the power of personal style and the impact it can have on one's confidence and self-expression. We are committed sharing designer stories while offering a curated collection that seamlessly blends fashion and functionality.
 			</p>
 
@@ -64,5 +64,7 @@
 
 	</div>
 </seciton>
+
+<section style='height: 100vh;'></section>
 
 <?php include('components/footer.php'); ?>

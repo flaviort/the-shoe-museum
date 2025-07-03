@@ -1,5 +1,5 @@
-// register plugins
-gsap.registerPlugin(ScrollTrigger)
+// register gsap plugins
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
 // global selectors
 const body = document.body
@@ -9,6 +9,7 @@ const selectId = (id) => document.getElementById(id)
 const vh = (coef) => window.innerHeight * (coef/100)
 const vw = (coef) => window.innerWidth * (coef/100)
 
+// lenis
 let lenis
 
 // cookies
@@ -34,62 +35,78 @@ function getCookie(name) {
 function initClickAndKeyFunctions() {
 
 	// make anchor links scroll smoothy
-	$('.sliding-link').click(function(e) {
-		e.preventDefault()
-		var aid = $(this).attr('href')
-		$('html, body').animate({ scrollTop: $(aid).offset().top }, 1000)
+	document.querySelectorAll('.sliding-link').forEach(link => {
+		link.addEventListener('click', function(e) {
+			e.preventDefault()
+			const aid = this.getAttribute('href')
+			const targetElement = document.querySelector(aid)
+			if (targetElement) {
+				targetElement.scrollIntoView({
+					behavior: 'smooth',
+					block: 'start'
+				})
+			}
+		})
 	})
 
 	// show / hide password
-	$('.show-pass').click(function(e){
-		e.preventDefault()
-		var that = $(this)
-		that.toggleClass('hidden')	
+	document.querySelectorAll('.show-pass').forEach(button => {
+		button.addEventListener('click', function(e) {
+			e.preventDefault()
+			const that = this
+			that.classList.toggle('hidden')
 
-		setTimeout(function() {
-			if (that.hasClass('hidden')){
-				that.siblings('input').attr('type','text')
-			} else {
-				that.siblings('input').attr('type','password')
-			}
-		}, 30)
+			setTimeout(function() {
+				const input = that.nextElementSibling
+				if (that.classList.contains('hidden')) {
+					input.setAttribute('type', 'text')
+				} else {
+					input.setAttribute('type', 'password')
+				}
+			}, 30)
+		})
 	})
 
 	// correct label click
-	$('label').click(function(e){
-		e.stopImmediatePropagation()
+	document.querySelectorAll('label').forEach(label => {
+		label.addEventListener('click', function(e) {
+			e.stopImmediatePropagation()
+		})
 	})
 
 	// open / close fs menu
-	$('.open-fs').click(function(){
+	document.querySelectorAll('.open-fs').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
 
-		var tl = gsap.timeline()
+			var tl = gsap.timeline()
 
-		tl.to('body', {
-			overflow: 'hidden',
-			duration: 0
+			tl.to('body', {
+				overflow: 'hidden',
+				duration: 0
+			})
+
+			tl.to('#fs-menu', {
+				display: 'block',
+				duration: 0
+			})
+
+			tl.to('.blur-everything', {
+				opacity: 1,
+				pointerEvents: 'auto',
+				duration: .3
+			})
+
+			tl.to('#fs-menu', {
+				transform: 'none',
+				duration: .3
+			}, '-=.3s')
+
+			tl.call(function() {
+				lenis.stop()
+			})
+
 		})
-
-		tl.to('#fs-menu', {
-			display: 'block',
-			duration: 0
-		})
-
-		tl.to('.blur-everything', {
-			opacity: 1,
-			pointerEvents: 'auto',
-			duration: .3
-		})
-
-		tl.to('#fs-menu', {
-			transform: 'none',
-			duration: .3
-		}, '-=.3s')
-
-		tl.call(function() {
-			lenis.stop()
-		})
-
 	})
 
 	// close fs
@@ -124,40 +141,46 @@ function initClickAndKeyFunctions() {
 	}
 
 	// close fs menu
-	$('.close-fs, #fs-menu .menu a, #fs-menu .menu button, .blur-everything').click(function(){
-		closeFs()
+	document.querySelectorAll('.close-fs, #fs-menu .menu a, #fs-menu .menu button, .blur-everything').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
+			closeFs()
+		})
 	})
 
 	// open / close cart menu
-	$('.open-cart').click(function(){
+	document.querySelectorAll('.open-cart').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
 
-		var tl = gsap.timeline()
+			var tl = gsap.timeline()
 
-		tl.to('body', {
-			overflow: 'hidden',
-			duration: 0
+			tl.to('body', {
+				overflow: 'hidden',
+				duration: 0
+			})
+
+			tl.to('#cart-menu', {
+				display: 'block',
+				duration: 0
+			})
+
+			tl.to('.blur-everything', {
+				opacity: 1,
+				pointerEvents: 'auto',
+				duration: .3
+			})
+
+			tl.to('#cart-menu', {
+				transform: 'none',
+				duration: .3
+			}, '-=.3s')
+
+			tl.call(function() {
+				lenis.stop()
+			})
+
 		})
-
-		tl.to('#cart-menu', {
-			display: 'block',
-			duration: 0
-		})
-
-		tl.to('.blur-everything', {
-			opacity: 1,
-			pointerEvents: 'auto',
-			duration: .3
-		})
-
-		tl.to('#cart-menu', {
-			transform: 'none',
-			duration: .3
-		}, '-=.3s')
-
-		tl.call(function() {
-			lenis.stop()
-		})
-
 	})
 
 	// close cart
@@ -192,12 +215,15 @@ function initClickAndKeyFunctions() {
 	}
 
 	// close cart menu
-	$('.close-cart, .blur-everything').click(function(){
-		closeCart()
+	document.querySelectorAll('.close-cart, .blur-everything').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
+			closeCart()
+		})
 	})
 
 	// close all opened menus when pressing the ESC key
-	$(document).keyup(function(e) {
+	document.addEventListener('keyup', function(e) {
 		if(e.key === 'Escape') {
 			closeFs()
 			closeCart()
@@ -205,33 +231,50 @@ function initClickAndKeyFunctions() {
 	})
 
 	// accordion open / close
-	$('.accordion .question').click(function(){
-		$(this).toggleClass('active')
-		$(this).siblings('.answer').slideToggle(function(){
+	document.querySelectorAll('.accordion .question').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
+			const that = this
+			that.classList.toggle('active')
+			that.nextElementSibling.style.display = that.classList.contains('active') ? 'block' : 'none'
 			//ScrollTrigger.refresh()
 		})
 	})
 
 	// increase / decrease quantity
-	$('.quantity .increase').click(function() {
-		var $input = $(this).closest('.quantity').find('input')
-		var value = parseInt($input.val())
-		if (value < 8) {
-			$input.val(value + 1)
-		}
+	document.querySelectorAll('.quantity .increase').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
+			const that = this
+			const input = that.closest('.quantity').querySelector('input')
+			const value = parseInt(input.value)
+
+			if (value < 8) {
+				input.value = value + 1
+			}
+		})
 	})
-	
-	$('.quantity .decrease').click(function() {
-		var $input = $(this).closest('.quantity').find('input')
-		var value = parseInt($input.val())
-		if (value > 1) {
-			$input.val(value - 1)
-		}
+
+	document.querySelectorAll('.quantity .decrease').forEach(element => {
+		element.addEventListener('click', function(e) {
+			e.preventDefault()
+			const that = this
+			const input = that.closest('.quantity').querySelector('input')
+			const value = parseInt(input.value)
+			if (value > 1) {
+				input.value = value - 1
+			}
+		})
 	})
 
 	// shipping address toggle on wholesale page
-	$('#shipping-address').on('change', function() {
-		$('#shipping-address-fields').slideToggle($(this).is(':checked'))
+	document.querySelectorAll('#shipping-address').forEach(element => {
+		element.addEventListener('change', function(e) {
+			e.preventDefault()
+			const that = this
+			const shippingAddressFields = that.closest('#shipping-address-fields')
+			shippingAddressFields.style.display = that.checked ? 'block' : 'none'
+		})
 	})
 
 }
@@ -240,7 +283,7 @@ function initClickAndKeyFunctions() {
 function scrollTriggerAnimations() {
 
 	// scrolling image / video
-	if($('.scrolling-bg').length) {
+	if(selectAll('.scrolling-bg').length) {
 
 		const bg = selectAll('.scrolling-bg')
     
@@ -266,78 +309,76 @@ function scrollTriggerAnimations() {
 		})
 	}
 
-	// image reveal animation
-	if($('.image-reveal')) {
+	// text reveal
+	if(selectAll('.text-reveal').length){
+		const textReveal = selectAll('.text-reveal')
 
-		const imageReveal = $('.image-reveal')
-	
-		imageReveal.each(function() {
-			const reveal = $(this).find('.reveal')
-			const image = $(this).find('img')
-	
-			const timeline = gsap.timeline({
-				paused: true
+		textReveal.forEach(item => {
+			const split = new SplitText(item, {
+				type: 'lines',
+				linesClass: 'line'
 			})
-	
-			timeline.set(image, {
-				scale: 1.5
+
+			split.lines.forEach(line => {
+				line.innerHTML = `<span class='span'>${line.innerHTML}</span>`
 			})
-	
-			timeline.to(reveal, {
-				width: '100%',
-				ease: Power4.easeInOut,
-				duration: 0.75
+
+			const lines = item.querySelectorAll('.span')
+
+			gsap.set(lines, {
+				yPercent: 150
 			})
-	
-			timeline.to(reveal, {
-				x: '102%',
-				ease: Power4.easeIn,
-				duration: 1.0
+
+			gsap.timeline({
+				scrollTrigger: {
+					trigger: item,
+					start: 'top 80%',
+					end: 'bottom 80%',
+					toggleActions: 'play none none reverse',
+					//markers: true
+				}
 			})
-	
-			timeline.to(image, {
-				visibility: 'visible',
-				scale: 1,
-				duration: 2.5,
-				ease: Power4.easeOut
-			}, '=-1')
-	
-			ScrollTrigger.create({
-				trigger: this,
-				start: '0% 100%',
-				end: '100% 0%',
-				onEnter: () => timeline.play(),
-				onLeaveBack: () => timeline.reverse()
+			.to(lines, {
+				yPercent: 0,
+				duration: 1,
+				stagger: 0.1,
+				ease: 'power2.out'
 			})
+			
 		})
 	}
 
-	// stagger fadeInUp effect
-	if(select('.stagger-children')) {
+	// play videos when in view
+	if(selectAll('.play-pause').length) {
 
-		gsap.set('.stagger-children > *', {
-			autoAlpha: 0,
-			y: '3rem',
-		})
-
-		ScrollTrigger.batch('.stagger-children > *', {
-			start: '0 97%',
-			onEnter: elements => {
-			  	gsap.to(elements, {
-					autoAlpha: 1,
-					y: '=-3rem',
-					stagger: 0.15,
-					duration: 1
-			  	});
-			},
-			onLeaveBack: elements => {
-				gsap.to(elements, {
-					autoAlpha: 0,
-					y: '3rem',
-					stagger: 0.15,
-					duration: 1,
-				})
-			}
+		const allVideos = selectAll('.play-pause')
+  
+		allVideos.forEach((video) => {
+	
+			const videoEl = video.querySelector('video')
+	
+			ScrollTrigger.create({
+				trigger: videoEl,
+				start: '0% 120%',
+				end: '100% -20%',
+				onEnter: () => {
+					videoEl.play()
+					console.log('enter')
+				},
+				onEnterBack: () => {
+					videoEl.play()
+					console.log('enter back')
+				},
+				onLeave: () => {
+					videoEl.pause()
+					console.log('leave')
+				},
+				onLeaveBack: () => {
+					videoEl.pause()
+					console.log('leave back')
+				}
+			})
+	
 		})
 	}
 }
@@ -362,338 +403,12 @@ function initFancybox() {
 // init all sliders
 function initSliders() {
 
-	// home slider
-	if($('.home-slider').length) {
-
-		const autoplayIndicator = select('.autoplay-indicator span')
-
-		const home_slider = new Swiper('.home-slider', {
-			slidesPerView: 1,
-			loop: true,
-			simulateTouch: true,
-			allowTouchMove: true,
-			autoHeight: false,
-			calculateHeight: false,
-			spaceBetween: 0,
-			speed: 400,
-			effect: 'fade',
-			fadeEffect: {
-				crossFade: true
-			},
-			autoplay: {
-				delay: 4000,
-				disableOnInteraction: false
-			},
-			pagination: {
-				el: '#banner .pagination',
-				type: 'bullets',
-				clickable: true
-			},
-			on: {
-				slideChangeTransitionStart: () => {
-					autoplayIndicator.style.setProperty('--progress', 1)
-				},
-				transitionEnd: (swiper) => {
-					const activeSlide = select('.home-slider .swiper-slide-active')
-					const color = activeSlide.getAttribute('data-color')
-					const pagination = select('#banner .pagination')
-		
-					if (color === 'dark') {
-						pagination.classList.add('brown-dark')
-						pagination.classList.remove('yellow-light')
-					} else if (color === 'light') {
-						pagination.classList.add('yellow-light')
-						pagination.classList.remove('brown-dark')
-					}
-
-					swiper.autoplay.start()
-				},
-				autoplayTimeLeft(s, time, progress) {
-					autoplayIndicator.style.setProperty('--progress', 1 - progress)
-				}
-			}
-		})
-	}
-
-	// products slider
-	if($('.products-slider').length) {
-
-		const products_slider = new Swiper('.products-slider', {
-			slidesPerView: 1.1,
-			spaceBetween: 15,
-			loop: true,
-			simulateTouch: true,
-			allowTouchMove: true,
-			autoHeight: false,
-			calculateHeight: false,
-			speed: 600,
-			mousewheel: {  
-				forceToAxis: true
-			},
-			navigation: {
-                nextEl: '.products-section .arrows .next',
-                prevEl: '.products-section .arrows .prev'
-            },
-			breakpoints: {
-				575: {
-					slidesPerView: 2,
-					spaceBetween: 20,
-				},
-				992: {
-					slidesPerView: 3,
-					spaceBetween: 20,
-				}
-			}
-		})
-	}
-
-	// logos slider
-	if($('.logos-slider').length) {
-
-		const logos_slider = new Swiper('.logos-slider', {
-			slidesPerView: 2.5,
-			loop: false,
-			simulateTouch: true,
-			allowTouchMove: true,
-			autoHeight: true,
-			calculateHeight: false,
-			spaceBetween: 20,
-			speed: 600,
-			freeMode: true,
-			mousewheel: {  
-				forceToAxis: true
-			},
-			autoplay: {
-				delay: 3000
-			},
-			breakpoints: {
-				420: {
-					slidesPerView: 3,
-					spaceBetween: 25,
-				},
-				575: {
-					slidesPerView: 4,
-					spaceBetween: 30,
-				},
-				992: {
-					slidesPerView: 5,
-					spaceBetween: 40,
-				},
-				1200: {
-					slidesPerView: 6,
-					spaceBetween: 50,
-				}
-			}
-		})
-	}
-
-	// product slider (internal product page)
-	if($('.product-slider').length) {
-
-		const product_slider_thumbs = new Swiper('.product-slider-thumbs', {
-			centeredSlides: true,
-			centeredSlidesBounds: true,
-			spaceBetween: 10,
-			slidesPerView: 3,
-			watchOverflow: true,
-			watchSlidesVisibility: true,
-			watchSlidesProgress: true,
-			breakpoints: {
-				1200: {
-					direction: 'vertical',
-					slidesPerView: 5,
-				}
-			}
-		})
-
-		const product_slider = new Swiper('.product-slider', {
-			watchOverflow: true,
-			watchSlidesVisibility: true,
-			watchSlidesProgress: true,
-			preventInteractionOnTransition: true,
-			slidesPerView: 1,
-			loop: false,
-			simulateTouch: true,
-			allowTouchMove: true,
-			autoHeight: false,
-			calculateHeight: false,
-			spaceBetween: 0,
-			speed: 600,
-			effect: 'fade',
-			fadeEffect: {
-				crossFade: true
-			},
-			navigation: {
-                nextEl: '.product-slider .next',
-                prevEl: '.product-slider .prev'
-            },
-			thumbs: {
-				swiper: product_slider_thumbs,
-			}
-		})
-
-		product_slider.on('slideChangeTransitionStart', function() {
-			product_slider_thumbs.slideTo(product_slider.activeIndex)
-		})
-		  
-		product_slider_thumbs.on('transitionStart', function(){
-			product_slider.slideTo(product_slider_thumbs.activeIndex)
-		})
-
-	}
-
-	// related slider (blog internal page)
-	if($('.related-slider').length) {
-
-		const related_slider = new Swiper('.related-slider', {
-			slidesPerView: 1.1,
-			loop: false,
-			simulateTouch: true,
-			allowTouchMove: true,
-			autoHeight: true,
-			calculateHeight: false,
-			spaceBetween: 15,
-			speed: 600,
-			mousewheel: {  
-				forceToAxis: true
-			},
-			navigation: {
-                nextEl: '.review-slider-section .next',
-                prevEl: '.review-slider-section .prev'
-            },
-			breakpoints: {
-				767: {
-					slidesPerView: 2,
-					spaceBetween: 20,
-				},
-				1200: {
-					slidesPerView: 3,
-					spaceBetween: 30,
-				}
-			}
-		})
-	}
 
 }
 
 // init lucide
 function initLucide() {
 	lucide.createIcons();
-}
-
-// init lenis
-function initLenis() {
-	lenis = new Lenis({
-		duration: 2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-	})
-
-	lenis.on('scroll', ScrollTrigger.update)
-
-	gsap.ticker.add((time)=>{
-		lenis.raf(time * 1000)
-	})
-
-	gsap.ticker.lagSmoothing(0)
-}
-
-// validate forms
-function validateAndSubmitForms() {
-	if ($('.form-validate').length) {
-		$('.form-validate').each(function () {
-			var theForm = $(this)
-
-			// initialize the jquery validation plugin for the form
-			theForm.validate({
-				errorPlacement: function (error, element) {
-					error.appendTo(element.closest('.form-line'))
-					error.addClass('error-msg')
-				},
-				highlight: function(element) {
-					$(element).closest('.form-line').addClass('error')
-				},
-				unhighlight: function(element) {
-					$(element).closest('.form-line').removeClass('error')
-				},
-				submitHandler: function(form) {
-					let originalForm = $(form).get(0)
-					let dataparam = new FormData(originalForm)
-
-					// adjust the url of the mailer.php to dev or prod automatically
-					let url = location.href.indexOf('dev').length <= -1 ? location.origin + '/the-shoe-museum/assets/php/mailer.php' : location.origin + '/assets/php/mailer.php';
-
-					$.ajax({
-						type: 'POST',
-						url: url,
-						data: dataparam,
-						dataType: 'html',
-                		crossDomain: true,
-						async: true,
-						cache: false,
-						contentType: false,
-						processData: false,
-						beforeSend: function() {
-							theForm.addClass('sending')
-						},
-						success: function(response) {
-							if(response == '1'){
-								setTimeout(function() {
-									Fancybox.show([{
-										src: '#contact-error',
-										type: 'inline',
-									}])
-									return false
-								}, 2000)
-							}
-
-							setTimeout(function() {
-								theForm[0].reset()
-								Fancybox.show([{
-									src: '#contact-success',
-									type: 'inline',
-								}])
-							}, 2000)
-						},
-						error: function() {
-							setTimeout(function() {
-								Fancybox.show([{
-									src: '#contact-error',
-									type: 'inline',
-								}])
-							}, 2000)
-						},
-						complete: function() {
-							setTimeout(function() {
-								theForm.removeClass('sending')
-							}, 2000)
-						}
-					})
-				}
-			})
-		})
-	}
-}
-
-// play videos when in view
-function playVideoInView() {
-
-	let allVideoDivs = gsap.utils.toArray('.play-pause')
-  
-	allVideoDivs.forEach((videoDiv) => {
-  
-		let videoElem = videoDiv.querySelector('video')
-  
-		ScrollTrigger.create({
-			trigger: videoElem,
-			start: '0% 120%',
-			end: '100% -20%',
-			onEnter: () => videoElem.play(),
-			onEnterBack: () => videoElem.play(),
-			onLeave: () => videoElem.pause(),
-			onLeaveBack: () => videoElem.pause(),
-		})
-  
-	})
 }
 
 // show / hide grid for dev
@@ -708,6 +423,21 @@ function showHideGrid() {
 	})
 }
 
+function initLenis() {
+	lenis = new Lenis({
+		duration: 2,
+		easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+	})
+
+	lenis.on('scroll', ScrollTrigger.update)
+
+	gsap.ticker.add((time)=>{
+		lenis.raf(time * 1000)
+	})
+
+	gsap.ticker.lagSmoothing(0)
+}
+
 // fire all scripts
 function initScripts() {
 	initLenis()
@@ -715,14 +445,12 @@ function initScripts() {
 	initSliders()
 	initFancybox()
 	scrollTriggerAnimations()
-	validateAndSubmitForms()
 	initLucide()
-	playVideoInView()
 	showHideGrid()
-
-	setTimeout(function() {
-		ScrollTrigger.refresh()
-	}, 1000)
 }
 
-initScripts()
+window.addEventListener('load', () => {
+	requestAnimationFrame(() => {
+		initScripts()
+	})
+})

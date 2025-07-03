@@ -1,7 +1,8 @@
 @use '../variables' as *;
 
 ::-webkit-scrollbar {
-	width: .25rem;
+	//width: .25rem;
+	width: 0;
 }
 
 ::-webkit-scrollbar-track {

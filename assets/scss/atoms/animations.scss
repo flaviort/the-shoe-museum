@@ -21,3 +21,16 @@
 .rotation-reverse {
 	animation-direction: reverse;
 }
+
+.text-reveal {
+    overflow: hidden;
+
+    .line {
+        overflow: hidden;
+
+        .span {
+            display: block;
+            will-change: transform;
+        }
+    }
+}
