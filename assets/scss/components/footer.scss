@@ -1,0 +1,13 @@
+@use '../variables' as *;
+
+.footer {
+	.bottom {
+		display: flex;
+		justify-content: space-between;
+
+		.right {
+			display: flex;
+			gap: 2rem;
+		}
+	}
+}

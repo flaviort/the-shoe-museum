@@ -403,6 +403,37 @@ function initFancybox() {
 // init all sliders
 function initSliders() {
 
+	// blog slider
+	const blogSliderEl = selectAll('.blog-slider')
+	
+	if (blogSliderEl) {
+		const blog_slider = new Swiper('.blog-slider', {
+			slidesPerView: 1.1,
+			spaceBetween: 15,
+			simulateTouch: true,
+			allowTouchMove: true,
+			autoHeight: false,
+			calculateHeight: false,
+			speed: 600,
+			mousewheel: {  
+				forceToAxis: true
+			},
+			navigation: {
+				nextEl: '.blog-slider .next',
+				prevEl: '.blog-slider .prev'
+			},
+			breakpoints: {
+				575: {
+					slidesPerView: 2,
+					spaceBetween: 20
+				},
+				992: {
+					slidesPerView: 3,
+					spaceBetween: 20
+				}
+			}
+		})
+	}
 
 }
 

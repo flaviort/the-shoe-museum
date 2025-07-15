@@ -1,5 +1,5 @@
 <section class='top-menu py-1'>
-    <div class='container'>
+    <div class='container container--big'>
         <div class='flex'>
 
             <a href='<?= $home; ?>' class='logo'>

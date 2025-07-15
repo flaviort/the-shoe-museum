@@ -1,9 +1,9 @@
-                <section class='footer'>
+                <section class='footer bg-black white'>
                     <div class='container'>
 
                         
 
-                        <div class='bottom text-smaller white'>
+                        <div class='bottom py-smallest text-smaller white'>
 
                             <div class='right'>
 
