@@ -10,7 +10,7 @@
 	width: 100%;
 	padding: 1rem 1.25rem;
 	outline: .125rem solid transparent;
-	transition: .3s ease-in-out;
+	transition: outline .3s ease-in-out;
 
 	&:hover,
 	&:focus-visible {
@@ -23,9 +23,14 @@
 		}
 	}
 
+	&:not(.exhibit-block--text) {
+		color: $black;
+	}
+
 	&--text {
 		align-items: flex-end;
 		padding: 0;
+		background-color: transparent;
 
 		p {
 			span {

@@ -1,7 +1,5 @@
-                <section class='footer bg-black white'>
+                <section class='footer'>
                     <div class='container'>
-
-                        
 
                         <div class='bottom py-smallest text-smaller white'>
 
@@ -23,6 +21,12 @@
 
                         </div>
 
+                        <div class='logo-bottom'>
+                            <div>T</div>
+                            <div>S</div>
+                            <div>M</div>
+                        </div>
+
                     </div>
                 </section>
 
@@ -33,7 +37,6 @@
             <script src='https://unpkg.com/lenis@1.3.4/dist/lenis.min.js'></script> 
             <script src='https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js'></script>
             <script src='https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js'></script>
-            <!--script src='https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js'></script-->
             <script src='https://unpkg.com/lenis@1.3.4/dist/lenis.min.js'></script> 
             <script src='https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js'></script>
             <script src='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js'></script>

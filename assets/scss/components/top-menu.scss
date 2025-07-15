@@ -28,6 +28,7 @@
 
 		.menu {
 			background-color: $white;
+			color: $black;
 			padding: .5rem;
 			border-radius: 2rem;
 			display: none;
@@ -73,6 +74,7 @@
 					height: 3rem;
 					border-radius: 50%;
 					background-color: $white;
+					color: $black;
 					padding: 1rem;
 					box-shadow: .1rem .25rem .5rem rgba($black, .05);
 					transition: .3s ease-in-out;
@@ -102,9 +104,9 @@
 				}
 
 				.open-fs {
-					background-color: $black;
+					background-color: $gray-darker;
 					color: $white;
-					border-color: $black;
+					border: 1px solid $gray-darker;
 
 					@media #{$mq-lg-min} {
 						display: none;

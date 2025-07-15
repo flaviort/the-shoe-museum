@@ -50,46 +50,29 @@
         justify-content: space-between;
     }
 
-    &:hover,
-    &:focus-visible {
-        background-color: $white;
-        color: $black;
-    }
-
     &--has-icon {
         padding-left: 2rem;
         padding-right: 1.5rem;
     }
 
-    &--hollow-white {
-        border: 1px solid $white;
-        color: $white;
-
-        .icon {
-            background-color: $white;
-            color: $black;
-        }
-
-        &:hover,
-        &:focus-visible {
-            background-color: $white;
-            color: $black;
-        }
-    }
-
     &--hollow {
-        border: 1px solid $black;
-        color: $black;
+        border: 1px solid currentColor;
 
         .icon {
-            background-color: $black;
-            color: $white;
+            background-color: currentColor;
+            
+            svg {
+                filter: invert(1);
+            }
         }
 
         &:hover,
         &:focus-visible {
-            background-color: $black;
-            color: $white;
+            background-color: currentColor;
+            
+            .text {
+                filter: invert(1);
+            }
         }
     }
 
@@ -107,6 +90,28 @@
             background-color: $white;
             color: $green;
         }
+    }
+
+    &--solid {
+        background-color: currentColor;
+        border: 1px solid currentColor;
+
+        .text {
+            filter: invert(1);
+        }
+
+        &:hover,
+        &:focus-visible {
+            background-color: transparent;
+
+            .text {
+                filter: none;
+            }
+        }
+    }
+
+    .text {
+        transition: filter .3s ease-in-out;
     }
 
     .icon {

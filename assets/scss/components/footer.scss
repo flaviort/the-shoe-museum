@@ -1,13 +1,45 @@
 @use '../variables' as *;
 
 .footer {
+	overflow: hidden;
+
 	.bottom {
-		display: flex;
-		justify-content: space-between;
+		@media #{$mq-md-min} {
+			display: flex;
+			justify-content: space-between;
+		}
 
 		.right {
 			display: flex;
 			gap: 2rem;
+
+			@media #{$mq-md-max} {
+				margin-bottom: 1rem;
+			}
+		}
+	}
+
+	.logo-bottom {
+		height: 100vh;
+		font-size: 30vw;
+		line-height: 1.6;
+		font-weight: $bold;
+		text-transform: uppercase;
+		white-space: nowrap;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+
+		@media #{$mq-sm-min} {
+			font-size: 40vw;
+		}
+		
+		div {
+			transform: translateY(20vw);
+
+			@media #{$mq-sm-min} {
+				transform: translateY(25vw);
+			}
 		}
 	}
 }

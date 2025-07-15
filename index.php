@@ -74,7 +74,7 @@
 
 		<div class='content'>
 
-			<div class='grid py-small'>
+			<div class='grid py-small' data-stagger-up>
 
 				<a
 					href='#'
@@ -289,13 +289,17 @@
 			</div>
 
 			<a href='#' class='button button--hollow'>
-				View all
+				<span class='text'>
+					View all
+				</span>
 			</a>
 
 		</div>
 
 	</div>
 </section>
+
+<div data-invert-bg></div>
 
 <?php include('components/blog-section.php'); ?>
 

@@ -381,6 +381,120 @@ function scrollTriggerAnimations() {
 	
 		})
 	}
+
+	// stagger scale animation
+	if(selectAll('[data-stagger-scale]').length) {
+
+		const staggerElements = selectAll('[data-stagger-scale]')
+
+		staggerElements.forEach(item => {
+			const children = item.children
+
+			Array.from(children).forEach(child => {
+				gsap.from(child, {
+					scale: 0,
+					scrollTrigger: {
+						trigger: child,
+						scrub: 2,
+						start: 'top 100%',
+						end: 'bottom 70%'
+					}
+				})
+			})
+		})
+	}
+
+	// stagger up animation
+	if(selectAll('[data-stagger-up]').length) {
+
+		const staggerUpElements = selectAll('[data-stagger-up]')
+
+		staggerUpElements.forEach(item => {
+			const children = Array.from(item.children)
+			const infinite = item.hasAttribute('data-infinite')
+
+			gsap.set(children, {
+				opacity: 0,
+				y: '20vh'
+			})
+
+			const batchConfig = {
+				start: '-50% 100%',
+				onEnter: elements => {
+					gsap.to(elements, {
+						opacity: 1,
+						y: 0,
+						stagger: 0.25,
+						duration: 1
+					})
+				}
+			}
+
+			if (infinite) {
+				batchConfig.onLeaveBack = elements => {
+					gsap.to(elements, {
+						opacity: 0,
+						y: '20vh',
+						stagger: 0.15,
+						duration: 1
+					})
+				}
+			}
+
+			ScrollTrigger.batch(children, batchConfig)
+		})
+	}
+
+	// invert background colors
+	if(selectAll('[data-invert-bg]').length) {
+
+		const invertElements = selectAll('[data-invert-bg]')
+
+		invertElements.forEach(item => {
+			gsap.timeline({
+				scrollTrigger: {
+					trigger: item,
+					start: 'top bottom',
+					end: 'bottom top',
+					scrub: 2,
+					onUpdate: self => {
+						const progress = self.progress
+						const mainContent = selectId('main-content')
+						
+						// Custom colors: white #f2f1ed (242,241,237) to black #0d0e13 (13,14,19)
+						// Interpolate from white to black for background
+						const bgRed = Math.round(242 + (13 - 242) * progress)
+						const bgGreen = Math.round(241 + (14 - 241) * progress)
+						const bgBlue = Math.round(237 + (19 - 237) * progress)
+						
+						// Interpolate from black to white for text
+						const textRed = Math.round(13 + (242 - 13) * progress)
+						const textGreen = Math.round(14 + (241 - 14) * progress)
+						const textBlue = Math.round(19 + (237 - 19) * progress)
+						
+						mainContent.style.backgroundColor = `rgb(${bgRed}, ${bgGreen}, ${bgBlue})`
+						mainContent.style.color = `rgb(${textRed}, ${textGreen}, ${textBlue})`
+					}
+				}
+			})
+		})
+	}
+
+	// footer logo animation
+	if(selectAll('.logo-bottom').length) {
+
+		gsap.from('.logo-bottom div', {
+			yPercent: 100,
+			stagger: .25,
+			duration: 1,
+			ease: 'power2.out',
+			scrollTrigger: {
+				trigger: '.logo-bottom',
+				toggleActions: 'restart none resume none',
+				start: '50% 100%'
+			}
+		})
+	}
 }
 
 // init fancybox
@@ -418,6 +532,7 @@ function initSliders() {
 			mousewheel: {  
 				forceToAxis: true
 			},
+			freeMode: true,
 			navigation: {
 				nextEl: '.blog-slider .next',
 				prevEl: '.blog-slider .prev'

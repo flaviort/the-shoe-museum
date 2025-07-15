@@ -14,4 +14,18 @@ form {
             }
         }
     }
+
+    .line-wrapper {
+        position: relative;
+
+        input,
+        select {
+            background-color: transparent;
+            color: currentColor;
+            border: 1px solid currentColor;
+            border-radius: 3rem;
+            padding: 1rem 1.5rem;
+            width: 100%;
+        }
+    }
 }
