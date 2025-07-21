@@ -6,6 +6,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
+	background-color: $white;
 
 	.flex {
 		display: flex;
@@ -14,10 +15,10 @@
 
 		.logo {
 			display: flex;
-			width: 4rem;
+			width: 3.5rem;
 
-			@media #{$mq-xl-min} {
-				width: 4.5rem;
+			@media #{$mq-lg-min} {
+				width: 4rem;
 			}
 
 			img {
@@ -27,13 +28,8 @@
 		}
 
 		.menu {
-			background-color: $white;
-			color: $black;
-			padding: .5rem;
-			border-radius: 2rem;
 			display: none;
-			gap: .25rem;
-			box-shadow: .1rem .25rem .5rem rgba($black, .05);
+			gap: 3rem;
 
 			@media #{$mq-lg-min} {
 				display: flex;
@@ -41,21 +37,11 @@
 
 			a {
 				display: block;
-				padding: .5rem 1.5rem;
-				border-radius: 2rem;
 				transition: .3s ease-in-out;
 
-				@media #{$mq-xl-min} {
-					padding: .5rem 2rem;
-				}
-
-				&.active {
-					background-color: $black;
-					color: $white;
-				}
-
+				&.active,
 				&:hover {
-					background-color: $gray-lightest;
+					color: $green;
 				}
 			}
 		}
@@ -63,31 +49,25 @@
 		.right {
 			.side-icons {
 				display: flex;
-				gap: .5rem;
+				gap: .75rem;
+
+				@media #{$mq-md-min} {
+					gap: 1rem;
+				}
 
 				a,
 				button {
 					position: relative;
 					display: flex;
-					width: 3rem;
-					min-width: 3rem;
-					height: 3rem;
-					border-radius: 50%;
-					background-color: $white;
+					width: 1.5rem;
+					min-width: 1.5rem;
+					height: 1.5rem;
+					padding: .2rem;
 					color: $black;
-					padding: 1rem;
-					box-shadow: .1rem .25rem .5rem rgba($black, .05);
 					transition: .3s ease-in-out;
 
-					@media #{$mq-sm-min} {
-						width: 3.25rem;
-						min-width: 3.25rem;
-						height: 3.25rem;
-					}
-
 					&:hover {
-						background-color: $black;
-						color: $white;
+						color: $green;
 					}
 
 					img,
@@ -104,10 +84,6 @@
 				}
 
 				.open-fs {
-					background-color: $gray-darker;
-					color: $white;
-					border: 1px solid $gray-darker;
-
 					@media #{$mq-lg-min} {
 						display: none;
 					}

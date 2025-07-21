@@ -55,6 +55,18 @@ export function serve() {
     gulp.watch(['**/*.php', 'assets/js/*.js']).on('change', bs.reload)
 }
 
+export function servePHP() {
+    bs.init({
+        proxy: 'localhost:8000',
+        port: 3002,
+        open: true,
+        notify: false
+    })
+    gulp.watch('assets/scss/**/*.scss', compileSassTask)
+    gulp.watch('assets/js/functions.js', compileJS)
+    gulp.watch(['**/*.php', 'assets/js/*.js']).on('change', bs.reload)
+}
+
 export const watch = gulp.parallel(
     watchFiles,
     serve

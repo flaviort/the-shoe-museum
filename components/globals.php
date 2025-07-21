@@ -10,16 +10,17 @@
 	// seo vars
 	$site_url = 'https://dev.senzdsn.com/the-shoe-museum';
 	$site_title = 'The Shoe Museum, Inc.';
-	$site_desc = 'The Shoe Museum blends fashion and history with curated shoe exhibits, designer stories, and a shop celebrating personal style.';
+	$site_desc = 'The Shoe Museum - Where Passion fuels Creation, Stories add Meaning, and Wearing becomes Expression.';
 
 	// pages
 	$home = './';
-	$about = 'about';
 	$exhibits = 'exhibits';
+	$exhibit = 'exhibit';
+	$store = 'store';
+	$product = 'product';
 	$blogs = 'blog';
 	$blog = 'blog-inner';
-	$products = 'products';
-	$product = 'product';
+	$about = 'about';
 	$contact = 'contact';
 
 	$login = 'login';

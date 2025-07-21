@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "gulp serve",
+    "dev": "concurrently \"php -S localhost:8000\" \"gulp servePHP\"",
+    "dev:php": "concurrently \"php -S localhost:8000\" \"gulp servePHP\"",
+    "php": "php -S localhost:8000",
     "build": "gulp build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "gulp": "^5.0.0",
     "gulp-rename": "^2.0.0"
   },

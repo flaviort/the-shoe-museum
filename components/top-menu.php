@@ -1,5 +1,5 @@
-<section class='top-menu py-1'>
-    <div class='container container--big'>
+<section class='top-menu py-half py-lg-1'>
+    <div class='container'>
         <div class='flex'>
 
             <a href='<?= $home; ?>' class='logo'>
@@ -13,39 +13,33 @@
             </a>
 
             <ul class='menu'>
-
-                <li>
-                    <a href='<?= $home; ?>' class='active'>
-                        Home
-                    </a>
-                </li>
                 
                 <li>
-                    <a href='<?= $exhibits; ?>'>
+                    <a href='<?= $exhibits; ?>' class='hover-underline'>
                         Exhibits
                     </a>
                 </li>
 
                 <li>
-                    <a href='<?= $products; ?>'>
+                    <a href='<?= $products; ?>' class='hover-underline'>
                         Store
                     </a>
                 </li>
 
                 <li>
-                    <a href='<?= $blogs; ?>'>
+                    <a href='<?= $blogs; ?>' class='hover-underline'>
                         Blog
                     </a>
                 </li>
 
                 <li>
-                    <a href='<?= $about; ?>'>
+                    <a href='<?= $about; ?>' class='hover-underline'>
                         About
                     </a>
                 </li>
 
                 <li>
-                    <a href='<?= $contact; ?>'>
+                    <a href='<?= $contact; ?>' class='hover-underline'>
                         Contact
                     </a>
                 </li>
@@ -54,6 +48,10 @@
 
             <div class='right'>
                 <div class='side-icons'>
+
+                    <a href='<?= $search; ?>' class='search' aria-label='Search'>
+                        <i data-lucide='search'></i>
+                    </a>
 
                     <button class='open-cart' aria-label='View Cart'>
                         <i data-lucide='shopping-cart'></i>

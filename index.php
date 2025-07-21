@@ -5,17 +5,40 @@
 
 <section class='banner'>
 
-	<div class='video play-pause'>
-		<video playsinline muted loop class='cover'>
-			<source src='assets/videos/banner.mp4' type='video/mp4'>
-		</video>
-	</div>
+	<img
+		src='assets/img/banner.jpg'
+		width='1710'
+		height='960'
+		alt='Banner'
+		class='cover'
+	/>
 
-	<h1 class='text-25 font-title'>
-		<strong>
-			Every shoe has a history
-		</strong>
-	</h1>
+	<div class='container relative z2'>
+		<div class='flex'>
+
+			<p class='uppercase text-25 medium'>
+				Welcome to
+			</p>
+
+			<h1 class='text-95 uppercase'>
+				<strong>
+					The <br />
+					Shoe <br />
+					Museum
+				</strong>
+			</h1>
+
+			<a
+				href='#newsletter'
+				class='button button--hollow uppercase sliding-link'
+			>
+				<span class='text'>
+					Join our mailing list
+				</span>
+			</a>
+
+		</div>
+	</div>
 	
 </section>
 

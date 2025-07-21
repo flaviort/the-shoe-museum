@@ -38,11 +38,6 @@
 			<meta property='og:image:width' content='1200' />
 			<meta property='og:image:height' content='630' />
 
-			<!-- google fonts -->
-			<link rel='preconnect' href='https://fonts.googleapis.com'>
-			<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-			<link href='https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap' rel='stylesheet'>
-
 			<!-- css -->
 			<link rel='stylesheet' type='text/css' href='assets/css/vendor/normalize.min.css' />
 			<link rel='stylesheet' href='https://unpkg.com/lenis@1.3.4/dist/lenis.css' />
@@ -60,7 +55,6 @@
 
 			<header>
 				<?php include('components/fs-menu.php');?>
-				<?php include('components/cart-menu.php');?>
 			</header>
 
 			<main id='main-content' class='<?php echo($current_page); ?>'>
