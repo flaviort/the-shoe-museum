@@ -172,7 +172,11 @@ export function copyComponents() {
 export function copyImages() {
     return gulp.src([
         'assets/img/**/*'  // Copy all images including SVGs
-    ], { base: '.' })
+    ], { 
+        base: '.', 
+        buffer: false,  // Don't load files into memory as text
+        encoding: false // Preserve binary encoding
+    })
         .pipe(gulp.dest('out'))
 }
 
