@@ -9,6 +9,7 @@ import uglify from 'gulp-uglify'
 import rename from 'gulp-rename'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { deleteAsync } from 'del'
 
 const compileSass = gulpSass(sass)
 const bs = browserSync.create()
@@ -17,6 +18,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectFolderName = path.basename(__dirname)
 
+// Development tasks (with sourcemaps)
 export function compileSassTask() {
     return gulp.src('assets/scss/main.scss')
         .pipe(sourcemaps.init())
@@ -39,6 +41,48 @@ export function compileJS() {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('assets/js'))
         .pipe(bs.stream())
+}
+
+// Production build tasks (no sourcemaps)
+export function buildSass() {
+    return gulp.src('assets/scss/main.scss')
+        .pipe(compileSass({
+            outputStyle: 'compressed'
+        }).on('error', compileSass.logError))
+        .pipe(autoprefixer())
+        .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest('out/assets/css'))
+}
+
+export function buildJS() {
+    return gulp.src('assets/js/functions.js')
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest('out/assets/js'))
+}
+
+// Copy tasks for build
+export function copyPHP() {
+    return gulp.src(['**/*.php'], { base: '.' })
+        .pipe(gulp.dest('out'))
+}
+
+export function copyAssets() {
+    return gulp.src([
+        'assets/css/vendor/**/*',
+        'assets/img/**/*',
+        'assets/svg/**/*',
+        'assets/videos/**/*',
+        'robots.txt',
+        '.htaccess'
+    ], { base: '.', allowEmpty: true })
+        .pipe(gulp.dest('out'))
+}
+
+// Clean output directory
+export function clean() {
+    return deleteAsync(['out/**/*'])
 }
 
 export function watchFiles() {
@@ -70,4 +114,15 @@ export function servePHP() {
 export const watch = gulp.parallel(
     watchFiles,
     serve
+)
+
+// Main build task
+export const build = gulp.series(
+    clean,
+    gulp.parallel(
+        buildSass,
+        buildJS,
+        copyPHP,
+        copyAssets
+    )
 )
