@@ -11,6 +11,9 @@
 	$site_url = '';
 	$site_title = 'The Shoe Museum, Inc.';
 	$site_desc = 'The Shoe Museum - Where Passion fuels Creation, Stories add Meaning, and Wearing becomes Expression.';
+	
+	// production mode (set to true for builds)
+	$is_production = true;
 
 	// pages
 	$home = './';

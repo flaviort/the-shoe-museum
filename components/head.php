@@ -51,7 +51,7 @@
 		<body>
 
 			<!-- enable these only in dev mode -->
-			<?php include('components/dev-mode.php');?>
+			<?php if (!$is_production) { include('components/dev-mode.php'); } ?>
 
 			<header>
 				<?php include('components/fs-menu.php');?>
