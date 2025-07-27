@@ -8,7 +8,7 @@
 	}
 
 	// seo vars
-	$site_url = 'https://dev.senzdsn.com/the-shoe-museum';
+	$site_url = '';
 	$site_title = 'The Shoe Museum, Inc.';
 	$site_desc = 'The Shoe Museum - Where Passion fuels Creation, Stories add Meaning, and Wearing becomes Expression.';
 

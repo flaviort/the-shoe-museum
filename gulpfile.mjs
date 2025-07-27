@@ -129,7 +129,8 @@ export function buildJS() {
                 passes: 2               // Multiple compression passes
             },
             mangle: {
-                toplevel: true          // Mangle top-level names
+                toplevel: false,        // Don't mangle top-level to avoid conflicts
+                reserved: ['$', 'jQuery', 'lenis', 'gsap', 'ScrollTrigger'] // Reserve common globals
             },
             output: {
                 comments: false         // Remove all comments
@@ -184,6 +185,7 @@ export function copyImages() {
 export function copyAssets() {
     return gulp.src([
         'assets/css/vendor/**/*',
+        'assets/fonts/**/*',     // Copy font files
         'assets/svg/**/*',
         'assets/videos/**/*',
         'robots.txt',
