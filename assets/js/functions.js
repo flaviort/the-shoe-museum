@@ -604,8 +604,24 @@ function initScripts() {
 	showHideGrid()
 }
 
-window.addEventListener('load', () => {
-	requestAnimationFrame(() => {
-		initScripts()
-	})
-})
+
+// wait for fonts to load before initializing scripts
+function waitForFontsAndInit() {
+	// check if fonts are already loaded
+	if (document.fonts && document.fonts.ready) {
+		document.fonts.ready.then(() => {
+			requestAnimationFrame(() => {
+				initScripts()
+			})
+		})
+	} else {
+		// fallback for browsers without font loading API
+		setTimeout(() => {
+			requestAnimationFrame(() => {
+				initScripts()
+			})
+		}, 100)
+	}
+}
+
+window.addEventListener('load', waitForFontsAndInit)
