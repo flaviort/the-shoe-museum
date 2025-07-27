@@ -181,11 +181,22 @@ export function copyImages() {
         .pipe(gulp.dest('out'))
 }
 
-// Copy non-image assets
+// Copy font files (binary handling)
+export function copyFonts() {
+    return gulp.src([
+        'assets/fonts/**/*'
+    ], { 
+        base: '.', 
+        buffer: false,  // Don't load files into memory as text
+        encoding: false // Preserve binary encoding
+    })
+        .pipe(gulp.dest('out'))
+}
+
+// Copy other non-binary assets
 export function copyAssets() {
     return gulp.src([
         'assets/css/vendor/**/*',
-        'assets/fonts/**/*',     // Copy font files
         'assets/svg/**/*',
         'assets/videos/**/*',
         'robots.txt',
@@ -244,6 +255,7 @@ export const build = gulp.series(
         buildJS,
         buildHTML,     // Process PHP to HTML
         copyImages,    // Copy all images as-is
+        copyFonts,     // Copy font files with binary handling
         copyAssets     // Copy other assets (CSS, videos, etc.)
     ),
     cleanTemp      // Clean up temporary files
