@@ -575,7 +575,16 @@ function initLenis() {
 		easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
 	})
 
-	lenis.on('scroll', ScrollTrigger.update)
+	lenis.on('scroll', (e) => {
+		ScrollTrigger.update()
+		
+		// get scroll direction: 1 = down, -1 = up
+		const direction = e.direction
+		
+		// add / remove css based on direction
+		document.body.classList.toggle('scrolling-down', direction === 1)
+		document.body.classList.toggle('scrolling-up', direction === -1)
+	})
 
 	gsap.ticker.add((time)=>{
 		lenis.raf(time * 1000)

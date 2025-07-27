@@ -1,30 +1,23 @@
-                <section class='footer'>
+                <section class='footer bg-black white'>
                     <div class='container'>
+                        <div class='flex py-1 text-smaller'>
 
-                        <div class='bottom py-smallest text-smaller white'>
+                            <a
+                                href='./'
+                                class='logo'
+                            >
+                                <img
+                                    src='assets/img/logo.png'
+                                    alt='The Shoe Museum, Inc.'
+                                    width='72'
+                                    height='93'
+                                >
+                            </a>
 
-                            <div class='right'>
-
-                                <a href='<?= $privacy ?>' class='hover-underline'>
-                                    Privacy Policy
-                                </a>
-
-                                <a href='<?= $terms ?>' class='hover-underline'>
-                                    Terms of Service
-                                </a>
-
-                            </div>
-
-                            <p class='left'>
+                            <p class='right'>
                                 © <?= date('Y'); ?> The Shoe Museum, Inc.
                             </p>
 
-                        </div>
-
-                        <div class='logo-bottom'>
-                            <div>T</div>
-                            <div>S</div>
-                            <div>M</div>
                         </div>
 
                     </div>

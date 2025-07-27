@@ -1,32 +1,71 @@
-<section class='newsletter-section py-small'>
+<section class='newsletter-section py-medium py-md-small'>
 	<div class='container'>
 		
-		<h2 class='text-45 bold'>
-			Join the movement
-		</h2>
+		<div class='top'>
 
-		<div class='text-30 mt-smallest mb-smaller mb-md-smallest desc text-reveal'>
-			Get exclusive updates on exhibits, stories, and events from the world of shoes. Stay in step with our community.
+			<div class='text-60 uppercase bold text-reveal'>
+				Join our mailing list
+			</div>
+
+			<div class='text-24 mt-1 mb-smaller desc text-reveal'>
+				Be the first to receive updates regarding the launch of The Shoe Museum.
+			</div>
+
 		</div>
 
 		<div class='content'>
 			<form action='#'>
 
-				<div class='line-wrapper'>
-					<input
-						type='email'
-						placeholder='Email'
-						class='input'
-						required
-						autocomplete='email'
-					/>
+				<div class='row'>
+
+					<div class="col-md-6">
+						<div class='line-wrapper'>
+							<input
+								type='text'
+								placeholder='First Name'
+								class='input'
+								required
+							/>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class='line-wrapper'>
+							<input
+								type='text'
+								placeholder='Last Name'
+								class='input'
+							/>
+						</div>
+					</div>
+
 				</div>
 
-				<button type='submit' class='button button--solid'>
-					<span class='text'>
-						Subscribe
-					</span>
-				</button>
+				<div class='flex'>
+
+					<div class='line-wrapper'>
+						<input
+							type='email'
+							placeholder='Email'
+							class='input'
+							required
+							autocomplete='email'
+						/>
+					</div>
+
+					<button type='submit' class='button button--solid uppercase'>
+
+						<span class='text'>
+							Sign up
+						</span>
+
+						<span class='icon'>
+							<i data-lucide='arrow-right'></i>
+						</span>
+
+					</button>
+
+				</div>
 
 			</form>
 		</div>

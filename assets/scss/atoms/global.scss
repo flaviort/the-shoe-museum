@@ -104,9 +104,8 @@ body {
 	color: $gray-darker;
 	font-weight: $regular;
 	font-style: normal;
-	font-size: clamp(16px, 1.33vw, 18px);
+	font-size: 16px;
 	line-height: 1.6;
-	ascent-override: 110%;
 	width: 100%;
 	transition: background-color .3s ease-in-out, color .3s ease-in-out;
 

@@ -8,7 +8,6 @@
                     alt='The Shoe Museum, Inc.'
                     width='72'
                     height='93'
-                    loading='lazy'
                 >
             </a>
 

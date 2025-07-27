@@ -1,41 +1,41 @@
 @use '../variables/breakpoints.scss' as *;
 
-@mixin text-95 {
-	font-size: 2.75rem;
-	line-height: 1.1;
+@mixin text-100 {
+	font-size: 3rem;
+	line-height: 1;
 
 	@media #{$mq-xs-min} {
-		font-size: 3.25rem;
+		font-size: 3.5rem;
 	}
 
 	@media #{$mq-sm-min} {
-		font-size: 3.5rem;
-		line-height: 1;
-	}
-
-	@media #{$mq-md-min} {
-		font-size: 3.75rem;
-	}
-
-	@media #{$mq-lg-min} {
 		font-size: 4rem;
 	}
 
-	@media #{$mq-xl-min} {
-		font-size: 4.25rem;
-	}
-
-	@media #{$mq-2xl-min} {
+	@media #{$mq-md-min} {
 		font-size: 4.5rem;
 	}
 
+	@media #{$mq-lg-min} {
+		font-size: 5rem;
+		line-height: .9;
+	}
+
+	@media #{$mq-xl-min} {
+		font-size: 5.5rem;
+	}
+
+	@media #{$mq-2xl-min} {
+		font-size: 6rem;
+	}
+
 	@media #{$mq-3xl-min} {
-		font-size: 4.75rem;
+		font-size: 6.25rem;
 	}
 }
 
 @mixin text-80 {
-	font-size: 2.25rem;
+	font-size: 2.5rem;
 	line-height: 1.2;
 
 	@media #{$mq-xs-min} {
@@ -44,98 +44,95 @@
 
 	@media #{$mq-sm-min} {
 		font-size: 3rem;
-		line-height: 1.1;
-	}
-
-	@media #{$mq-md-min} {
-		font-size: 3.25rem;
-	}
-
-	@media #{$mq-lg-min} {
-		font-size: 3.5rem;
-	}
-
-	@media #{$mq-xl-min} {
-		font-size: 3.75rem;
 		line-height: 1;
 	}
 
-	@media #{$mq-2xl-min} {
+	@media #{$mq-md-min} {
+		font-size: 3.5rem;
+	}
+
+	@media #{$mq-lg-min} {
 		font-size: 4rem;
+	}
+
+	@media #{$mq-xl-min} {
+		font-size: 4.5rem;
+	}
+
+	@media #{$mq-2xl-min} {
+		font-size: 5rem;
+		line-height: .9;
 	}
 }
 
-@mixin text-65 {
-	font-size: 2rem;
+@mixin text-60 {
+	font-size: 2.25rem;
 	line-height: 1.3;
 
 	@media #{$mq-sm-min} {
-		font-size: 2.25rem;
+		font-size: 2.5rem;
 		line-height: 1.2;
 	}
 
 	@media #{$mq-md-min} {
-		font-size: 2.5rem;
+		font-size: 3rem;
+		line-height: 1;
 	}
 
 	@media #{$mq-xl-min} {
-		font-size: 2.75rem;
-		line-height: 1.1;
+		font-size: 3.5rem;
 	}
 
 	@media #{$mq-2xl-min} {
-		font-size: 3rem;
+		font-size: 3.75rem;
 	}
 }
 
-@mixin text-45 {
+@mixin text-40 {
+	font-size: 1.75rem;
+	line-height: 1.4;
+
+	@media #{$mq-md-min} {
+		font-size: 2rem;
+		line-height: 1.3;
+	}
+
+	@media #{$mq-lg-min} {
+		font-size: 2.25rem;
+	}
+
+	@media #{$mq-xl-min} {
+		font-size: 2.5rem;
+		line-height: 1.2;
+	}
+}
+
+@mixin text-32 {
 	font-size: 1.5rem;
 	line-height: 1.4;
 
 	@media #{$mq-md-min} {
 		font-size: 1.75rem;
-		line-height: 1.3;
 	}
 
 	@media #{$mq-lg-min} {
 		font-size: 2rem;
-	}
-
-	@media #{$mq-xl-min} {
-		font-size: 2.25rem;
-		line-height: 1.2;
-	}
-}
-
-@mixin text-35 {
-	font-size: 1.25rem;
-	line-height: 1.4;
-
-	@media #{$mq-md-min} {
-		font-size: 1.5rem;
-	}
-
-	@media #{$mq-lg-min} {
-		font-size: 1.75rem;
 		line-height: 1.3;
 	}
 }
 
-@mixin text-30 {
-	font-size: 1.2rem;
-	line-height: 1.4;
+@mixin text-24 {
+	font-size: 1.25rem;
+	line-height: 1.5;
 
 	@media #{$mq-md-min} {
-		font-size: 1.25rem;
-	}
-
-	@media #{$mq-lg-min} {
 		font-size: 1.5rem;
+		line-height: 1.4;
 	}
 }
 
-@mixin text-25 {
-	font-size: 1.1rem;
+@mixin text-20 {
+	font-size: 1rem;
 
 	@media #{$mq-md-min} {
 		font-size: 1.25rem;
@@ -143,22 +140,14 @@
 	}
 }
 
-@mixin text-20 {
+@mixin text-16 {
 	font-size: 1rem;
 }
 
-@mixin text-18 {
-	font-size: .9rem;
-}
-
-@mixin text-16 {
-	font-size: .8rem;
-}
-
 @mixin text-14 {
-	font-size: .7rem;
+	font-size: .875rem;
 }
 
 @mixin text-12 {
-	font-size: .6rem;
+	font-size: .75rem;
 }

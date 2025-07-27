@@ -7,71 +7,110 @@
         
             .flex {
                 display: flex;
-                flex-direction: column;
                 gap: 1rem;
-                min-height: calc(100svh + 7rem);
-                padding-top: calc(var(--big) + 3rem);
-                padding-bottom: var(--big);
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                min-height: 95svh;
+                text-align: center;
+                padding: 9rem 0 3rem 0;
+
+                @media #{$mq-lg-min} {
+                    justify-content: space-between;
+                    gap: 2rem;
+                    flex-direction: row;
+                    text-align: left;
+                    min-height: 105svh;
+                    padding: 7rem 0 5rem 0;
+                }
+
+                .left {
+                    position: relative;
+                    z-index: 2;
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+
+                    p {
+                        @media #{$mq-md-min} {
+                            letter-spacing: .125rem;
+                        }
+                    }
+
+                    a {
+                        display: block;
+                        width: fit-content;
+                        margin-block-start: .5rem;
+
+                        @media #{$mq-md-min} {
+                            letter-spacing: .15rem;
+                        }
+
+                        @media #{$mq-lg-max} {
+                            margin: 1rem auto 0 auto;
+                        }
+                    }
+                }
+            }
+
+            .shoe {
+                display: block;
+                margin-top: var(--smaller);
+                width: 95%;
+
+                @media #{$mq-sm-min} {
+                    width: 90%;
+                }
+
+                @media #{$mq-md-min} {
+                    width: 80%;
+                }
+
+                @media #{$mq-lg-min} {
+                    margin: auto;
+                    transform: translateY(1rem) translateX(-2rem);
+                    width: 50rem;
+                    max-width: 57.5vw;
+                }
             }
         }
 
         .about {
-            .content {
+            .flex {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 90svh;
                 text-align: center;
-
-                .desc {
-                    width: 45rem;
-                    max-width: 100%;
-                }
-
-                .image {
-                    position: relative;
-                    width: 55rem;
-                    max-width: 100%;
-
-                    .shoe {
-                        position: relative;
-                        z-index: 2;
-                        display: block;
-                        margin: 0 auto -3vw auto;
-                        width: 60%;
-                        height: auto;
-
-                        @media #{$mq-2xl-min} {
-                            margin-bottom: -2vw;
-                        }
-                    }
-
-                    .rock {
-                        width: 100%;
-                        height: auto;
-                    }
-                }
             }
         }
 
         .exhibits {
-            .button {
-                margin-left: auto;
-                margin-right: auto;
-                justify-content: center;
+            .top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+
+                h2 {
+
+                }
+
+                p {
+
+                }
             }
 
             .grid {
                 display: grid;
-                gap: 1rem;
+                gap: .25rem;
 
-                @media #{$mq-sm-min} {
+                @media #{$mq-md-min} {
                     grid-template-columns: repeat(2, 1fr);
-                    gap: 1.25rem;
-                }
-
-                @media #{$mq-lg-min} {
-                    grid-template-columns: repeat(3, 1fr);
                 }
 
                 @media #{$mq-xl-min} {
-                    gap: 2rem;
+                    grid-template-columns: repeat(3, 1fr);
                 }
             }
         }
