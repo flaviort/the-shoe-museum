@@ -10,6 +10,10 @@ import rename from 'gulp-rename'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { deleteAsync } from 'del'
+import through2 from 'through2'
+import { spawn } from 'child_process'
+import htmlmin from 'gulp-htmlmin'
+// Image compression can be added here in the future
 
 const compileSass = gulpSass(sass)
 const bs = browserSync.create()
@@ -17,6 +21,61 @@ const bs = browserSync.create()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectFolderName = path.basename(__dirname)
+
+// PHP to HTML processor
+function phpToHtml() {
+    return through2.obj(function(file, enc, callback) {
+        if (file.isNull()) {
+            return callback(null, file)
+        }
+
+        if (file.isStream()) {
+            return callback(new Error('Streaming not supported'))
+        }
+
+        // Only process .php files that are not in components folder
+        if (!file.path.endsWith('.php') || file.path.includes('/components/')) {
+            return callback(null, file)
+        }
+
+        const relativePath = path.relative(process.cwd(), file.path)
+        
+        // Use PHP CLI to execute the file and capture output
+        const php = spawn('php', [relativePath], {
+            cwd: process.cwd(),
+            stdio: ['pipe', 'pipe', 'pipe']
+        })
+
+        let output = ''
+        let error = ''
+
+        php.stdout.on('data', (data) => {
+            output += data.toString()
+        })
+
+        php.stderr.on('data', (data) => {
+            error += data.toString()
+        })
+
+        php.on('close', (code) => {
+            if (code !== 0) {
+                console.error(`PHP Error in ${relativePath}:`, error)
+                return callback(new Error(`PHP execution failed for ${relativePath}`))
+            }
+
+            // Create new file with .html extension
+            const newFile = file.clone()
+            newFile.path = file.path.replace('.php', '.html')
+            newFile.contents = Buffer.from(output)
+
+            callback(null, newFile)
+        })
+
+        php.on('error', (err) => {
+            callback(new Error(`Failed to execute PHP: ${err.message}`))
+        })
+    })
+}
 
 // Development tasks (with sourcemaps)
 export function compileSassTask() {
@@ -43,36 +102,89 @@ export function compileJS() {
         .pipe(bs.stream())
 }
 
-// Production build tasks (no sourcemaps)
+// Production build tasks (no sourcemaps, maximum minification)
 export function buildSass() {
     return gulp.src('assets/scss/main.scss')
         .pipe(compileSass({
             outputStyle: 'compressed'
         }).on('error', compileSass.logError))
         .pipe(autoprefixer())
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(cleanCSS({ 
+            compatibility: 'ie8',
+            level: 2,  // Advanced optimizations
+            inline: ['local'],
+            rebase: false
+        }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('out/assets/css'))
 }
 
 export function buildJS() {
     return gulp.src('assets/js/functions.js')
-        .pipe(uglify())
+        .pipe(uglify({
+            compress: {
+                drop_console: true,     // Remove console.log statements
+                drop_debugger: true,    // Remove debugger statements
+                pure_funcs: ['console.log', 'console.info', 'console.warn'], // Remove specific console methods
+                passes: 2               // Multiple compression passes
+            },
+            mangle: {
+                toplevel: true          // Mangle top-level names
+            },
+            output: {
+                comments: false         // Remove all comments
+            }
+        }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('out/assets/js'))
 }
 
-// Copy tasks for build
-export function copyPHP() {
-    return gulp.src(['**/*.php'], { base: '.' })
+// Process PHP files to static HTML with minification
+export function buildHTML() {
+    return gulp.src([
+        '*.php',
+        '!components/**/*.php',  // Exclude component files
+        '!out/**/*.php',         // Exclude output files
+        '!.tmp/**/*.php'         // Exclude temp files
+    ], { base: '.' })
+        .pipe(phpToHtml())
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            removeComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            minifyCSS: true,
+            minifyJS: true,
+            useShortDoctype: true
+        }))
         .pipe(gulp.dest('out'))
 }
 
+// Copy component files (needed for PHP processing)
+export function copyComponents() {
+    return gulp.src(['components/**/*.php'], { base: '.' })
+        .pipe(gulp.dest('.tmp'))
+}
+
+// Copy and optimize images (framework ready for compression plugins)
+export function compressImages() {
+    console.log('📸 Processing images (keeping original quality for now)...')
+    
+    return gulp.src([
+        'assets/img/**/*.{jpg,jpeg,png,gif,webp,avif}',
+        '!assets/img/**/*.svg'  // Exclude SVGs - they stay unchanged
+    ], { base: '.' })
+        // Future: Add .pipe(imageOptimization()) here when ready
+        .pipe(gulp.dest('out'))
+}
+
+// Copy non-image assets (including SVGs unchanged)
 export function copyAssets() {
     return gulp.src([
         'assets/css/vendor/**/*',
-        'assets/img/**/*',
-        'assets/svg/**/*',
+        'assets/svg/**/*',      // SVGs copied unchanged
         'assets/videos/**/*',
         'robots.txt',
         '.htaccess'
@@ -82,7 +194,12 @@ export function copyAssets() {
 
 // Clean output directory
 export function clean() {
-    return deleteAsync(['out/**/*'])
+    return deleteAsync(['out/**/*', '.tmp/**/*'])
+}
+
+// Clean temporary files
+export function cleanTemp() {
+    return deleteAsync(['.tmp/**/*'])
 }
 
 export function watchFiles() {
@@ -119,10 +236,13 @@ export const watch = gulp.parallel(
 // Main build task
 export const build = gulp.series(
     clean,
+    copyComponents,  // Copy components first (needed for PHP processing)
     gulp.parallel(
         buildSass,
         buildJS,
-        copyPHP,
-        copyAssets
-    )
+        buildHTML,     // Process PHP to HTML
+        compressImages, // Compress images (except SVGs)
+        copyAssets     // Copy other assets including SVGs
+    ),
+    cleanTemp      // Clean up temporary files
 )
