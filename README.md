@@ -17,26 +17,20 @@ The build process creates a fully optimized static website in the `out` folder:
 - ✅ **HTML Minification** - Removes whitespace, comments, and redundant attributes
 - ✅ **Asset Organization** - Copies all necessary files for deployment
 
-## Image Optimization
+## Image Handling
 
-The build process is ready for image compression. For now, images are copied as-is. 
+Images are copied directly from `assets/img/` to `out/assets/img/` without any processing.
 
-### Manual Image Compression (Recommended)
+### Image Optimization (Optional)
 
-For best results similar to TinyPNG/Kraken, use these online tools:
+For better performance, optimize images before adding them to `assets/img/`:
 
 1. **TinyPNG** (https://tinypng.com/) - For PNG and JPG compression
-2. **Kraken.io** (https://kraken.io/web-interface) - Multi-format compression
+2. **Kraken.io** (https://kraken.io/web-interface) - Multi-format compression  
 3. **Squoosh** (https://squoosh.app/) - Google's web-based compressor
+4. **ImageOptim** (Mac) - Drag & drop batch compression
 
-### Batch Compression
-
-If you have many images, consider:
-- **ImageOptim** (Mac) - Drag & drop batch compression
-- **TinyPNG API** - For automated workflows
-- **Kraken API** - For bulk processing
-
-Simply replace your `assets/img/` files with compressed versions and run `npm run build`.
+Simply replace files in `assets/img/` with optimized versions, then run `npm run build`.
 
 ## Deployment
 
@@ -59,8 +53,8 @@ out/
 ├── assets/
 │   ├── css/main.min.css   # Minified CSS
 │   ├── js/functions.min.js # Minified JS
-│   ├── img/               # Images (ready for compression)
-│   ├── svg/               # SVGs (unchanged)
+│   ├── img/               # Images (copied as-is)
+│   ├── svg/               # SVGs
 │   └── videos/            # Videos
 ├── robots.txt
 └── .htaccess

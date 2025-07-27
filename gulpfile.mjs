@@ -168,23 +168,19 @@ export function copyComponents() {
         .pipe(gulp.dest('.tmp'))
 }
 
-// Copy and optimize images (framework ready for compression plugins)
-export function compressImages() {
-    console.log('📸 Processing images (keeping original quality for now)...')
-    
+// Copy all images as-is (no processing)
+export function copyImages() {
     return gulp.src([
-        'assets/img/**/*.{jpg,jpeg,png,gif,webp,avif}',
-        '!assets/img/**/*.svg'  // Exclude SVGs - they stay unchanged
+        'assets/img/**/*'  // Copy all images including SVGs
     ], { base: '.' })
-        // Future: Add .pipe(imageOptimization()) here when ready
         .pipe(gulp.dest('out'))
 }
 
-// Copy non-image assets (including SVGs unchanged)
+// Copy non-image assets
 export function copyAssets() {
     return gulp.src([
         'assets/css/vendor/**/*',
-        'assets/svg/**/*',      // SVGs copied unchanged
+        'assets/svg/**/*',
         'assets/videos/**/*',
         'robots.txt',
         '.htaccess'
@@ -241,8 +237,8 @@ export const build = gulp.series(
         buildSass,
         buildJS,
         buildHTML,     // Process PHP to HTML
-        compressImages, // Compress images (except SVGs)
-        copyAssets     // Copy other assets including SVGs
+        copyImages,    // Copy all images as-is
+        copyAssets     // Copy other assets (CSS, videos, etc.)
     ),
     cleanTemp      // Clean up temporary files
 )

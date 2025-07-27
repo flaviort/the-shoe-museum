@@ -1,26 +1,32 @@
 {
-  "name": "The Shoe Museum",
+  "name": "the-shoe-museum",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "The Shoe Museum - Static website with PHP templating and optimized build process",
+  "main": "gulpfile.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"php -S localhost:8000\" \"gulp servePHP\"",
-    "dev:php": "concurrently \"php -S localhost:8000\" \"gulp servePHP\"",
     "php": "php -S localhost:8000",
-    "build": "gulp build"
+    "build": "gulp build",
+    "clean": "gulp clean"
   },
-  "keywords": [],
+  "keywords": [
+    "static-site",
+    "php",
+    "gulp",
+    "sass",
+    "museum",
+    "website"
+  ],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "devDependencies": {
     "concurrently": "^9.2.0",
     "del": "^8.0.0",
     "gulp": "^5.0.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-rename": "^2.0.0",
-    "through2": "^4.0.2",
-    "vinyl-fs": "^4.0.2"
+    "through2": "^4.0.2"
   },
   "dependencies": {
     "browser-sync": "^3.0.2",
