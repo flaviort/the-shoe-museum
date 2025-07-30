@@ -14,22 +14,22 @@
 
 	// pages
 	$home = './';
-	$exhibits = 'exhibits.php';
-	$exhibit = 'exhibit.php';
-	$store = 'store.php';
-	$product = 'product.php';
-	$blogs = 'blog.php';
-	$blog = 'blog-inner.php';
-	$about = 'about.php';
-	$contact = 'contact.php';
+	$exhibits = 'exhibits';
+	$exhibit = 'exhibit';
+	$store = 'store';
+	$product = 'product';
+	$blogs = 'blog';
+	$blog = 'blog-inner';
+	$about = 'about';
+	$contact = 'contact';
 
-	$login = 'login.php';
-	$register = 'register.php';
-	$lost_password = 'lost-password.php';
-	$dashboard = 'dashboard.php';
+	$login = 'login';
+	$register = 'register';
+	$lost_password = 'lost-password';
+	$dashboard = 'dashboard';
 
-	$privacy = 'privacy-policy.php';
-	$terms = 'terms-of-service.php';
+	$privacy = 'privacy-policy';
+	$terms = 'terms-of-service';
 
 	// social
 	$instagram = 'http://instagram.com/';
