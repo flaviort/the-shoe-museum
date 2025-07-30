@@ -3,7 +3,11 @@
 .rich-text {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 1.5rem;
+
+	@media #{$mq-md-min} {
+		gap: 2rem;
+	}
 
 	p {
 		@media #{$mq-md-min} {
@@ -53,10 +57,28 @@
 	h5,
 	h6 {
 		font-weight: $bold;
+		text-transform: uppercase;
 
 		&:not(:first-child) {
-			margin-top: 1rem;
+			margin-top: 1.5rem;
+
+			@media #{$mq-md-min} {
+				margin-top: 2rem;
+			}
 		}
+	}
+
+	figure,
+	img,
+	video,
+	iframe {
+		width: 100%;
+	}
+
+	iframe {
+		aspect-ratio: 16 / 9;
+		height: auto;
+		border: none;
 	}
 
 	a {

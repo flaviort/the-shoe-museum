@@ -1,5 +1,5 @@
 <a
-    href='#'
+    href='<?= $exhibit; ?>'
     class='exhibit-block'
 >
 

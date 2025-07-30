@@ -404,6 +404,35 @@ function scrollTriggerAnimations() {
 		})
 	}
 
+	// stagger scale
+	if(selectAll('[data-stagger-scale-cascade]').length) {
+
+		// find all elements with data-stagger-up attribute
+		const staggerElements = selectAll('[data-stagger-scale-cascade]')
+		
+		staggerElements.forEach(item => {
+			const children = item.children
+
+			if (children.length > 0) {
+				gsap.set(children, {
+					scale: 0
+				})
+
+				ScrollTrigger.batch(children, {
+					start: '0% 100%',
+					onEnter: elements => {
+						gsap.to(elements, {
+							scale: 1,
+							stagger: 0.1,
+							duration: .6,
+							delay: .2
+						})
+					}
+				})
+			}
+		})
+	}
+
 	// stagger up animation
 	if(selectAll('[data-stagger-up]').length) {
 
@@ -477,22 +506,6 @@ function scrollTriggerAnimations() {
 					}
 				}
 			})
-		})
-	}
-
-	// footer logo animation
-	if(selectAll('.logo-bottom').length) {
-
-		gsap.from('.logo-bottom div', {
-			yPercent: 100,
-			stagger: .25,
-			duration: 1,
-			ease: 'power2.out',
-			scrollTrigger: {
-				trigger: '.logo-bottom',
-				toggleActions: 'restart none resume none',
-				start: '50% 100%'
-			}
 		})
 	}
 }
@@ -593,6 +606,22 @@ function initLenis() {
 	gsap.ticker.lagSmoothing(0)
 }
 
+// init read more
+function initReadMore() {
+
+	const readMoreWrappers = selectAll('.read-more-wrapper')
+
+	readMoreWrappers.forEach(wrapper => {
+		const readMoreButton = wrapper.querySelector('.read-more-button')
+		const readMoreContent = wrapper.querySelector('.read-more-content')
+
+		readMoreButton.addEventListener('click', () => {
+			readMoreContent.classList.toggle('active')
+			readMoreButton.innerHTML = readMoreContent.classList.contains('active') ? 'Read less' : 'Read more'
+		})
+	})
+}
+
 // fire all scripts
 function initScripts() {
 	initLenis()
@@ -601,6 +630,7 @@ function initScripts() {
 	initFancybox()
 	scrollTriggerAnimations()
 	initLucide()
+	initReadMore()
 	showHideGrid()
 }
 

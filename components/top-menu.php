@@ -20,7 +20,7 @@
                 </li>
 
                 <li>
-                    <a href='<?= $products; ?>' class='hover-underline'>
+                    <a href='<?= $store; ?>' class='hover-underline'>
                         Store
                     </a>
                 </li>

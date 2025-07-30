@@ -96,7 +96,7 @@
 		</div>
 
 		<a
-			href='#'
+			href='<?= $exhibits; ?>'
 			class='button button--hollow uppercase mt-smallest'
 		>
 			<span class='text'>

@@ -1,0 +1,73 @@
+@use '../variables' as *;
+
+#main-content {
+    &.exhibits {
+        .featured {
+            overflow: hidden;
+
+            &:before {
+                @include gradient-bottom($black, 50%);
+                opacity: .325;
+                transition: .3s ease-in-out;
+            }
+
+            &:has(.link:hover),
+            &:has(.link:focus-visible) {
+                &:before {
+                    opacity: .5;
+                }
+
+                .cover {
+                    transform: scale(1.05);
+                }
+            }
+
+            .link {
+                position: absolute;
+                z-index: 3;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+            }
+
+            .cover {
+                transition: .3s ease-in-out;
+            }
+
+            .flex {
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                align-items: flex-end;
+                width: 100%;
+                height: 60vh;
+
+                @media #{$mq-sm-min} {
+                    height: 80vh;
+                }
+
+                @media #{$mq-3xl-min} {
+                    aspect-ratio: 16 / 9;
+                    height: auto;
+                }
+            }
+        }
+
+        .exhibits {
+            .grid {
+                display: grid;
+                gap: .25rem;
+
+                @media #{$mq-md-min} {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @media #{$mq-xl-min} {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+        }
+    }
+}
