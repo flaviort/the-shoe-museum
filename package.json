@@ -4,8 +4,8 @@
   "description": "The Shoe Museum - Static website with PHP templating and optimized build process",
   "main": "gulpfile.mjs",
   "scripts": {
-    "dev": "concurrently \"php -S localhost:8000\" \"gulp servePHP\"",
-    "php": "php -S localhost:8000",
+    "dev": "concurrently \"php -S localhost:8000 router.php\" \"gulp servePHP\"",
+    "php": "php -S localhost:8000 router.php",
     "build": "gulp build",
     "clean": "gulp clean"
   },

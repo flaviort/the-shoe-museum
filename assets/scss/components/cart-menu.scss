@@ -1,0 +1,91 @@
+@use '../variables' as *;
+
+#cart-menu {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    background-color: $white;
+    width: 32rem;
+    max-width: 100%;
+    transform: translateX(110%);
+    overflow-y: scroll;
+
+    .wrapper {
+        padding: 1.5rem 1rem 1rem 1rem;
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid $black;
+
+            .close-cart {
+                &:hover {
+                    svg {
+                        transform: rotate(180deg);
+                        color: $green;
+                    }
+                }
+
+                svg {
+                    transition: .3s ease-in-out;
+                }
+            }
+        }
+
+        .middle {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-top: 1rem;
+        }
+
+        .subtotal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border-top: 1px solid $black;
+            border-bottom: 1px solid $black;
+            padding: 1rem 0;
+            margin-top: 1rem;
+        }
+
+        .shipping {
+            text-align: center;
+            margin: 1.25rem 0;
+            color: $gray-medium;
+        }
+
+        .checkout {
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+            text-align: center;
+            justify-content: center;
+            
+            &:hover,
+            &:focus-visible {
+                background-color: $black;
+                color: $white;
+            }
+        }
+
+        .cards {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.25rem;
+            color: $gray-light;
+
+            svg {
+                width: 10rem;
+            }
+        }
+    }
+}

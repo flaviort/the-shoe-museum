@@ -26,12 +26,6 @@
                 </li>
 
                 <li>
-                    <a href='<?= $blogs; ?>' class='hover-underline'>
-                        Blog
-                    </a>
-                </li>
-
-                <li>
                     <a href='<?= $about; ?>' class='hover-underline'>
                         About
                     </a>
@@ -48,9 +42,9 @@
             <div class='right'>
                 <div class='side-icons'>
 
-                    <a href='<?= $search; ?>' class='search' aria-label='Search'>
+                    <!--a href='<?= $search; ?>' class='search' aria-label='Search'>
                         <i data-lucide='search'></i>
-                    </a>
+                    </a-->
 
                     <button class='open-cart' aria-label='View Cart'>
                         <i data-lucide='shopping-cart'></i>

@@ -1,0 +1,112 @@
+@use '../variables' as *;
+
+.cart-product-block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    .image {
+        width: 5rem;
+        min-width: 5rem;
+        height: 5.75rem;
+        background-color: $pure-white;
+        border-radius: .25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: .25rem;
+        border: 1px solid $gray-light;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .infos {
+        padding-right: 1.5rem;
+
+        .product-name {
+            font-size: 1.15rem;
+            //font-weight: $regular;
+
+            @media #{$mq-sm-min} {
+                font-size: 1rem;
+            }
+        }
+
+        .product-price {
+            display: block;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            .old {
+                text-decoration: line-through;
+                opacity: .5;
+            }
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: .25rem;
+            margin-top: .5rem;
+
+            .form-line {
+                width: 3.5rem;
+                margin-bottom: 0;
+
+                @media #{$mq-sm-min} {
+                    width: 5rem;
+                }
+
+                .line-wrapper {
+                    .input {
+                        font-size: .7rem;
+                        border-radius: .125rem;
+                        padding-top: .6rem;
+                        padding-bottom: .6rem;
+                    }
+                }
+            }
+
+            .subscription {
+                font-size: .7rem;
+                border-radius: .125rem;
+                border: 1px solid $green;
+                color: $green;
+                line-height: 1;
+                padding: .675rem .375rem;
+
+                @media #{$mq-sm-min} {
+                    padding: .675rem .75rem;
+                }
+            }
+        }
+    }
+
+    .remove-product {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: .825rem;
+        height: .825rem;
+        z-index: 3;
+        transition: .3s ease-in-out;
+
+        &:hover {
+            color: $red;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

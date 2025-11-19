@@ -55,6 +55,7 @@
 
 			<header>
 				<?php include('components/fs-menu.php');?>
+				<?php include('components/cart-menu.php');?>
 			</header>
 
 			<main id='main-content' class='<?php echo($current_page); ?>'>
