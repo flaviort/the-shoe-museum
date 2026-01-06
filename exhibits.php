@@ -5,7 +5,7 @@
 
 <section class='featured'>
 	
-	<a href='#' class='link'></a>
+	<a href='<?= $exhibit; ?>' class='link'></a>
 
 	<img
 		src='assets/img/exhibits/featured.jpg'
