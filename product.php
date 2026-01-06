@@ -226,7 +226,7 @@
 				<div class='accept'>
 
 					<p class='medium'>
-						Payment method accepted
+						Accepted payment methods
 					</p>
 
 					<?= file_get_contents('assets/svg/ux/cards.svg'); ?>
