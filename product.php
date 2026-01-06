@@ -141,10 +141,16 @@
 				</div>
 
 				<div class='description text-20'>
+
 					<p>
 						Clean, minimal, and easy to wear. This vibrant green T-shirt features the TSM – The Shoe Museum graphic front and center. Made from soft, breathable fabric for all-day comfort. Classic fit that works effortlessly with jeans or sneakers. A simple statement piece for sneaker lovers and design fans alike.
 					</p>
+
 				</div>
+
+				<a href='#specs' class='read-more sliding-link hover-underline-white text-20'>
+					Read more
+				</a>
 
 				<div class='options'>
 
@@ -239,7 +245,7 @@
 	</div>
 </section>
 
-<section class='specs my-medium my-md-small'>
+<section id='specs' class='specs my-medium my-md-small'>
 	<div class='container'>
 		<div class='specs-slider swiper'>
 

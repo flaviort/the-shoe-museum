@@ -74,7 +74,7 @@
 						<div>
 							<div class='rich-text'>
 								<p>
-									You can contact us by email at <a href='mailto:<?php echo($email); ?>' class='hover-underline-white'><?php echo($email); ?></a>.
+									You can contact us by email at <a href='mailto:<?php echo($email); ?>'><?php echo($email); ?></a>.
 								</p>
 							</div>
 						</div>

@@ -199,7 +199,14 @@
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    margin-block-end: 1.5rem;
+                }
+
+                .read-more {
+                    display: block;
+                    width: fit-content;
+                    margin-block: .25rem 2rem;
+                    font-weight: $medium;
+                    color: $green;
                 }
 
                 .options {

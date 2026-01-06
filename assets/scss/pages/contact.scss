@@ -21,11 +21,15 @@
                 .row {
                     > div {
                         &:nth-child(even) {
-                            padding-left: .5rem;
+                            @media #{$mq-xl-min} {
+                                padding-left: .5rem;
+                            }
                         }
 
                         &:nth-child(odd) {
-                            padding-right: .5rem;
+                            @media #{$mq-xl-min} {
+                                padding-right: .5rem;
+                            }
                         }
                     }
                 }
