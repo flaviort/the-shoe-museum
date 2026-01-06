@@ -1,0 +1,141 @@
+@use '../variables' as *;
+
+#main-content {
+    &.about {
+        .banner {
+            
+        }
+
+        .middle {
+            .flex {
+                position: relative;
+                padding-bottom: var(--medium);
+                padding-left: 1.5rem;
+
+                @media #{$mq-sm-min} {
+                    display: grid;
+                    grid-template-columns: 5rem 1fr;
+                    gap: 2rem;
+                    padding-left: 0;
+                }
+
+                @media #{$mq-md-min} {
+                    grid-template-columns: 7rem 1fr;
+                }
+
+                @media #{$mq-xl-min} {
+                    grid-template-columns: 8rem 1fr;
+                }
+
+                &:last-child {
+                    .line {
+                        &:after {
+                            position: absolute;
+                            top: calc(100% + .25rem);
+                            left: -.01rem;
+                            content: '';
+                            display: block;
+                            width: .5rem;
+                            height: .5rem;
+                            background-color: $green;
+                            border-radius: 50%;
+
+                            @media #{$mq-sm-min} {
+                                top: calc(100% + var(--medium) + .5rem);
+                            }
+                        }
+                    }
+                }
+
+                .line {
+                    margin-left: -1.5rem;
+                    margin-bottom: 1rem;
+
+                    @media #{$mq-sm-min} {
+                        position: relative;
+                        margin-left: 0;
+                        margin-bottom: 0;
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: .75rem;
+                        left: .23rem;
+                        width: 1px;
+                        height: 100%;
+                        background-color: $gray-lightest;
+
+                        @media #{$mq-sm-min} {
+                            height: calc(100% + var(--medium));
+                        }
+                    }
+
+                    .point {
+                        position: relative;
+                        z-index: 2;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            width: .5rem;
+                            height: .5rem;
+                            background-color: $green;
+                            border-radius: 50%;
+                        }
+
+                        p {
+                            display: block;
+                            width: fit-content;
+                            background-color: $green;
+                            color: $white;
+                            padding: .1rem .5rem;
+
+                            @media #{$mq-sm-min} {
+                                margin-left: 0;
+                            }
+                        }
+                    }
+                }
+
+                .content {
+                    .image-container {
+                        position: relative;
+                        overflow: hidden;
+                        display: block;
+                        width: 100%;
+                        padding: 2rem 1rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        @media #{$mq-md-min} {
+                            padding: 4rem 2rem;
+                        }
+
+                        .logo {
+                            position: relative;
+                            z-index: 2;
+                            width: 8rem;
+
+                            @media #{$mq-sm-min} {
+                                width: 10rem;
+                            }
+
+                            @media #{$mq-md-min} {
+                                width: 12rem;
+                            }
+
+                            @media #{$mq-lg-min} {
+                                width: 15rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

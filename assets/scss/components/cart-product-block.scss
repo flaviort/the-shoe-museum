@@ -12,7 +12,6 @@
         min-width: 5rem;
         height: 5.75rem;
         background-color: $pure-white;
-        border-radius: .25rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -69,16 +68,15 @@
                 .line-wrapper {
                     .input {
                         font-size: .7rem;
-                        border-radius: .125rem;
                         padding-top: .6rem;
                         padding-bottom: .6rem;
+                        border-color: $gray-light;
                     }
                 }
             }
 
             .subscription {
                 font-size: .7rem;
-                border-radius: .125rem;
                 border: 1px solid $green;
                 color: $green;
                 line-height: 1;

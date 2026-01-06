@@ -9,10 +9,10 @@
 
             .left-side {
                 min-height: 100vh;
-                padding-top: 7rem;
+                padding-top: 2rem;
 
                 @media #{$mq-lg-min} {
-                    padding-top: 9rem;
+                    padding-top: 4rem;
                 }
 
                 @media #{$mq-xl-min} {
@@ -20,12 +20,38 @@
                 }
 
                 .top {
+                    position: relative;
+
                     @media #{$mq-md-min} {
                         display: flex;
                         align-items: flex-start;
                         justify-content: space-between;
                         gap: 1rem;
                         margin-bottom: 0;
+                    }
+
+                    @media #{$mq-xl-max} {
+                        color: $white;
+                    }
+
+                    .bg {
+                        position: absolute;
+                        z-index: -1;
+                        top: -2rem;
+                        left: -3rem;
+                        width: calc(100% + 6rem);
+                        max-width: calc(100% + 6rem);
+                        height: calc(100% + 10rem);
+                        object-fit: cover;
+
+                        @media #{$mq-md-min} {
+                            top: -5rem;
+                            height: calc(100% + 15rem);
+                        }
+    
+                        @media #{$mq-xl-min} {
+                            display: none;
+                        }
                     }
 
                     .left-inner {
@@ -45,7 +71,7 @@
                     overflow: hidden;
                     display: block;
                     width: 100%;
-                    margin-block: 1rem var(--smaller);
+                    margin-block: 2rem var(--smaller);
                     aspect-ratio: 4 / 3;
 
                     @media #{$mq-md-min} {
@@ -63,7 +89,7 @@
 
                     @media #{$mq-xl-min} {
                         background-color: transparent;
-                        padding: 9rem 0 0 2rem;
+                        padding: 4rem 0 0 2rem;
                         height: 100%;
                         margin-top: 0;
                     }

@@ -1,7 +1,7 @@
 @use '../variables' as *;
 
 .top-menu {
-	position: fixed;
+	position: sticky;
 	z-index: 12;
 	top: 0;
 	left: 0;
@@ -96,7 +96,9 @@
 
 body.scrolling-down {
 	.top-menu {
-		transform: translateY(-150%);
+		&.invisible {
+			transform: translateY(-150%);
+		}
 	}
 }
 

@@ -1,4 +1,4 @@
-<section class='newsletter-section py-medium py-md-small'>
+<section id='newsletter' class='newsletter-section py-medium py-md-small'>
 	<div class='container'>
 		
 		<div class='top'>
@@ -18,24 +18,28 @@
 
 				<div class='row'>
 
-					<div class="col-md-6">
-						<div class='line-wrapper'>
-							<input
-								type='text'
-								placeholder='First Name'
-								class='input'
-								required
-							/>
+					<div class='col-md-6'>
+						<div class='form-line'>
+							<div class='line-wrapper'>
+								<input
+									type='text'
+									placeholder='First Name'
+									class='input'
+									required
+								/>
+							</div>
 						</div>
 					</div>
 
-					<div class="col-md-6">
-						<div class='line-wrapper'>
-							<input
-								type='text'
-								placeholder='Last Name'
-								class='input'
-							/>
+					<div class='col-md-6'>
+						<div class='form-line'>
+							<div class='line-wrapper'>
+								<input
+									type='text'
+									placeholder='Last Name'
+									class='input'
+								/>
+							</div>
 						</div>
 					</div>
 
@@ -43,14 +47,16 @@
 
 				<div class='flex'>
 
-					<div class='line-wrapper'>
-						<input
-							type='email'
-							placeholder='Email'
-							class='input'
-							required
-							autocomplete='email'
-						/>
+					<div class='form-line'>
+						<div class='line-wrapper'>
+							<input
+								type='email'
+								placeholder='Email'
+								class='input'
+								required
+								autocomplete='email'
+							/>
+						</div>
 					</div>
 
 					<button type='submit' class='button button--solid uppercase'>

@@ -236,8 +236,6 @@ function initClickAndKeyFunctions() {
 			e.preventDefault()
 			const that = this
 			that.classList.toggle('active')
-			that.nextElementSibling.style.display = that.classList.contains('active') ? 'block' : 'none'
-			//ScrollTrigger.refresh()
 		})
 	})
 
@@ -277,6 +275,29 @@ function initClickAndKeyFunctions() {
 		})
 	})
 
+}
+
+// init top menu
+function initTopMenu() {
+	const topMenu = select('.top-menu')
+	
+	if (!topMenu) return
+	
+	function handleScroll() {
+		if (window.scrollY > 100) {
+			topMenu.classList.add('invisible')
+		} else {
+			topMenu.classList.remove('invisible')
+		}
+	}
+	
+	if (lenis) {
+		lenis.on('scroll', handleScroll)
+	} else {
+		window.addEventListener('scroll', handleScroll)
+	}
+	
+	handleScroll()
 }
 
 // here goes all the scroll related animations
@@ -631,6 +652,7 @@ function initScripts() {
 	scrollTriggerAnimations()
 	initLucide()
 	initReadMore()
+	initTopMenu()
 	showHideGrid()
 }
 

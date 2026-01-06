@@ -1,0 +1,43 @@
+@use '../variables' as *;
+
+#main-content {
+    &.contact {
+        .banner {
+
+        }
+
+        .middle {
+            .desc {
+                @media #{$mq-lg-min} {
+                    width: 90%;
+                }
+            }
+
+            .box {
+                @media #{$mq-md-max} {
+                    margin-block: var(--small) var(--big);
+                }
+
+                .row {
+                    > div {
+                        &:nth-child(even) {
+                            padding-left: .5rem;
+                        }
+
+                        &:nth-child(odd) {
+                            padding-right: .5rem;
+                        }
+                    }
+                }
+
+                .input {
+                    background-color: $pure-white;
+                }
+            }
+        }
+
+        .faq-section {
+            background-color: $pure-white;
+        }
+    }
+}

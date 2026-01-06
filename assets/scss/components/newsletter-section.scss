@@ -53,12 +53,17 @@
 				}
 			}
 
-			.line-wrapper {
+			.form-line {
 				width: 100%;
-				margin-bottom: .5rem;
+				margin-bottom: 0;
 
-				@media #{$mq-sm-min} {
-					margin-bottom: 0;
+				.line-wrapper {
+					width: 100%;
+					margin-bottom: .5rem;
+
+					@media #{$mq-sm-min} {
+						margin-bottom: 0;
+					}
 				}
 			}
 

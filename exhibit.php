@@ -11,6 +11,15 @@
 				
 				<div class='top'>
 
+					<img
+						src='assets/img/banner.jpg'
+						alt='Background'
+						width='1920'
+						height='400'
+						loading='eager'
+						class='bg'
+					/>
+
 					<div class='left-inner'>
 
 						<h1 class='text-40 bold uppercase'>

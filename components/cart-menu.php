@@ -18,7 +18,7 @@
             <div class='cart-product-block'>
 
                 <a href='<?= $product; ?>' class='image'>
-                    <img src='assets/img/exhibits/01.png' alt='Orbix'>
+                    <img src='assets/img/thumbnail.jpg' alt='Orbix'>
                 </a>
 
                 <div class='infos'>
