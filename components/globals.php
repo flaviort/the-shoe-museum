@@ -44,6 +44,6 @@
 	$phone = '';
 
 	// production mode (set to true for builds)
-	$is_production = false;
+	$is_production = true;
 	
 ?>
