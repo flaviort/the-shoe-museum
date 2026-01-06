@@ -584,6 +584,114 @@ function initSliders() {
 		})
 	}
 
+	// also like slider
+	const alsoLikeSliderEl = selectAll('.also-like-slider')
+	
+	if (alsoLikeSliderEl) {
+		const alsoLikeSlider = new Swiper('.also-like-slider', {
+			slidesPerView: 1.2,
+			spaceBetween: 15,
+			simulateTouch: true,
+			allowTouchMove: true,
+			autoHeight: false,
+			calculateHeight: false,
+			speed: 600,
+			mousewheel: {  
+				forceToAxis: true
+			},
+			freeMode: true,
+			pagination: {
+				el: '.also-like-slider .scrollbar',
+				type: 'progressbar',
+			},
+			breakpoints: {
+				420: {
+					slidesPerView: 2,
+					spaceBetween: 20
+				},
+				767: {
+					slidesPerView: 3,
+					spaceBetween: 20
+				},
+				1200: {
+					slidesPerView: 4,
+					spaceBetween: 20
+				}
+			}
+		})
+	}
+
+	// specs slider
+	const specsSliderEl = selectAll('.specs-slider')
+	
+	if (specsSliderEl) {
+		const specsSlider = new Swiper('.specs-slider', {
+			slidesPerView: 1,
+			effect: 'fade',
+			fadeEffect: {
+				crossFade: true
+			},
+			spaceBetween: 0,
+			simulateTouch: false,
+			allowTouchMove: false,
+			autoHeight: true,
+			calculateHeight: true,
+			speed: 600,
+			pagination: {
+				el: '.specs-slider .specs-pagination',
+				clickable: true,
+				renderBullet: function (index, className) {
+					const slides = document.querySelectorAll('.specs-slider .swiper-slide')
+	
+					const title = slides[index]
+						.querySelector('h2')
+						.textContent
+						.trim()
+	
+					return `
+						<button class="${className}">
+							${title}
+						</button>
+					`
+				}
+			}
+		})
+	}
+
+	// product slider
+	const productSliderEl = selectAll('.product-slider')
+	
+	if (productSliderEl) {
+
+		const productThumbsSlider = new Swiper('.product-slider-thumbs', {
+			slidesPerView: 6,
+			watchSlidesProgress: true,
+			slideToClickedSlide: true,
+			spaceBetween: 10
+		})
+
+		const productSlider = new Swiper('.product-slider', {
+			slidesPerView: 1,
+			effect: 'fade',
+			fadeEffect: {
+				crossFade: true
+			},
+			spaceBetween: 0,
+			simulateTouch: true,
+			allowTouchMove: true,
+			autoHeight: true,
+			calculateHeight: true,
+			speed: 600,
+			navigation: {
+				nextEl: '.product-slider .next',
+				prevEl: '.product-slider .prev'
+			},
+			thumbs: {
+				swiper: productThumbsSlider
+			}
+		})
+	}
+
 }
 
 // init lucide

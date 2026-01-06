@@ -67,11 +67,10 @@
 
 @mixin text-60 {
 	font-size: 2.25rem;
-	line-height: 1.3;
+	line-height: 1.1;
 
 	@media #{$mq-sm-min} {
 		font-size: 2.5rem;
-		line-height: 1.2;
 	}
 
 	@media #{$mq-md-min} {
@@ -90,11 +89,10 @@
 
 @mixin text-40 {
 	font-size: 1.75rem;
-	line-height: 1.4;
+	line-height: 1.2;
 
 	@media #{$mq-md-min} {
 		font-size: 2rem;
-		line-height: 1.3;
 	}
 
 	@media #{$mq-lg-min} {
@@ -103,21 +101,21 @@
 
 	@media #{$mq-xl-min} {
 		font-size: 2.5rem;
-		line-height: 1.2;
+		line-height: 1;
 	}
 }
 
 @mixin text-32 {
 	font-size: 1.5rem;
-	line-height: 1.4;
+	line-height: 1.3;
 
 	@media #{$mq-md-min} {
 		font-size: 1.75rem;
+		line-height: 1.2;
 	}
 
 	@media #{$mq-lg-min} {
 		font-size: 2rem;
-		line-height: 1.3;
 	}
 }
 
