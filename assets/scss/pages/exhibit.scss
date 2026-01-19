@@ -7,9 +7,42 @@
         .main-content {
             overflow: hidden;
 
+            &.active {
+                .left-side {
+                    flex: 0 0 91.666667%;
+                    max-width: 91.666667%;
+                }
+
+                .right-side {
+                    flex: 0 0 8.333333%;
+                    max-width: 8.333333%;
+                    
+                    .wrapper {
+                        .toggle-sidebar {
+                            svg {
+                                &:first-child {
+                                    opacity: 0;
+                                }
+
+                                &:last-child {
+                                    opacity: 1;
+                                }
+                            }
+                        }
+
+                        .infos {
+                            opacity: 0;
+                            visibility: hidden;
+                            pointer-events: none;
+                        }
+                    }
+                }
+            }
+
             .left-side {
                 min-height: 100vh;
                 padding-top: 2rem;
+                transition: .3s ease-in-out;
 
                 @media #{$mq-lg-min} {
                     padding-top: 4rem;
@@ -81,6 +114,8 @@
             }
 
             .right-side {
+                transition: .3s ease-in-out;
+
                 .wrapper {
                     position: relative;
                     background-color: $pure-white;
@@ -104,6 +139,46 @@
                             height: 100%;
                             background-color: $pure-white;
                         }
+                    }
+
+                    .toggle-sidebar {
+                        position: relative;
+                        display: none;
+                        align-items: center;
+                        justify-content: center;
+                        width: 2.75rem;
+                        height: 2.75rem;
+                        border-radius: 50%;
+                        border: 1px solid $gray-lightest;
+                        margin-block-end: 2rem;
+                        transition: .2s ease-in-out;
+
+                        @media #{$mq-xl-min} {
+                            display: flex;
+                        }
+
+                        &:hover,
+                        &:focus-visible {
+                            background-color: $gray-lightest;
+                        }
+
+                        svg {
+                            width: 1.25rem;
+                            height: 1.25rem;
+                            color: $gray-medium;
+
+                            &:last-child {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                opacity: 0;
+                            }
+                        }
+                    }
+
+                    .infos {
+                        transition: .3s ease-in-out;
                     }
 
                     .image {

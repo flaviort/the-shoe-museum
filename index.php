@@ -76,7 +76,7 @@
 			</h2>
 
 			<p class='text-20'>
-				Every shoe has a <i>history</i>.
+				Every shoe has a <i>story</i>.
 			</p>
 
 		</div>

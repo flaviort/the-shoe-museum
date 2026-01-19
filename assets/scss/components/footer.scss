@@ -9,16 +9,27 @@
 		justify-content: space-between;
 		gap: 1rem;
 
-		.logo {
+		.left {
 			display: flex;
-			width: 3rem;
+			align-items: center;
+			gap: 2rem;
 
-			@media #{$mq-md-min} {
-				width: 3.5rem;
+			.logo {
+				display: flex;
+				width: 3rem;
+
+				@media #{$mq-md-min} {
+					width: 3.5rem;
+				}
+
+				img {
+					width: 100%;
+				}
 			}
 
-			img {
-				width: 100%;
+			ul {
+				display: flex;
+				gap: 1rem;
 			}
 		}
 

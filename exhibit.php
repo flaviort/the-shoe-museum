@@ -27,7 +27,7 @@
 						</h1>
 
 						<p class='uppercase medium date'>
-							May 2025
+							Drop Date: May 2025
 						</p>
 
 					</div>
@@ -114,109 +114,118 @@
 
 					<div class='relative z2'>
 
-						<div class='image'>
-							<img
-								src='assets/img/exhibits/designer.jpg'
-								alt='Justin Taylor'
-								width='300'
-								height='300'
-								loading='lazy'
-								class='cover'
-							/>
-						</div>
+						<button class='toggle-sidebar'>
+							<i data-lucide='chevron-right'></i>
+							<i data-lucide='chevron-left'></i>
+						</button>
 
-						<h3 class='name text-20 bold'>
-							Justin Taylor
-						</h3>
+						<div class='infos'>
 
-						<p class='text-14 title'>
-							<i>
-								Creative Director and Leading Footwear Designer
-							</i>
-						</p>
-
-						<div class='description text-14'>
-							<div class='read-more-wrapper'>
-
-								<div class='read-more-content'>
-									<p>
-										Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et. <br /><br />
-
-										Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et.<br /><br >
-
-										Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et.<br /><br >
-
-										Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et.
-									</p>
-								</div>
-
-								<button class='hover-underline text-14 green bold read-more-button'>
-									Read more
-								</button>
-
+							<div class='image'>
+								<img
+									src='assets/img/exhibits/designer.jpg'
+									alt='Justin Taylor'
+									width='300'
+									height='300'
+									loading='lazy'
+									class='cover'
+								/>
 							</div>
+
+							<h3 class='name text-20 bold'>
+								Justin Taylor
+							</h3>
+
+							<p class='text-14 title'>
+								<i>
+									Creative Director and Leading Footwear Designer
+								</i>
+							</p>
+
+							<div class='description text-14'>
+								<div class='read-more-wrapper'>
+
+									<div class='read-more-content'>
+										<p>
+											Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et. <br /><br />
+
+											Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et.<br /><br >
+
+											Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et.<br /><br >
+
+											Lorem ipsum dolor sit amet consectetur. Eu odio dui elementum elementum purus. Lacus nec sed quam tortor lorem enim malesuada. Vitae aliquam convallis id auctor netus dolor fames. Enim ac et fusce tempus aliquam urna vel et.
+										</p>
+									</div>
+
+									<button class='hover-underline text-14 green bold read-more-button'>
+										Read more
+									</button>
+
+								</div>
+							</div>
+
+							<a
+								href='#'
+								target='_blank'
+								rel='noopener noreferrer'
+								class='hover-underline text-14 website'
+							>
+								Designer's Portfolio <i data-lucide='arrow-right'></i>
+							</a>
+
+							<ul class='social'>
+								
+								<li>
+									<a
+										href='#'
+										target='_blank'
+										rel='noopener noreferrer'
+									>
+										<?= file_get_contents('assets/svg/social/instagram.svg'); ?>
+									</a>
+								</li>
+
+								<li>
+									<a
+										href='#'
+										target='_blank'
+										rel='noopener noreferrer'
+									>
+										<?= file_get_contents('assets/svg/social/linkedin.svg'); ?>
+									</a>
+								</li>
+
+								<li>
+									<a
+										href='#'
+										target='_blank'
+										rel='noopener noreferrer'
+									>
+										<?= file_get_contents('assets/svg/social/behance.svg'); ?>
+									</a>
+								</li>
+
+							</ul>
+
+							<a
+								href='<?= $product; ?>'
+								class='button button--green'
+							>
+
+								<span class='text'>
+									Shop this shoe
+								</span>
+
+								<span class='icon'>
+									<i data-lucide='arrow-right'></i>
+								</span>
+
+							</a>
+
 						</div>
-
-						<a
-							href='#'
-							target='_blank'
-							rel='noopener noreferrer'
-							class='hover-underline text-14 website'
-						>
-							Designer's Portfolio <i data-lucide='arrow-right'></i>
-						</a>
-
-						<ul class='social'>
-							
-							<li>
-								<a
-									href='#'
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									<?= file_get_contents('assets/svg/social/instagram.svg'); ?>
-								</a>
-							</li>
-
-							<li>
-								<a
-									href='#'
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									<?= file_get_contents('assets/svg/social/linkedin.svg'); ?>
-								</a>
-							</li>
-
-							<li>
-								<a
-									href='#'
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									<?= file_get_contents('assets/svg/social/behance.svg'); ?>
-								</a>
-							</li>
-
-						</ul>
-
-						<a
-							href='<?= $product; ?>'
-							class='button button--green'
-						>
-
-							<span class='text'>
-								Shop this shoe
-							</span>
-
-							<span class='icon'>
-								<i data-lucide='arrow-right'></i>
-							</span>
-
-						</a>
 
 					</div>
-
+					
 				</div>
 			</div>
 			

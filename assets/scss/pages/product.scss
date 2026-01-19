@@ -41,6 +41,11 @@
                     
                     }
 
+                    .designer {
+                        display: block;
+                        margin-top: -.5rem;
+                    }
+
                     .tags {
                         display: flex;
                         flex-wrap: wrap;
@@ -178,6 +183,12 @@
                     
                     }
 
+                    .designer {
+                        display: block;
+                        margin-top: -.25rem;
+                        margin-bottom: .5rem;
+                    }
+
                     .tags {
                         display: flex;
                         flex-wrap: wrap;
@@ -306,11 +317,33 @@
                 &__nav {
                     position: relative;
                     overflow: auto;
+                    display: flex;
+                    align-items: flex-end;
+                    border-bottom: 1px solid $gray-lightest;
+
+                    a {
+                        width: auto;
+                        height: auto;
+                        border: none;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        padding: .25rem 1rem;
+                        border-bottom: .175rem solid transparent;
+                        background-color: transparent;
+                        text-transform: uppercase;
+                        font-weight: $medium;
+                        opacity: .5;
+
+                        &:hover,
+                        &:focus-visible {
+                            border-color: $gray-lighter;
+                        }
+                    }
 
                     .specs-pagination {
                         display: flex;
                         align-items: flex-end;
-                        border-bottom: 1px solid $gray-lightest;
+                        width: auto;
 
                         button {
                             width: auto;

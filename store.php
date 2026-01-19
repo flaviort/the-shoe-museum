@@ -14,13 +14,13 @@
 		class='cover'
 	/>
 
-	<div class='container py-medium white'>
+	<div class='container py-smaller white'>
 
 		<h1 class='text-60 uppercase bold'>
-			Our Products
+			Curated Collections
 		</h1>
 
-		<div class='categories text-20 mt-smaller'>
+		<div class='categories text-20 mt-1'>
 
 			<a href='#' class='selected'>
 				All
@@ -122,9 +122,9 @@
 
 				<span class='product-block__tags'>
 
-					<span class='tag'>
+					<!--span class='tag'>
 						10% OFF
-					</span>
+					</span-->
 
 					<span class='tag'>
 						Few units left
@@ -151,7 +151,7 @@
 					<p class='product-block__price'>
 						<small>from</small>
 						$26.95
-						<s>$29.95</s>
+						<!--s>$29.95</s-->
 					</p>
 
 				</span>
@@ -278,9 +278,9 @@
 
 				<span class='product-block__tags'>
 
-					<span class='tag'>
+					<!--span class='tag'>
 						10% OFF
-					</span>
+					</span-->
 
 					<span class='tag'>
 						Few units left
@@ -307,7 +307,7 @@
 					<p class='product-block__price'>
 						<small>from</small>
 						$26.95
-						<s>$29.95</s>
+						<!--s>$29.95</s-->
 					</p>
 
 				</span>
@@ -434,9 +434,9 @@
 
 				<span class='product-block__tags'>
 
-					<span class='tag'>
+					<!--span class='tag'>
 						10% OFF
-					</span>
+					</span-->
 
 					<span class='tag'>
 						Few units left
@@ -463,7 +463,7 @@
 					<p class='product-block__price'>
 						<small>from</small>
 						$26.95
-						<s>$29.95</s>
+						<!--s>$29.95</s-->
 					</p>
 
 				</span>
@@ -590,9 +590,9 @@
 
 				<span class='product-block__tags'>
 
-					<span class='tag'>
+					<!--span class='tag'>
 						10% OFF
-					</span>
+					</span-->
 
 					<span class='tag'>
 						Few units left
@@ -619,7 +619,7 @@
 					<p class='product-block__price'>
 						<small>from</small>
 						$26.95
-						<s>$29.95</s>
+						<!--s>$29.95</s-->
 					</p>
 
 				</span>

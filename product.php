@@ -26,6 +26,10 @@
 						The Shoe Museum Original Classic T-Shirt - Kelly Green
 					</h1>
 
+					<h2 class='text-20 designer'>
+						<i>Designer: Flávio R. Troszczanczuk</i>
+					</h2>
+
 					<div class='tags'>
 
 						<span class='tag'>
@@ -130,6 +134,10 @@
 						The Shoe Museum Original Classic T-Shirt - Kelly Green
 					</h1>
 
+					<h2 class='text-20 designer'>
+						<i>Designer: Flávio R. Troszczanczuk</i>
+					</h2>
+
 					<div class='tags'>
 
 						<span class='tag'>
@@ -220,7 +228,7 @@
 				<button class='open-cart button button--green uppercase text-20'>
 
 					<span class='text'>
-						Boy now - 
+						Buy now - 
 					</span>
 
 					<span class='price bold'>
@@ -250,7 +258,13 @@
 		<div class='specs-slider swiper'>
 
 			<div class='specs-slider__nav mb-smallest'>
+
 				<div class='specs-pagination'></div>
+
+				<a href='<?= $exhibit; ?>'>
+					Exhibit
+				</a>
+
 			</div>
 
 			<div class='swiper-wrapper'>
@@ -306,26 +320,6 @@
 									</li>
 
 								</ul>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-				<div class='swiper-slide'>
-					<div class='specs-slider__flex'>
-
-						<h2 class='text-40 bold green uppercase'>
-							More Details
-						</h2>
-
-						<div class='specs-slider__details'>
-							<div class='rich-text'>
-								<p>
-									Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem sapiente molestiae pariatur veniam, dolor quidem, commodi natus minus odio ratione ex optio corrupti architecto aperiam ab necessitatibus. Perferendis maxime odio hic voluptas temporibus. Velit, perspiciatis consectetur qui architecto hic excepturi ex aliquid nobis, culpa minima, earum aliquam dolores ipsum sint quisquam nostrum dolore ad odit totam nihil quam deleniti quae. <br /><br />
-									
-									Amet ut illo nemo veritatis reprehenderit, veniam quia praesentium neque illum, reiciendis consequuntur? Enim vero obcaecati optio aperiam incidunt illum fugiat, reiciendis quae ducimus voluptate quibusdam autem, nihil iste placeat id iusto ex commodi assumenda voluptatum atque, suscipit omnis.
-								</p>
 							</div>
 						</div>
 
