@@ -79,17 +79,19 @@ function evalPhpExpression(expr, vars, projectRoot) {
 }
 
 function runPhpBlock(code, vars, renderInclude) {
-    const normalized = code.replace(/\r\n/g, '\n').trim()
+    let normalized = code.replace(/\r\n/g, '\n').trim()
 
     const emptyAssignMatch = normalized.match(
         /if\s*\(\s*empty\(\s*\$([A-Za-z_]\w*)\s*\)\s*\)\s*\{\s*\$([A-Za-z_]\w*)\s*=\s*(['"])(.*?)\3\s*;?\s*\}\s*else\s*\{\s*\$\2\s*=\s*\$\1\s*\.\s*(['"])(.*?)\5\s*;?\s*\}/s
     )
 
     if (emptyAssignMatch) {
-        const [, sourceVar, targetVar, , emptyValue, , suffix] = emptyAssignMatch
+        const [fullMatch, sourceVar, targetVar, , emptyValue, , suffix] = emptyAssignMatch
         const sourceValue = vars[sourceVar]
         vars[targetVar] = sourceValue ? String(sourceValue) + suffix : emptyValue
-        return ''
+
+        // Remove this block so generic assignment parsing doesn't override it
+        normalized = normalized.replace(fullMatch, '')
     }
 
     const titleMatch = normalized.includes('isset($post_title)') && normalized.includes('$site_title')
