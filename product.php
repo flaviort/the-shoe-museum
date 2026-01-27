@@ -3,7 +3,7 @@
 	include('components/head.php');
 ?>
 
-<section class='top-part pt-medium pt-md-smaller'>
+<section class='top-part pt-small pt-md-smaller'>
 	<div class='container'>	
 		<div class='row'>
 
@@ -20,7 +20,7 @@
 					/>
 				</div>
 
-				<div class='infos mb-smaller'>
+				<div class='infos mb-smallest'>
 
 					<h1 class='title text-40 bold uppercas'>
 						The Shoe Museum Original Classic T-Shirt - Kelly Green
@@ -29,14 +29,6 @@
 					<h2 class='text-20 designer'>
 						<i>Designer: Flávio R. Troszczanczuk</i>
 					</h2>
-
-					<div class='tags'>
-
-						<span class='tag'>
-							Just arrived
-						</span>
-
-					</div>
 
 				</div>
 
@@ -128,7 +120,7 @@
 
 			<div class='col-md-6 mt-smallest mt-md-0 right'>
 
-				<div class='infos mb-smaller'>
+				<div class='infos mb-smallest'>
 
 					<h1 class='title text-40 bold uppercas'>
 						The Shoe Museum Original Classic T-Shirt - Kelly Green
@@ -137,14 +129,6 @@
 					<h2 class='text-20 designer'>
 						<i>Designer: Flávio R. Troszczanczuk</i>
 					</h2>
-
-					<div class='tags'>
-
-						<span class='tag'>
-							Just arrived
-						</span>
-
-					</div>
 
 				</div>
 

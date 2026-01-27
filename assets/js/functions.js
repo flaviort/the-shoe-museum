@@ -35,11 +35,17 @@ function getCookie(name) {
 function initClickAndKeyFunctions() {
 
 	// toggle sidebar
-	document.querySelector('.toggle-sidebar').addEventListener('click', function(e) {
-		e.preventDefault()
-		const parent = this.closest('.main-content')
-		parent.classList.toggle('active')
-	})
+	const toggleSidebarButton = document.querySelector('.toggle-sidebar')
+
+	if (toggleSidebarButton) {
+		toggleSidebarButton.addEventListener('click', function(e) {
+			e.preventDefault()
+			const parent = this.closest('.main-content')
+			if (parent) {
+				parent.classList.toggle('active')
+			}
+		})
+	}
 
 	// make anchor links scroll smoothy
 	document.querySelectorAll('.sliding-link').forEach(link => {
