@@ -107,32 +107,7 @@
                         overflow: hidden;
                         display: block;
                         width: 100%;
-                        padding: 2rem 1rem;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        @media #{$mq-md-min} {
-                            padding: 4rem 2rem;
-                        }
-
-                        .logo {
-                            position: relative;
-                            z-index: 2;
-                            width: 8rem;
-
-                            @media #{$mq-sm-min} {
-                                width: 10rem;
-                            }
-
-                            @media #{$mq-md-min} {
-                                width: 12rem;
-                            }
-
-                            @media #{$mq-lg-min} {
-                                width: 15rem;
-                            }
-                        }
+                        aspect-ratio: 16 / 9;
                     }
                 }
             }

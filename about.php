@@ -38,23 +38,19 @@
 
 				<div class='image-container'>
 
-					<img
-						src='assets/img/banner.jpg'
-						alt=''
-						width='1483'
-						height='853'
+					<video
+						autoplay
+						playsinline
+						muted
+						loop
 						loading='lazy'
 						class='cover'
-					/>
-					
-					<img
-						src='assets/img/logo.png'
-						alt='The Shoe Museum Logo'
-						width='316'
-						height='392'
-						loading='lazy'
-						class='logo'
-					/>
+					>
+						<source
+							src='assets/videos/tsm-logo.mp4'
+							type='video/mp4'
+						>
+					</video>
 
 				</div>
 
