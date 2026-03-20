@@ -1,0 +1,34 @@
+<section class="about pt-small">
+  <div class="container">
+    <div class="flex">
+      <div class="capitalize text-40 text-reveal">
+        {{ section.settings.line1 }}<br>{{ section.settings.line2 }}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Tagline",
+  "settings": [
+    {
+      "type": "text",
+      "id": "line1",
+      "label": "Line 1",
+      "default": "Where passion fuels creation, stories add"
+    },
+    {
+      "type": "text",
+      "id": "line2",
+      "label": "Line 2",
+      "default": "meaning, and wearing becomes expression."
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Tagline"
+    }
+  ]
+}
+{% endschema %}

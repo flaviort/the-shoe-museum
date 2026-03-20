@@ -1,0 +1,40 @@
+@use '../variables' as *;
+
+.footer {
+	overflow: hidden;
+
+	.flex {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+
+		.left {
+			display: flex;
+			align-items: center;
+			gap: 2rem;
+
+			.logo {
+				display: flex;
+				width: 3rem;
+
+				@media #{$mq-md-min} {
+					width: 3.5rem;
+				}
+
+				img {
+					width: 100%;
+				}
+			}
+
+			ul {
+				display: flex;
+				gap: 1rem;
+			}
+		}
+
+		.right {
+			
+		}
+	}
+}

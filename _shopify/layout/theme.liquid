@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ 'logo.png' | asset_url }}">
+
+    <!-- Author -->
+    <meta name="author" content="{{ shop.name }}">
+
+    <!-- Title -->
+    <title>
+      {%- if page_title == blank -%}
+        {{ shop.name }}
+      {%- else -%}
+        {{ page_title }} | {{ shop.name }}
+      {%- endif -%}
+    </title>
+
+    <!-- Description & Canonical -->
+    <meta name="description" content="{{ page_description | default: settings.site_description | default: shop.description | escape }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <!-- Open Graph -->
+    <meta property="og:locale" content="{{ request.locale.iso_code }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+    <meta property="og:description" content="{{ page_description | default: settings.site_description | default: shop.description | escape }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:site_name" content="{{ shop.name }}">
+    {%- if page_image -%}
+      <meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">
+      <meta property="og:image:secure_url" content="{{ page_image | image_url: width: 1200 }}">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    {%- elsif settings.og_image != blank -%}
+      <meta property="og:image" content="{{ settings.og_image | image_url: width: 1200 }}">
+      <meta property="og:image:secure_url" content="{{ settings.og_image | image_url: width: 1200 }}">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    {%- endif -%}
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | default: shop.name | escape }}">
+    <meta name="twitter:description" content="{{ page_description | default: settings.site_description | default: shop.description | escape }}">
+    {%- if page_image -%}
+      <meta name="twitter:image" content="{{ page_image | image_url: width: 1200 }}">
+    {%- elsif settings.og_image != blank -%}
+      <meta name="twitter:image" content="{{ settings.og_image | image_url: width: 1200 }}">
+    {%- endif -%}
+
+    <!-- Required by Shopify (do not remove) -->
+    {{ content_for_header }}
+
+    <!-- CSS: Vendor (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.4/dist/lenis.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.css">
+
+    <!-- CSS: Theme -->
+    {{ 'main.min.css' | asset_url | stylesheet_tag }}
+
+  </head>
+
+  <body>
+
+    <header>
+      {%- render 'menu-fullscreen' -%}
+      {%- render 'cart-drawer' -%}
+    </header>
+
+    {%- comment -%} Map Shopify template names to PHP class names for SCSS compatibility {%- endcomment -%}
+    {%- case template.name -%}
+      {%- when 'index' -%}     {%- assign page_class = 'home' -%}
+      {%- when 'article' -%}   {%- assign page_class = 'exhibit' -%}
+      {%- when 'blog' -%}      {%- assign page_class = 'exhibits' -%}
+      {%- when 'collection' -%} {%- assign page_class = 'store' -%}
+      {%- when 'product' -%}   {%- assign page_class = 'product' -%}
+      {%- when 'page' -%}      {%- assign page_class = template.suffix | default: 'page' -%}
+      {%- when '404' -%}       {%- assign page_class = '404' -%}
+      {%- else -%}             {%- assign page_class = template.name -%}
+    {%- endcase -%}
+
+    <main
+      id="main-content"
+      class="{{ page_class }}"
+    >
+      <div class="main-wrap">
+
+        {%- section 'header' -%}
+
+        {{ content_for_layout }}
+
+        {%- section 'footer' -%}
+
+      </div>
+    </main>
+
+    <!-- JS: Libraries (CDN) -->
+    <script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- JS: Theme -->
+    {{ 'main.js' | asset_url | script_tag }}
+
+  </body>
+
+</html>

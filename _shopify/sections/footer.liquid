@@ -1,0 +1,43 @@
+<section class="footer bg-black white">
+  <div class="container">
+    <div class="flex py-1 text-smaller">
+
+      <div class="left">
+
+        <a href="{{ routes.root_url }}" class="logo">
+          <img
+            src="{{ 'logo.png' | asset_url }}"
+            alt="{{ shop.name }}"
+            width="72"
+            height="93"
+          >
+        </a>
+
+        <ul>
+          <li>
+            <a href="{{ pages['privacy-policy'].url }}" class="hover-underline">
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="{{ pages['terms-of-service'].url }}" class="hover-underline">
+              Terms of Service
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+      <p class="right">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+      </p>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Footer"
+}
+{% endschema %}

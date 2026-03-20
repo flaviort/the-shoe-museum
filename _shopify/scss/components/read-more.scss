@@ -1,0 +1,16 @@
+@use '../variables' as *;
+
+.read-more-wrapper {
+	.read-more-content {
+		@include line-clamp(7);
+
+		&.active {
+			-webkit-line-clamp: unset;
+           -line-clamp: unset;
+		}
+	}
+
+	.read-more-button {
+		
+	}
+}

@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "home-banner": {
+      "type": "home-banner",
+      "settings": {}
+    },
+    "home-about": {
+      "type": "home-about",
+      "settings": {}
+    },
+    "home-exhibits": {
+      "type": "home-exhibits",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "home-banner",
+    "home-about",
+    "home-exhibits",
+    "newsletter"
+  ]
+}

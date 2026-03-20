@@ -1,0 +1,112 @@
+<section id="cart-menu" style="display: none" data-lenis-prevent>
+  <div class="wrapper">
+
+    <div class="top">
+
+      <h2 class="h3">
+        Your Cart
+      </h2>
+
+      <button class="close-cart">
+        <i data-lucide="x"></i>
+      </button>
+
+    </div>
+
+    <div class="middle" id="cart-items">
+      {%- if cart.item_count > 0 -%}
+
+        {%- for item in cart.items -%}
+          <div class="cart-product-block" data-key="{{ item.key }}">
+
+            <a href="{{ item.url }}" class="image">
+              {%- if item.image -%}
+                <img
+                  src="{{ item.image | image_url: width: 200 }}"
+                  alt="{{ item.image.alt | escape }}"
+                  width="200"
+                  height="200"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </a>
+
+            <div class="infos">
+
+              <a href="{{ item.url }}" class="text-32 product-name">
+                {{ item.product.title }}
+              </a>
+
+              {%- unless item.variant.title == 'Default Title' -%}
+                <p class="text-14 variant-title">{{ item.variant.title }}</p>
+              {%- endunless -%}
+
+              <p class="text-16 medium bold green product-price">
+                <span class="current">{{ item.final_price | money }}</span>
+              </p>
+
+              <div class="quantity">
+                <div class="form-line">
+                  <div class="line-wrapper">
+
+                    <input
+                      class="input"
+                      type="number"
+                      value="{{ item.quantity }}"
+                      min="1"
+                      data-key="{{ item.key }}"
+                    />
+
+                    <div class="buttons">
+
+                      <button class="increase" data-key="{{ item.key }}" aria-label="Increase quantity">
+                        <i data-lucide="chevron-up"></i>
+                      </button>
+
+                      <button class="decrease" data-key="{{ item.key }}" aria-label="Decrease quantity">
+                        <i data-lucide="chevron-down"></i>
+                      </button>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <button class="remove-product" data-key="{{ item.key }}" aria-label="Remove item">
+              <i data-lucide="trash"></i>
+            </button>
+
+          </div>
+        {%- endfor -%}
+
+      {%- else -%}
+        <p class="cart-empty text-16">Your cart is empty.</p>
+      {%- endif -%}
+    </div>
+
+    <div class="subtotal">
+      <p class="h4">Subtotal</p>
+      <p class="h4" id="cart-subtotal">{{ cart.total_price | money }}</p>
+    </div>
+
+    <div class="shipping">
+      <p class="text-14">
+        Shipping and taxes are calculated at checkout.
+      </p>
+    </div>
+
+    <a href="{{ routes.checkout_url }}" class="button button--green checkout uppercase">
+      <span class="text">Checkout</span>
+      <span class="icon"><i data-lucide="arrow-right"></i></span>
+    </a>
+
+    <div class="cards">
+      <p class="text-14">We accept</p>
+      {%- render 'payment-icons' -%}
+    </div>
+
+  </div>
+</section>

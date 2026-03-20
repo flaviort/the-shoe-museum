@@ -1,0 +1,149 @@
+<section class="banner">
+
+  {%- if section.settings.bg_video != blank -%}
+    <video autoplay muted loop playsinline class="cover">
+      <source src="{{ section.settings.bg_video }}" type="video/mp4">
+    </video>
+  {%- elsif section.settings.bg_image != blank -%}
+    <img
+      src="{{ section.settings.bg_image | image_url: width: 1920 }}"
+      width="1710"
+      height="960"
+      alt="Banner"
+      class="cover"
+      loading="eager"
+    >
+  {%- else -%}
+    <img
+      src="{{ 'banner.jpg' | asset_url }}"
+      width="1710"
+      height="960"
+      alt="Banner"
+      class="cover"
+      loading="eager"
+    >
+  {%- endif -%}
+
+  <div class="container relative z2">
+    <div class="flex">
+
+      <div class="left">
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="uppercase text-24 medium">
+            {{ section.settings.subtitle }}
+          </p>
+        {%- endif -%}
+
+        <h1 class="text-100 uppercase">
+          <strong>
+            {{ section.settings.title | newline_to_br }}
+          </strong>
+        </h1>
+
+        {%- if section.settings.button_text != blank -%}
+          <a
+            href="{{ section.settings.button_url | default: '#newsletter' }}"
+            class="button button--hollow uppercase sliding-link"
+          >
+            <span class="text">{{ section.settings.button_text }}</span>
+          </a>
+        {%- endif -%}
+
+      </div>
+
+      {%- if section.settings.shoe_image != blank -%}
+        <img
+          src="{{ section.settings.shoe_image | image_url: width: 1000 }}"
+          loading="lazy"
+          width="943"
+          height="655"
+          class="shoe"
+          alt="{{ section.settings.shoe_image.alt | default: shop.name }}"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'banner.png' | asset_url }}"
+          loading="lazy"
+          width="943"
+          height="655"
+          class="shoe"
+          alt="{{ shop.name }}"
+        >
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Welcome to"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "info": "Use line breaks to control how the title wraps.",
+      "default": "The\nShoe\nMuseum"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Text",
+      "default": "Join our mailing list"
+    },
+    {
+      "type": "text",
+      "id": "button_url",
+      "label": "URL",
+      "default": "#newsletter",
+      "info": "Use #newsletter to scroll to the newsletter section, or enter any URL."
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "bg_video",
+      "label": "Background Video URL",
+      "info": "MP4 URL only. If set, takes priority over the background image."
+    },
+    {
+      "type": "header",
+      "content": "Shoe Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "shoe_image",
+      "label": "Featured Shoe Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,118 @@
+@use '../variables' as *;
+
+#main-content {
+    &.home {
+        .banner {
+            position: relative;
+        
+            .flex {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                min-height: 95svh;
+                text-align: center;
+                padding: 9rem 0 3rem 0;
+
+                @media #{$mq-lg-min} {
+                    justify-content: space-between;
+                    gap: 2rem;
+                    flex-direction: row;
+                    text-align: left;
+                    min-height: 85svh;
+                    padding: 7rem 0 5rem 0;
+                }
+
+                .left {
+                    position: relative;
+                    z-index: 2;
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+
+                    p {
+                        @media #{$mq-md-min} {
+                            letter-spacing: .125rem;
+                        }
+                    }
+
+                    a {
+                        display: block;
+                        width: fit-content;
+                        margin-block-start: .5rem;
+
+                        @media #{$mq-md-min} {
+                            letter-spacing: .15rem;
+                        }
+
+                        @media #{$mq-lg-max} {
+                            margin: 1rem auto 0 auto;
+                        }
+                    }
+                }
+            }
+
+            .shoe {
+                display: block;
+                margin-top: var(--smaller);
+                width: 95%;
+
+                @media #{$mq-sm-min} {
+                    width: 90%;
+                }
+
+                @media #{$mq-md-min} {
+                    width: 80%;
+                }
+
+                @media #{$mq-lg-min} {
+                    margin: auto;
+                    transform: translateY(1rem) translateX(-2rem);
+                    width: 50rem;
+                    max-width: 57.5vw;
+                }
+            }
+        }
+
+        .about {
+            .flex {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 90svh;
+                text-align: center;
+            }
+        }
+
+        .exhibits {
+            .top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+
+                h2 {
+
+                }
+
+                p {
+
+                }
+            }
+
+            .grid {
+                display: grid;
+                gap: .25rem;
+
+                @media #{$mq-md-min} {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                @media #{$mq-xl-min} {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+        }
+    }
+}

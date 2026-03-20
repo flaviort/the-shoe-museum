@@ -1,0 +1,164 @@
+<section id="newsletter" class="newsletter-section py-medium py-md-small">
+  <div class="container">
+
+    <div class="top">
+
+      <div class="text-60 uppercase bold text-reveal">
+        {{ section.settings.title }}
+      </div>
+
+      {%- if section.settings.description != blank -%}
+        <div class="text-24 mt-1 mb-smaller desc text-reveal">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+    </div>
+
+    <div class="content">
+
+      {%- form 'customer' -%}
+
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        {%- if form.posted_successfully? -%}
+          <p class="form-success">
+            {{ section.settings.success_message }}
+          </p>
+        {%- else -%}
+
+          {%- if form.errors -%}
+            <p class="form-error">
+              {{ form.errors | default_errors }}
+            </p>
+          {%- endif -%}
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-line">
+                <div class="line-wrapper">
+                  <input
+                    type="text"
+                    name="contact[first_name]"
+                    placeholder="{{ section.settings.label_first_name }}"
+                    class="input"
+                    autocomplete="given-name"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-line">
+                <div class="line-wrapper">
+                  <input
+                    type="text"
+                    name="contact[last_name]"
+                    placeholder="{{ section.settings.label_last_name }}"
+                    class="input"
+                    autocomplete="family-name"
+                  >
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex">
+
+            <div class="form-line">
+              <div class="line-wrapper">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  placeholder="{{ section.settings.label_email }}"
+                  class="input"
+                  required
+                  autocomplete="email"
+                >
+              </div>
+            </div>
+
+            <button type="submit" class="button button--solid uppercase">
+              <span class="text">
+                {{ section.settings.button_text }}
+              </span>
+              <span class="icon">
+                <i data-lucide="arrow-right"></i>
+              </span>
+            </button>
+
+          </div>
+
+        {%- endif -%}
+
+      {%- endform -%}
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Join our mailing list"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Be the first to receive updates regarding the launch of The Shoe Museum."
+    },
+    {
+      "type": "header",
+      "content": "Form Labels"
+    },
+    {
+      "type": "text",
+      "id": "label_first_name",
+      "label": "First Name Placeholder",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "label_last_name",
+      "label": "Last Name Placeholder",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Email Placeholder",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Sign up"
+    },
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thanks for subscribing!"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,82 @@
+{%- comment -%}
+  Snippet: exhibit-card.liquid
+  Expects: article (article object)
+
+  Required metafields (namespace: custom, on Blog posts):
+    - designer_name → single_line_text_field
+    - year          → single_line_text_field
+  Note: short_description uses article.excerpt (strip_html)
+{%- endcomment -%}
+
+{%- assign designer_name = article.metafields.custom.designer_name.value -%}
+{%- assign year          = article.metafields.custom.year.value -%}
+{%- assign short_desc    = article.excerpt | strip_html | strip_newlines -%}
+
+<a href="{{ article.url }}" class="exhibit-block">
+
+  <span class="exhibit-block__overlay">
+
+    <span class="exhibit-block__overlay__top">
+
+      {%- if designer_name != blank -%}
+        <span class="exhibit-block__overlay__top__artist text-24 bold">
+          {{ designer_name }}
+        </span>
+      {%- endif -%}
+
+      {%- if short_desc != blank -%}
+        <span class="exhibit-block__overlay__top__title">
+          {{ short_desc }}
+        </span>
+      {%- endif -%}
+
+    </span>
+
+    <span class="exhibit-block__overlay__bottom">
+      View Project <i data-lucide="arrow-right"></i>
+    </span>
+
+  </span>
+
+  <span class="exhibit-block__wrapper">
+
+    <span class="exhibit-block__wrapper__top">
+
+      <span class="exhibit-block__wrapper__top__left">
+
+        <span class="exhibit-block__wrapper__top__left__title text-24 bold">
+          {{ article.title }}
+        </span>
+
+        {%- if year != blank -%}
+          <span class="exhibit-block__wrapper__top__left__year">
+            {{ year }}
+          </span>
+        {%- endif -%}
+
+      </span>
+
+      {%- if designer_name != blank -%}
+        <span class="exhibit-block__wrapper__top__right text-20 bold">
+          {{ designer_name }}
+        </span>
+      {%- endif -%}
+
+    </span>
+
+    <span class="exhibit-block__wrapper__image">
+      {%- if article.image != blank -%}
+        <img
+          src="{{ article.image | image_url: width: 800 }}"
+          alt="{{ article.image.alt | default: article.title }}"
+          class="cover"
+          loading="lazy"
+          width="400"
+          height="250"
+        >
+      {%- endif -%}
+    </span>
+
+  </span>
+
+</a>

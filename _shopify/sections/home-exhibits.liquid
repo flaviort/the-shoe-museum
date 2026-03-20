@@ -1,0 +1,80 @@
+{%- assign exhibit_blog = blogs['exhibits'] -%}
+
+<section class="exhibits py-medium py-md-small bg-gray-lightest">
+  <div class="container">
+
+    <div class="top">
+
+      <h2 class="text-60 uppercase bold">
+        {{ section.settings.title }}
+      </h2>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="text-20">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+
+    </div>
+
+    <div class="grid mt-smaller">
+      {%- for article in exhibit_blog.articles limit: 9 -%}
+        {%- render 'exhibit-card', article: article -%}
+      {%- endfor -%}
+    </div>
+
+    <a
+      href="{{ blogs['exhibits'].url | default: '/blogs/exhibits' }}"
+      class="button button--hollow uppercase mt-smallest"
+    >
+      <span class="text">
+        {{ section.settings.button_text }}
+      </span>
+
+      <span class="icon">
+        <i data-lucide="arrow-right"></i>
+      </span>
+    </a>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Exhibits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Exhibits"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every shoe has a story."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Exhibits"
+    }
+  ]
+}
+{% endschema %}

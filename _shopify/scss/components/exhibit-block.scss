@@ -1,0 +1,88 @@
+@use '../variables' as *;
+
+.exhibit-block {
+	position: relative;
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	background-color: $pure-white;
+
+	&:hover,
+	&:focus-visible {
+		.exhibit-block__overlay {
+			opacity: 1;
+		}
+	}
+
+	&__overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		background-color: rgba($green, .975);
+		color: $white;
+		opacity: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		transition: opacity .2s ease-in-out;
+		padding: 1rem;
+
+		&__top {
+			display: flex;
+			flex-direction: column;
+		}
+
+		&__bottom {
+			display: flex;
+			align-items: center;
+			gap: .25rem;
+
+			i,
+			svg {
+				width: 1rem;
+				min-width: 1rem;
+				height: 1rem;
+			}
+		}
+	}
+
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		padding: .75rem;
+		width: 100%;
+
+		&__top {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 1rem;
+
+			&__left {
+				display: flex;
+				flex-direction: column;
+
+				&__title {
+					
+				}
+			}
+
+			&__right {
+
+			}
+		}
+
+		&__image {
+			position: relative;
+			overflow: hidden;
+			display: block;
+			width: 100%;
+			height: auto;
+			aspect-ratio: 4 / 2.75;
+			margin-block-start: 1rem;
+		}
+	}
+}

@@ -1,0 +1,30 @@
+@use '../variables' as *;
+
+body {
+	.fancybox__dialog {
+		.fancybox__container {
+			.fancybox__carousel {
+				.fancybox__viewport {
+					.fancybox__slide {
+						padding-top: 4px;
+
+						&:before {
+							//content: none;
+						}
+
+						#contact-modal {
+							> .is-close-btn {
+								display: none;
+							}
+						}
+
+						.f-html {
+							max-width: 90%;
+							max-height: 90%;
+						}
+					}
+				}
+			}
+		}
+	}
+}

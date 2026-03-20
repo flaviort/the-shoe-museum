@@ -1,0 +1,78 @@
+<section class="top-menu py-half py-lg-1">
+  <div class="container">
+    <div class="flex">
+
+      <a href="{{ routes.root_url }}" class="logo">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 200 }}"
+            alt="{{ section.settings.logo.alt | default: shop.name }}"
+            width="72"
+            height="93"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'logo.png' | asset_url }}"
+            alt="{{ shop.name }}"
+            width="72"
+            height="93"
+          >
+        {%- endif -%}
+      </a>
+
+      <ul class="menu">
+        {%- for link in linklists[section.settings.menu].links -%}
+          <li>
+            <a
+              href="{{ link.url }}"
+              class="hover-underline"
+              {%- if link.active %} aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="right">
+        <div class="side-icons">
+
+          <button class="open-cart" aria-label="View Cart">
+            <i data-lucide="shopping-cart"></i>
+            <div class="has-items"></div>
+          </button>
+
+          <a href="{{ routes.account_url }}" class="login" aria-label="Account">
+            <i data-lucide="user"></i>
+          </a>
+
+          <button class="open-fs" aria-label="Open Menu">
+            <i data-lucide="menu"></i>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu",
+      "info": "Set up your menu links in Online Store > Navigation."
+    }
+  ]
+}
+{% endschema %}
