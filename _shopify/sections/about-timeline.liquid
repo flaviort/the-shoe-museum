@@ -1,0 +1,137 @@
+<section class="middle py-small">
+  <div class="container">
+
+    {%- for block in section.blocks -%}
+      <div class="flex" {{ block.shopify_attributes }}>
+
+        <div class="line">
+          <div class="point">
+            <p class="text-18 medium">
+              {{ block.settings.year }}
+            </p>
+          </div>
+        </div>
+
+        <div class="content">
+
+          {%- assign has_media = false -%}
+          {%- if block.settings.video != blank or block.settings.image != blank -%}
+            {%- assign has_media = true -%}
+            <div class="image-container">
+              {%- if block.settings.video != blank -%}
+                <video
+                  autoplay
+                  playsinline
+                  muted
+                  loop
+                  loading="lazy"
+                  class="cover"
+                >
+                  {%- for source in block.settings.video.sources -%}
+                    {%- if source.mime_type == 'video/mp4' -%}
+                      <source src="{{ source.url }}" type="video/mp4">
+                    {%- endif -%}
+                  {%- endfor -%}
+                </video>
+              {%- elsif block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1200
+                  | image_tag: class: 'cover', loading: 'lazy', alt: block.settings.image.alt
+                }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.title != blank -%}
+            <h2 class="text-24 bold uppercase {% if has_media %}mt-smallest {% endif %}mb-1">
+              {{ block.settings.title }}
+            </h2>
+          {%- endif -%}
+
+          {%- if block.settings.content != blank -%}
+            <div class="rich-text">
+              {{ block.settings.content }}
+            </div>
+          {%- endif -%}
+
+        </div>
+
+      </div>
+    {%- endfor -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About — Timeline",
+  "blocks": [
+    {
+      "type": "entry",
+      "name": "Timeline Entry",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year",
+          "default": "2001"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Entry Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "If both are set, video takes priority."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About — Timeline",
+      "blocks": [
+        {
+          "type": "entry",
+          "settings": {
+            "year": "2001",
+            "title": "Original language used when presenting The Shoe Museum Logo in 2001 — Shoe Label",
+            "content": "<ul><li>Referencing the materials and common vernacular of shoes.</li><li>A nod the beauty of shoemaking and craftsmanship.</li><li>Logo and graphic language borrow from the standard utilitarian labels and iconography used on sneakers.</li><li>Simple clean typography and graphics lend modern but approachable sensibility to the brand.</li><li>Classic, timeless, depth, feel, quality, integrity</li></ul>"
+          }
+        },
+        {
+          "type": "entry",
+          "settings": {
+            "year": "2025",
+            "title": "Website Design & Development",
+            "content": "<ul><li>In 2025, The Shoe Museum started working on the website design and development.</li></ul>"
+          }
+        },
+        {
+          "type": "entry",
+          "settings": {
+            "year": "2026",
+            "title": "Website Launch",
+            "content": "<ul><li>In 2026, The Shoe Museum launched its website to showcase its collection of shoes and the stories behind them.</li></ul>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+<section class="banner">
+
+  <img
+    src="{{ 'banner.jpg' | asset_url }}"
+    alt="Contact Us Banner"
+    width="1920"
+    height="400"
+    loading="eager"
+    class="cover"
+  />
+
+  <div class="container py-medium">
+
+    <h1 class="text-60 uppercase bold white">
+      {{ section.settings.title }}
+    </h1>
+
+    {%- if section.settings.intro != blank -%}
+      <div class="row mt-half mt-md-1">
+        <div class="col-lg-8">
+          <p class="text-20 white">
+            {{ section.settings.intro }}
+          </p>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Contact — Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact Us"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro Text",
+      "default": "Need help? We will find a solution to satisfy you as soon as possible."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact — Banner"
+    }
+  ]
+}
+{% endschema %}

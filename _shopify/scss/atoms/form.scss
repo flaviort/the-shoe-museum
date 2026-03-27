@@ -5,12 +5,20 @@ form {
         pointer-events: none;
 
         button[type='submit'] {
-            .button__text {
+            pointer-events: none;
+            opacity: .75;
+
+            .text,
+            .icon {
                 opacity: 0;
             }
 
-            .button__loading {
+            .loading {
                 opacity: 1;
+
+                > span {
+                    animation: rotation .3s infinite linear;
+                }
             }
         }
     }
@@ -161,28 +169,5 @@ form {
 
     input[type='submit'] {
         display: none;
-    }
-}
-
-.form-validate {
-    &.sending {
-        .submit {
-            pointer-events: none;
-            opacity: .5;
-
-            span {
-                &:not(.loader) {
-                    opacity: 0;
-                }
-
-                &.loader {
-                    opacity: 1;
-
-                    svg {
-                        animation: rotation 1s infinite linear;
-                    }
-                }
-            }
-        }
     }
 }

@@ -786,6 +786,52 @@ function initReadMore() {
 	})
 }
 
+// newsletter form — show fancybox popup after page refresh based on URL param
+function initNewsletterForm() {
+	const params = new URLSearchParams(window.location.search)
+	if (!params.has('customer_posted')) return
+
+	const popup = params.get('customer_posted') === 'true'
+		? '#newsletter-success'
+		: '#newsletter-error'
+
+	Fancybox.show([{ src: popup, type: 'inline' }], {
+		autoFocus: false,
+		dragToClose: false,
+		placeFocusBack: false,
+	})
+
+	// clean up the URL without triggering a reload
+	const cleanUrl = window.location.pathname + window.location.hash
+	history.replaceState(null, '', cleanUrl)
+}
+
+// contact form — show fancybox popup based on liquid-set JS flags
+function initContactForm() {
+	if (window.__contactPosted) {
+		Fancybox.show([{ src: '#contact-success', type: 'inline' }], {
+			autoFocus: false,
+			dragToClose: false,
+			placeFocusBack: false,
+		})
+	} else if (window.__contactErrors) {
+		Fancybox.show([{ src: '#contact-error', type: 'inline' }], {
+			autoFocus: false,
+			dragToClose: false,
+			placeFocusBack: false,
+		})
+	}
+}
+
+// add is-sending class on submit, removed automatically on page reload
+function initFormSending() {
+	selectAll('form').forEach(form => {
+		form.addEventListener('submit', () => {
+			form.classList.add('is-sending')
+		})
+	})
+}
+
 // fire all scripts
 function initScripts() {
 	initLenis()
@@ -797,6 +843,9 @@ function initScripts() {
 	initReadMore()
 	initTopMenu()
 	showHideGrid()
+	initNewsletterForm()
+	initContactForm()
+	initFormSending()
 }
 
 

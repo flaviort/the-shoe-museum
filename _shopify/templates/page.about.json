@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "about-banner": {
+      "type": "about-banner",
+      "settings": {}
+    },
+    "about-timeline": {
+      "type": "about-timeline",
+      "blocks": {
+        "entry-2001": {
+          "type": "entry",
+          "settings": {
+            "year": "2001",
+            "title": "Original language used when presenting The Shoe Museum Logo in 2001 — Shoe Label",
+            "content": "<ul><li>Referencing the materials and common vernacular of shoes.</li><li>A nod the beauty of shoemaking and craftsmanship.</li><li>Logo and graphic language borrow from the standard utilitarian labels and iconography used on sneakers.</li><li>Simple clean typography and graphics lend modern but approachable sensibility to the brand.</li><li>Classic, timeless, depth, feel, quality, integrity</li></ul>",
+            "video_url": ""
+          }
+        },
+        "entry-2025": {
+          "type": "entry",
+          "settings": {
+            "year": "2025",
+            "title": "Website Design & Development",
+            "content": "<ul><li>In 2025, The Shoe Museum started working on the website design and development.</li></ul>",
+            "video_url": ""
+          }
+        },
+        "entry-2026": {
+          "type": "entry",
+          "settings": {
+            "year": "2026",
+            "title": "Website Launch",
+            "content": "<ul><li>In 2026, The Shoe Museum launched its website to showcase its collection of shoes and the stories behind them.</li></ul>",
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "entry-2001",
+        "entry-2025",
+        "entry-2026"
+      ],
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "about-banner",
+    "about-timeline",
+    "newsletter"
+  ]
+}

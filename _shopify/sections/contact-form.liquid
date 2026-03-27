@@ -1,0 +1,185 @@
+<section class="middle py-small">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-5">
+        <div class="text-20 desc rich-text">
+          {{ section.settings.description }}
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="box bg-pure-white p-smaller">
+
+          {%- form 'contact' -%}
+
+            {%- if form.posted_successfully? -%}
+              <script>window.__contactPosted = true;</script>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <script>window.__contactErrors = true;</script>
+            {%- endif -%}
+
+            <div class="row">
+
+              <div class="col-xl-6">
+                <div class="form-line">
+                  <div class="line-wrapper">
+                    <input
+                      type="text"
+                      name="contact[first_name]"
+                      placeholder="First Name"
+                      class="input"
+                      required
+                      autocomplete="given-name"
+                      value="{{ form.first_name }}"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6">
+                <div class="form-line">
+                  <div class="line-wrapper">
+                    <input
+                      type="text"
+                      name="contact[last_name]"
+                      placeholder="Last Name"
+                      class="input"
+                      autocomplete="family-name"
+                      value="{{ form.last_name }}"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6">
+                <div class="form-line">
+                  <div class="line-wrapper">
+                    <input
+                      type="email"
+                      name="contact[email]"
+                      placeholder="Email"
+                      class="input"
+                      required
+                      autocomplete="email"
+                      value="{{ form.email }}"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6">
+                <div class="form-line">
+                  <div class="line-wrapper">
+                    <input
+                      type="tel"
+                      name="contact[phone]"
+                      placeholder="Phone"
+                      class="input"
+                      autocomplete="tel"
+                      value="{{ form.phone }}"
+                    />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-line">
+              <div class="line-wrapper">
+                <textarea
+                  name="contact[body]"
+                  placeholder="Message"
+                  class="input textarea"
+                  required
+                >{{ form.body }}</textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="button button--solid uppercase">
+
+              <span class="text">
+                {{ section.settings.button_label }}
+              </span>
+              <span class="icon">
+                <i data-lucide="arrow-right"></i>
+              </span>
+
+              <span class="loading">
+                <span>
+                  <i data-lucide="loader-circle"></i>
+                </span>
+              </span>
+
+            </button>
+
+          {%- endform -%}
+
+          <div id="contact-success" class="popup" data-lenis-prevent style="display:none;">
+            <div class="wrap">
+              <h2 class="h2">Success</h2>
+              <p class="desc">
+                <b>Thank you for reaching out to us!</b><br>
+                Your message has been received and we will get back to you as soon as possible.
+              </p>
+              <button class="button button--solid uppercase" onclick="Fancybox.close();">
+                <span class="text">Close</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="contact-error" class="popup" data-lenis-prevent style="display:none;">
+            <div class="wrap">
+              <h2 class="h2">Oops!</h2>
+              <p class="desc">
+                An error occurred while submitting your form. Please try again.<br>
+                If the problem persists, contact us at
+                <a href="mailto:{{ settings.email | default: 'info@theshoemuseum.com' }}">
+                  {{ settings.email | default: 'info@theshoemuseum.com' }}
+                </a>
+              </p>
+              <button class="button button--solid uppercase" onclick="Fancybox.close();">
+                <span class="text">Close</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact — Form",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Whether you have a question about our latest drops, need assistance with sizing, or simply want to connect, our dedicated team is here to help. Your satisfaction is our priority, and we strive to provide a seamless experience.<br><br>Drop us an email at <a href=\"mailto:info@theshoemuseum.com\">info@theshoemuseum.com</a> and we'll get back to you within 24 hrs.<br><br>Remember, at The Shoe Museum we are not just selling shoes; we are curating the stories behind them. Thank you for choosing The Shoe Museum. We look forward to serving you.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Submit"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thanks for reaching out — we'll get back to you within 24 hours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact — Form"
+    }
+  ]
+}
+{% endschema %}

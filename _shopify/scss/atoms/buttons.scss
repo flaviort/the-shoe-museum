@@ -148,7 +148,7 @@
         }
     }
 
-    &__loading {
+    .loading {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -173,6 +173,7 @@
             svg {
                 width: auto;
                 height: 100%;
+                color: $white;
             }
         }
     }

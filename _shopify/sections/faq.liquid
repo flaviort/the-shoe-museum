@@ -1,0 +1,105 @@
+<section id="faq" class="faq-section py-medium py-md-small">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-5">
+        <div class="text-40 uppercase bold text-reveal">
+          {{ section.settings.title }}
+        </div>
+      </div>
+
+      <div class="col-lg-7 mt-smaller mt-lg-0">
+
+        {%- for block in section.blocks -%}
+          <div class="accordion" {{ block.shopify_attributes }}>
+
+            <button class="question">
+              <span class="text-20">{{ block.settings.question }}</span>
+              <i data-lucide="chevron-down"></i>
+            </button>
+
+            <div class="answer">
+              <div>
+                <div class="rich-text">
+                  {{ block.settings.answer }}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        {%- endfor -%}
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is The Shoe Museum?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>The Shoe Museum is a museum that collects, preserves, and exhibits shoes. It is a place where you can learn about the history of shoes and see some of the most iconic shoes in the world.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "question": "What is The Shoe Museum?",
+            "answer": "<p>The Shoe Museum is a museum that collects, preserves, and exhibits shoes. It is a place where you can learn about the history of shoes and see some of the most iconic shoes in the world.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "With what frequency do you update the content?",
+            "answer": "<p>We update the content every month.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "How can I contact you?",
+            "answer": "<p>You can contact us by email at <a href=\"mailto:info@theshoemuseum.com\">info@theshoemuseum.com</a>.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Do you have a physical location?",
+            "answer": "<p>No, we do not have a physical location.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+@use '../variables' as *;
+
+.shopify-challenge {
+	&__container {
+		min-height: 78vh;
+		width: 70rem;
+		max-width: 100%;
+		padding: 3rem 1.5rem 1.5rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	&__message {
+		font-weight: $medium;
+		margin-bottom: 2rem;
+		font-size: 1.75rem;
+		line-height: 1.2;
+
+		@media #{$mq-md-min} {
+			font-size: 2rem;
+		}
+
+		@media #{$mq-lg-min} {
+			font-size: 2.25rem;
+		}
+
+		@media #{$mq-xl-min} {
+			font-size: 2.5rem;
+			line-height: 1;
+		}
+	}
+
+	&__button {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		gap: .75rem;
+		padding: 1rem 1.5rem;
+		transition: .3s ease-in-out;
+		font-weight: $medium;
+		cursor: pointer;
+		transition: .3s ease-in-out;
+		line-height: 1;
+		width: fit-content;
+		background-color: $green;
+        color: $white;
+		border: none;
+
+		@media #{$mq-sm-max} {
+			width: 100%;
+			justify-content: space-between;
+		}
+
+        &:hover,
+        &:focus-visible {
+            background-color: $black;
+            color: $white;
+        }
+	}
+}

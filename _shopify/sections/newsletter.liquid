@@ -17,83 +17,98 @@
 
     <div class="content">
 
-      {%- form 'customer' -%}
+      {%- form 'customer', id: 'newsletter-form' -%}
 
         <input type="hidden" name="contact[tags]" value="newsletter">
 
-        {%- if form.posted_successfully? -%}
-          <p class="form-success">
-            {{ section.settings.success_message }}
-          </p>
-        {%- else -%}
+        <div class="row">
 
-          {%- if form.errors -%}
-            <p class="form-error">
-              {{ form.errors | default_errors }}
-            </p>
-          {%- endif -%}
-
-          <div class="row">
-
-            <div class="col-md-6">
-              <div class="form-line">
-                <div class="line-wrapper">
-                  <input
-                    type="text"
-                    name="contact[first_name]"
-                    placeholder="{{ section.settings.label_first_name }}"
-                    class="input"
-                    autocomplete="given-name"
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-line">
-                <div class="line-wrapper">
-                  <input
-                    type="text"
-                    name="contact[last_name]"
-                    placeholder="{{ section.settings.label_last_name }}"
-                    class="input"
-                    autocomplete="family-name"
-                  >
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="flex">
-
+          <div class="col-md-6">
             <div class="form-line">
               <div class="line-wrapper">
                 <input
-                  type="email"
-                  name="contact[email]"
-                  placeholder="{{ section.settings.label_email }}"
+                  type="text"
+                  name="contact[first_name]"
+                  placeholder="{{ section.settings.label_first_name }}"
                   class="input"
-                  required
-                  autocomplete="email"
+                  autocomplete="given-name"
                 >
               </div>
             </div>
-
-            <button type="submit" class="button button--solid uppercase">
-              <span class="text">
-                {{ section.settings.button_text }}
-              </span>
-              <span class="icon">
-                <i data-lucide="arrow-right"></i>
-              </span>
-            </button>
-
           </div>
 
-        {%- endif -%}
+          <div class="col-md-6">
+            <div class="form-line">
+              <div class="line-wrapper">
+                <input
+                  type="text"
+                  name="contact[last_name]"
+                  placeholder="{{ section.settings.label_last_name }}"
+                  class="input"
+                  autocomplete="family-name"
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex">
+
+          <div class="form-line">
+            <div class="line-wrapper">
+              <input
+                type="email"
+                name="contact[email]"
+                placeholder="{{ section.settings.label_email }}"
+                class="input"
+                required
+                autocomplete="email"
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="button button--solid uppercase">
+            <span class="text">
+              {{ section.settings.button_text }}
+            </span>
+            <span class="icon">
+              <i data-lucide="arrow-right"></i>
+            </span>
+          </button>
+
+        </div>
 
       {%- endform -%}
+
+      <div id="newsletter-success" class="popup" data-lenis-prevent style="display:none;">
+        <div class="wrap">
+          <h2 class="h2">Success</h2>
+          <p class="desc">
+            <b>Thank you for subscribing!</b><br>
+            You're now on the list and will be among the first to hear from us.
+          </p>
+          <button class="button button--solid uppercase" onclick="Fancybox.close();">
+            <span class="text">Close</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="newsletter-error" class="popup" data-lenis-prevent style="display:none;">
+        <div class="wrap">
+          <h2 class="h2">Oops!</h2>
+          <p class="desc">
+            Something went wrong while subscribing. Please try again.<br>
+            If the problem persists, contact us at
+            <a href="mailto:{{ settings.email | default: 'info@theshoemuseum.com' }}">
+              {{ settings.email | default: 'info@theshoemuseum.com' }}
+            </a>
+          </p>
+          <button class="button button--solid uppercase" onclick="Fancybox.close();">
+            <span class="text">Close</span>
+          </button>
+        </div>
+      </div>
 
     </div>
 

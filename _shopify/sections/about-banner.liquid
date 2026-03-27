@@ -1,0 +1,44 @@
+<section class="banner bg-gray-lightest">
+  <div class="container py-medium">
+
+    <h1 class="text-60 bold uppercase">
+      {{ section.settings.title }}
+    </h1>
+
+    {%- if section.settings.intro != blank -%}
+      <div class="row mt-half mt-md-1">
+        <div class="col-lg-8">
+          <p class="text-20">
+            {{ section.settings.intro }}
+          </p>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About — Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "About us"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro Text",
+      "default": "At The Shoe Museum we understand the power of personal style and the impact it can have on one's confidence and self-expression. We are committed sharing designer stories while offering a curated collection that seamlessly blends fashion and functionality."
+    }
+  ],
+  "presets": [
+    {
+      "name": "About — Banner"
+    }
+  ]
+}
+{% endschema %}
