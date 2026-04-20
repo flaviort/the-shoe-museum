@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "exhibit-main": {
+      "type": "exhibit-main",
+      "settings": {}
+    }
+  },
+  "order": [
+    "exhibit-main"
+  ]
+}

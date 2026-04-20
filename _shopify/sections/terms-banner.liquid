@@ -1,0 +1,55 @@
+<section class="banner">
+
+  <img
+    src="{{ 'banner.jpg' | asset_url }}"
+    alt="Terms of Service Banner"
+    width="1920"
+    height="400"
+    loading="eager"
+    class="cover"
+  />
+
+  <div class="container py-medium">
+
+    <h1 class="text-60 uppercase bold white">
+      {{ section.settings.title }}
+    </h1>
+
+    {%- if section.settings.intro != blank -%}
+      <div class="row mt-half mt-md-1">
+        <div class="col-lg-8">
+          <p class="text-20 white">
+            {{ section.settings.intro }}
+          </p>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Terms — Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Terms of Service"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro Text",
+      "default": "Please read these Terms of Service carefully before accessing or using our website. By accessing or using any part of the site, you agree to be bound by these Terms of Service."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Terms — Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+<section class="banner">
+
+  <img
+    src="{{ 'banner.jpg' | asset_url }}"
+    alt="Privacy Policy Banner"
+    width="1920"
+    height="400"
+    loading="eager"
+    class="cover"
+  />
+
+  <div class="container py-medium">
+
+    <h1 class="text-60 uppercase bold white">
+      {{ section.settings.title }}
+    </h1>
+
+    {%- if section.settings.intro != blank -%}
+      <div class="row mt-half mt-md-1">
+        <div class="col-lg-8">
+          <p class="text-20 white">
+            {{ section.settings.intro }}
+          </p>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Privacy — Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro Text",
+      "default": "We believe personal information should be kept private. The Shoe Museum, Inc. is committed to maintaining robust privacy protections for its users."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Privacy — Banner"
+    }
+  ]
+}
+{% endschema %}

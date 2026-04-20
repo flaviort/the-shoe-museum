@@ -1,0 +1,23 @@
+{%- assign exhibit_blog = blogs['exhibits'] -%}
+
+<section class="exhibits py-medium pt-md-small bg-gray-lightest">
+  <div class="container">
+    <div class="grid mt-smaller">
+      {%- for article in exhibit_blog.articles -%}
+        {%- render 'exhibit-card', article: article -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Exhibits — Grid",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Exhibits — Grid"
+    }
+  ]
+}
+{% endschema %}

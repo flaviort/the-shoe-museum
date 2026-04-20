@@ -1,0 +1,232 @@
+<script>
+  document.getElementById('main-content').classList.add('exhibit');
+</script>
+
+{%- assign designer        = article.metafields.custom.designer.value -%}
+{%- assign year            = article.metafields.custom.year.value -%}
+{%- assign related_product = article.metafields.custom.product.value -%}
+
+<section class="main-content">
+  <div class="container z2">
+    <div class="row">
+
+      {%- comment -%} ── LEFT SIDE ── {%- endcomment -%}
+      <div class="col-xl-8 left-side pb-xl-small">
+
+        <div class="top">
+
+          <img
+            src="{{ 'banner.jpg' | asset_url }}"
+            alt=""
+            width="1920"
+            height="400"
+            loading="eager"
+            class="bg"
+          />
+
+          <div class="left-inner">
+            <h1 class="text-40 bold uppercase">
+              {{ article.title }}
+            </h1>
+            {%- if year != blank -%}
+              <p class="uppercase medium date">
+                Drop Date: {{ year }}
+              </p>
+            {%- endif -%}
+          </div>
+
+          {%- if related_product != blank -%}
+            <a href="{{ related_product.url }}" class="uppercase hover-underline-white medium">
+              Shop this product
+            </a>
+          {%- endif -%}
+
+        </div>
+
+        {%- if article.image != blank -%}
+          <div class="featured-image">
+            <img
+              src="{{ article.image | image_url: width: 1600 }}"
+              alt="{{ article.image.alt | default: article.title }}"
+              width="800"
+              height="600"
+              loading="lazy"
+              class="cover"
+            />
+          </div>
+        {%- endif -%}
+
+        <div class="exhibit-content">
+          <div class="rich-text">
+            {{ article.content }}
+          </div>
+        </div>
+
+      </div>
+
+      {%- comment -%} ── RIGHT SIDE ── {%- endcomment -%}
+      <div class="col-xl-4 right-side pb-small pb-xl-0">
+        <div class="wrapper">
+
+          <div class="bg"></div>
+
+          <div class="relative z2">
+
+            <button class="toggle-sidebar">
+              <i data-lucide="chevron-right"></i>
+              <i data-lucide="chevron-left"></i>
+            </button>
+
+            <div class="infos">
+
+              {%- if designer != blank -%}
+
+                {%- if designer.photo != blank -%}
+                  <div class="image">
+                    <img
+                      src="{{ designer.photo | image_url: width: 300 }}"
+                      alt="{{ designer.name }}"
+                      width="300"
+                      height="300"
+                      loading="lazy"
+                      class="cover"
+                    />
+                  </div>
+                {%- endif -%}
+
+                {%- if designer.name != blank -%}
+                  <h3 class="name text-20 bold">{{ designer.name }}</h3>
+                {%- endif -%}
+
+                {%- if designer.title != blank -%}
+                  <p class="text-14 title"><i>{{ designer.title }}</i></p>
+                {%- endif -%}
+
+                {%- if designer.bio != blank -%}
+                  <div class="description text-14">
+                    <div class="read-more-wrapper">
+                      <div class="read-more-content">
+                        {{ designer.bio | newline_to_br }}
+                      </div>
+                      <button class="hover-underline text-14 green bold read-more-button">
+                        Read more
+                      </button>
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                {%- if designer.website != blank -%}
+                  <a
+                    href="{{ designer.website }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover-underline text-14 website"
+                  >
+                    Designer's Portfolio <i data-lucide="arrow-right"></i>
+                  </a>
+                {%- endif -%}
+
+                {%- assign has_social = false -%}
+                {%- if designer.instagram != blank or designer.linkedin != blank or designer.facebook != blank or designer.twitter != blank -%}
+                  {%- assign has_social = true -%}
+                {%- endif -%}
+
+                {%- if has_social -%}
+                  <ul class="social">
+                    {%- if designer.instagram != blank -%}
+                      <li>
+                        <a href="{{ designer.instagram }}" target="_blank" rel="noopener noreferrer">
+                          <i data-lucide="instagram"></i>
+                        </a>
+                      </li>
+                    {%- endif -%}
+                    {%- if designer.linkedin != blank -%}
+                      <li>
+                        <a href="{{ designer.linkedin }}" target="_blank" rel="noopener noreferrer">
+                          <i data-lucide="linkedin"></i>
+                        </a>
+                      </li>
+                    {%- endif -%}
+                    {%- if designer.facebook != blank -%}
+                      <li>
+                        <a href="{{ designer.facebook }}" target="_blank" rel="noopener noreferrer">
+                          <i data-lucide="facebook"></i>
+                        </a>
+                      </li>
+                    {%- endif -%}
+                    {%- if designer.twitter != blank -%}
+                      <li>
+                        <a href="{{ designer.twitter }}" target="_blank" rel="noopener noreferrer">
+                          <i data-lucide="twitter"></i>
+                        </a>
+                      </li>
+                    {%- endif -%}
+                  </ul>
+                {%- endif -%}
+
+              {%- endif -%}
+
+              {%- if related_product != blank -%}
+                <a href="{{ related_product.url }}" class="button button--green">
+                  <span class="text">Shop this product</span>
+                  <span class="icon"><i data-lucide="arrow-right"></i></span>
+                </a>
+              {%- endif -%}
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{%- assign has_related = false -%}
+{%- for related in blog.articles -%}
+  {%- if related.id != article.id -%}
+    {%- assign has_related = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if has_related -%}
+  <section class="related pt-medium pt-md-small">
+    <div class="container">
+
+      <div class="top">
+        <h2 class="text-60 uppercase bold">Other Projects</h2>
+      </div>
+
+      <div class="grid mt-smaller">
+        {%- assign related_count = 0 -%}
+        {%- for related in blog.articles -%}
+          {%- if related.id != article.id and related_count < 3 -%}
+            {%- render 'exhibit-card', article: related -%}
+            {%- assign related_count = related_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <a href="{{ blog.url }}" class="button button--hollow uppercase mt-smallest">
+        <span class="text">View All</span>
+        <span class="icon"><i data-lucide="arrow-right"></i></span>
+      </a>
+
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Exhibit",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Exhibit"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,65 @@
+<section class="middle py-small">
+  <div class="container">
+    <div class="rich-text">
+
+      {%- if section.settings.intro != blank -%}
+        {{ section.settings.intro }}
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'section' -%}
+          {%- if block.settings.heading != blank -%}
+            <h2>{{ block.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if block.settings.content != blank -%}
+            {{ block.settings.content }}
+          {%- endif -%}
+        {%- elsif block.type == 'divider' -%}
+          <hr>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terms — Content",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Opening Paragraphs"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "name": "Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider",
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "Terms — Content"
+    }
+  ]
+}
+{% endschema %}

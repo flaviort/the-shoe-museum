@@ -1,0 +1,67 @@
+<script>
+  document.getElementById('main-content').classList.add('store');
+</script>
+
+<section class="banner">
+
+  <img
+    src="{{ 'banner.jpg' | asset_url }}"
+    alt="Store Banner"
+    width="1920"
+    height="400"
+    loading="eager"
+    class="cover"
+  />
+
+  <div class="container py-smaller white">
+
+    <h1 class="text-60 uppercase bold">
+      {{ section.settings.title }}
+    </h1>
+
+    {%- assign filter_collections = collections | where: 'products_count', '> 0' -%}
+
+    <div class="categories text-20 mt-1">
+
+      <a
+        href="{{ routes.root_url }}collections/all"
+        class="{% if collection.handle == 'all' %}selected{% endif %}"
+      >
+        All
+      </a>
+
+      {%- for col in collections -%}
+        {%- unless col.handle == 'all' or col.handle == 'frontpage' or col.products_count == 0 -%}
+          <a
+            href="{{ col.url }}"
+            class="{% if collection.handle == col.handle %}selected{% endif %}"
+          >
+            {{ col.title }}
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
+
+    </div>
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Store — Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Curated Collections"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store — Banner"
+    }
+  ]
+}
+{% endschema %}

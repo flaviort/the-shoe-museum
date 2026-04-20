@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "store-banner": {
+      "type": "store-banner",
+      "settings": {
+        "title": "Curated Collections"
+      }
+    },
+    "store-grid": {
+      "type": "store-grid",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "store-banner",
+    "store-grid",
+    "newsletter"
+  ]
+}

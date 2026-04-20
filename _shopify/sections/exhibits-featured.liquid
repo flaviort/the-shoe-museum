@@ -1,0 +1,56 @@
+{%- assign exhibit_blog = blogs['exhibits'] -%}
+
+{%- if section.settings.featured_article != blank -%}
+  {%- assign featured = section.settings.featured_article -%}
+{%- else -%}
+  {%- assign featured = exhibit_blog.articles.first -%}
+{%- endif -%}
+
+{%- assign designer          = featured.metafields.custom.designer.value -%}
+{%- assign designer_name     = designer.name -%}
+{%- assign featured_big_image = featured.metafields.custom.featured_big_image.value -%}
+{%- assign hero_image        = featured_big_image | default: featured.image -%}
+
+<section class="featured">
+
+  <a href="{{ featured.url }}" class="link"></a>
+
+  {%- if hero_image != blank -%}
+    <img
+      src="{{ hero_image | image_url: width: 1920 }}"
+      alt="{{ hero_image.alt | default: featured.title }}"
+      width="1920"
+      height="1080"
+      loading="eager"
+      class="cover"
+    />
+  {%- endif -%}
+
+  <div class="container z2">
+    <div class="flex pb-1">
+      <h2 class="white text-20">
+        Designer: <span>{{ designer_name | default: featured.author }}</span>
+      </h2>
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Exhibits — Featured",
+  "settings": [
+    {
+      "type": "article",
+      "id": "featured_article",
+      "label": "Featured Exhibit",
+      "info": "If none selected, the latest exhibit is shown automatically."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Exhibits — Featured"
+    }
+  ]
+}
+{% endschema %}

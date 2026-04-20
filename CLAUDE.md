@@ -17,9 +17,18 @@ A Shopify theme being translated from an existing PHP/SCSS site. The site is a m
 - Liquid templating
 - SCSS source in `_shopify/scss/`, compiled by Gulp to `_shopify/assets/main.min.css`
 - Same JS libraries as PHP site (loaded via CDN)
-- Dev: `npm run dev` inside `_shopify/` (runs `shopify theme dev` + `gulp watch` concurrently)
-- Build: `npm run build` (production SCSS, no sourcemaps)
 - Store: `the-shoe-museum.myshopify.com`
+
+#### NPM Scripts (always use these — never suggest raw `shopify` or `gulp` CLI commands directly)
+All commands must be run from inside `_shopify/`:
+
+| Script | Command | Purpose |
+|---|---|---|
+| `npm run dev` | `shopify theme dev` + `gulp watch` | Local development with live reload |
+| `npm run build` | `gulp build` | Production SCSS (no sourcemaps) |
+| `npm run push` | `shopify theme push` | Push all files to the live theme |
+| `npm run sass` | `gulp watch` | SCSS watch only |
+| `npm run js` | `gulp compileJS` | JS compile only |
 
 ---
 
@@ -93,35 +102,43 @@ Namespace: `custom`
 
 | Key | Type | Notes |
 |---|---|---|
-| `designer_name` | single_line_text_field | |
+| `designer` | metaobject_reference | References `designer` metaobject (see below) |
 | `year` | single_line_text_field | |
-| `short_description` | single_line_text_field | Shown on exhibit card overlay |
-| `designer_photo` | file_reference (image) | |
-| `designer_position` | single_line_text_field | |
-| `designer_bio` | multi_line_text_field | Shown with read-more toggle |
-| `designer_portfolio` | url | Optional |
-| `related_product` | product_reference | Links exhibit to a product |
-| `designer_socials` | list.metaobject_reference | References `designer_social` metaobject |
+| `product` | product_reference | Links exhibit to a product |
+
+Access pattern in Liquid:
+```liquid
+{%- assign designer = article.metafields.custom.designer.value -%}
+{{ designer.name }}
+{{ designer.title }}
+{{ designer.photo | image_url: width: 400 }}
+```
+
+### Metaobject: `designer`
+Referenced from exhibit articles. Fields:
+
+| Key | Type |
+|---|---|
+| `name` | single_line_text_field |
+| `title` | single_line_text_field |
+| `bio` | multi_line_text_field |
+| `photo` | file_reference (image) |
+| `website` | url |
+| `linkedin` | url |
+| `instagram` | url |
+| `facebook` | url |
+| `twitter` | url |
 
 ### Product Metafields
 Namespace: `custom`
 
 | Key | Type | Notes |
 |---|---|---|
-| `designer_name` | single_line_text_field | Optional |
 | `year` | single_line_text_field | |
 | `short_description` | single_line_text_field | |
 | `product_details` | rich_text_field | HTML area for extra details |
 | `exhibit_link` | mixed_reference (article) | Links product back to its exhibit |
 | `featured_video` | url | MP4, YouTube or Vimeo URL |
-
-### Metaobject: `designer_social`
-Used as a list reference on exhibit articles.
-
-| Field | Type |
-|---|---|
-| `platform` | single_line_text_field | e.g. `instagram`, `linkedin`, `behance`, `twitter`, `youtube`, `tiktok` |
-| `url` | url |
 
 ---
 

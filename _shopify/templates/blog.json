@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "exhibits-featured": {
+      "type": "exhibits-featured",
+      "settings": {}
+    },
+    "exhibits-grid": {
+      "type": "exhibits-grid",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "exhibits-featured",
+    "exhibits-grid",
+    "newsletter"
+  ]
+}

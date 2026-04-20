@@ -2,13 +2,14 @@
   Snippet: exhibit-card.liquid
   Expects: article (article object)
 
-  Required metafields (namespace: custom, on Blog posts):
-    - designer_name → single_line_text_field
-    - year          → single_line_text_field
+  Metafields (namespace: custom, on Blog posts):
+    - designer → metaobject_reference (designer metaobject)
+    - year     → single_line_text_field
   Note: short_description uses article.excerpt (strip_html)
 {%- endcomment -%}
 
-{%- assign designer_name = article.metafields.custom.designer_name.value -%}
+{%- assign designer      = article.metafields.custom.designer.value -%}
+{%- assign designer_name = designer.name -%}
 {%- assign year          = article.metafields.custom.year.value -%}
 {%- assign short_desc    = article.excerpt | strip_html | strip_newlines -%}
 
