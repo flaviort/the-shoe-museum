@@ -770,6 +770,82 @@ function initLenis() {
 	gsap.ticker.lagSmoothing(0)
 }
 
+// init cart drawer interactions
+function initCart() {
+
+    const cartItems = selectId('cart-items')
+    if (!cartItems) return
+
+    function formatMoney(cents) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(cents / 100)
+    }
+
+    function updateSubtotal(totalPrice) {
+        const subtotalEl = selectId('cart-subtotal')
+        if (subtotalEl) subtotalEl.textContent = formatMoney(totalPrice)
+    }
+
+    function removeItemFromDOM(key) {
+        const item = cartItems.querySelector(`[data-key="${key}"]`)
+        if (item) item.remove()
+
+        if (!cartItems.querySelector('.cart-product-block')) {
+            cartItems.innerHTML = '<p class="cart-empty text-16">Your cart is empty.</p>'
+        }
+    }
+
+    function cartChange(key, quantity) {
+        fetch('/cart/change.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: key, quantity: quantity })
+        })
+        .then(r => r.json())
+        .then(cart => {
+            updateSubtotal(cart.total_price)
+            if (quantity === 0) {
+                removeItemFromDOM(key)
+            } else {
+                const input = cartItems.querySelector(`input[data-key="${key}"]`)
+                if (input) input.value = quantity
+            }
+        })
+    }
+
+    // Use event delegation so it works on both server-rendered and JS-rebuilt items
+    cartItems.addEventListener('click', function(e) {
+
+        const removeBtn  = e.target.closest('.remove-product')
+        const increaseBtn = e.target.closest('.increase[data-key]')
+        const decreaseBtn = e.target.closest('.decrease[data-key]')
+
+        if (removeBtn) {
+            e.preventDefault()
+            cartChange(removeBtn.dataset.key, 0)
+        }
+
+        if (increaseBtn) {
+            e.preventDefault()
+            const key = increaseBtn.dataset.key
+            const input = cartItems.querySelector(`input[data-key="${key}"]`)
+            const qty = parseInt(input?.value || 1)
+            if (qty < 8) cartChange(key, qty + 1)
+        }
+
+        if (decreaseBtn) {
+            e.preventDefault()
+            const key = decreaseBtn.dataset.key
+            const input = cartItems.querySelector(`input[data-key="${key}"]`)
+            const qty = parseInt(input?.value || 1)
+            cartChange(key, qty > 1 ? qty - 1 : 0)
+        }
+
+    })
+}
+
 // init read more
 function initReadMore() {
 
@@ -836,6 +912,7 @@ function initFormSending() {
 function initScripts() {
 	initLenis()
 	initClickAndKeyFunctions()
+	initCart()
 	initSliders()
 	initFancybox()
 	scrollTriggerAnimations()

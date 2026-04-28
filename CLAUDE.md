@@ -130,13 +130,14 @@ Referenced from exhibit articles. Fields:
 | `twitter` | url |
 
 ### Product Metafields
-Namespace: `custom`
+Namespace: `product`
 
 | Key | Type | Notes |
 |---|---|---|
+| `designer_name` | metaobject_reference (designer) | Shown below title as "Designer: …" — reads `.name` from the metaobject |
 | `year` | single_line_text_field | |
 | `short_description` | single_line_text_field | |
-| `product_details` | rich_text_field | HTML area for extra details |
+| `product_details` | rich_text_field | HTML area for extra details (second specs tab) |
 | `exhibit_link` | mixed_reference (article) | Links product back to its exhibit |
 | `featured_video` | url | MP4, YouTube or Vimeo URL |
 

@@ -2,26 +2,15 @@
   Snippet: product-block.liquid
   Expects: product (product object)
 
-  Badge tags: prefix product tags with "badge:" in Shopify admin
-  e.g. "badge:Just arrived", "badge:Few units left"
+  All product tags are shown as badges.
 {%- endcomment -%}
-
-{%- assign has_badges = false -%}
-{%- for tag in product.tags -%}
-  {%- if tag contains 'badge:' -%}
-    {%- assign has_badges = true -%}
-    {%- break -%}
-  {%- endif -%}
-{%- endfor -%}
 
 <a href="{{ product.url }}" class="product-block">
 
-  {%- if has_badges -%}
+  {%- if product.tags.size > 0 -%}
     <span class="product-block__tags">
       {%- for tag in product.tags -%}
-        {%- if tag contains 'badge:' -%}
-          <span class="tag">{{ tag | remove: 'badge:' }}</span>
-        {%- endif -%}
+        <span class="tag">{{ tag }}</span>
       {%- endfor -%}
     </span>
   {%- endif -%}
