@@ -846,6 +846,92 @@ function initCart() {
     })
 }
 
+// backup form submissions to Google Sheets
+function initFormBackup() {
+
+    var SHEETS_URL = 'https://script.google.com/macros/s/AKfycby8-pNBBAPKxrI_RrEmX9AGqX5KIYNjBKHgdjuDJY24NtbWPcex6aZGvMyExaBxTW2feA/exec'
+
+    if (!SHEETS_URL || SHEETS_URL === 'YOUR_APPS_SCRIPT_URL_HERE') return
+
+    // Pre-fetch IP geolocation on page load so it's ready when the form submits
+    var geoData = {}
+    fetch('https://ipapi.co/json/')
+        .then(function(r) { return r.json() })
+        .then(function(geo) {
+            geoData = {
+                country: geo.country_name || '',
+                city:    geo.city         || '',
+                ip:      geo.ip           || ''
+            }
+        })
+        .catch(function() {})
+
+    function send(payload) {
+        var blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' })
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(SHEETS_URL, blob)
+        } else {
+            fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).catch(function() {})
+        }
+    }
+
+    function timestamp() {
+        var now = new Date()
+        return {
+            ts:   now.toISOString(),
+            date: now.toLocaleDateString('en-US'),
+            time: now.toLocaleTimeString('en-US')
+        }
+    }
+
+    function val(form, name) {
+        var el = form.querySelector('[name="' + name + '"]')
+        return el ? el.value : ''
+    }
+
+    // Contact form
+    var contactForm = selectId('contact-form')
+    if (contactForm) {
+        contactForm.addEventListener('submit', function() {
+            var t = timestamp()
+            send({
+                form_type:  'contact',
+                timestamp:  t.ts,
+                date:       t.date,
+                time:       t.time,
+                first_name: val(contactForm, 'contact[first_name]'),
+                last_name:  val(contactForm, 'contact[last_name]'),
+                email:      val(contactForm, 'contact[email]'),
+                phone:      val(contactForm, 'contact[phone]'),
+                message:    val(contactForm, 'contact[body]'),
+                country:    geoData.country,
+                city:       geoData.city,
+                ip:         geoData.ip
+            })
+        })
+    }
+
+    // Newsletter form
+    var newsletterForm = selectId('newsletter-form')
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function() {
+            var t = timestamp()
+            send({
+                form_type:  'newsletter',
+                timestamp:  t.ts,
+                date:       t.date,
+                time:       t.time,
+                first_name: val(newsletterForm, 'contact[first_name]'),
+                last_name:  val(newsletterForm, 'contact[last_name]'),
+                email:      val(newsletterForm, 'contact[email]'),
+                country:    geoData.country,
+                city:       geoData.city,
+                ip:         geoData.ip
+            })
+        })
+    }
+}
+
 // init read more
 function initReadMore() {
 
@@ -913,6 +999,7 @@ function initScripts() {
 	initLenis()
 	initClickAndKeyFunctions()
 	initCart()
+	initFormBackup()
 	initSliders()
 	initFancybox()
 	scrollTriggerAnimations()

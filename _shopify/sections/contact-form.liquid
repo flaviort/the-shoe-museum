@@ -11,7 +11,7 @@
       <div class="col-md-7">
         <div class="box bg-pure-white p-smaller">
 
-          {%- form 'contact' -%}
+          {%- form 'contact', id: 'contact-form' -%}
 
             {%- if form.posted_successfully? -%}
               <script>window.__contactPosted = true;</script>
