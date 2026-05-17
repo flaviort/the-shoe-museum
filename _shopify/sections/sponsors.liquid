@@ -1,0 +1,116 @@
+{%- if section.blocks.size > 0 -%}
+
+<section class="sponsors py-medium py-md-small">
+  <div class="container">
+
+    <div class="top">
+
+      <h2 class="text-60 uppercase bold">
+        {{ section.settings.title }}
+      </h2>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="text-20">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+
+    </div>
+
+    <div class="sponsors-slider mt-smaller">
+      <div class="swiper-wrapper">
+
+        {%- for block in section.blocks -%}
+          {%- assign logo     = block.settings.logo -%}
+          {%- assign url      = block.settings.url -%}
+          {%- assign label    = block.settings.label -%}
+
+          {%- if logo != blank -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+
+              {%- if url != blank -%}
+                <a
+                  href="{{ url }}"
+                  class="sponsor-block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+              {%- else -%}
+                <div class="sponsor-block">
+              {%- endif -%}
+
+                <img
+                  src="{{ logo | image_url: width: 300 }}"
+                  alt="{{ label | default: '' }}"
+                  width="100"
+                  height="100"
+                  loading="lazy"
+                />
+
+              {%- if url != blank -%}
+                </a>
+              {%- else -%}
+                </div>
+              {%- endif -%}
+
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Sponsors",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Sponsors"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "We work with the best in the business."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "sponsor",
+      "name": "Sponsor",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "info": "Used as the image alt text. Optional."
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL",
+          "info": "Optional. Opens in a new tab."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sponsors"
+    }
+  ]
+}
+{% endschema %}

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "concurrently \"shopify theme dev --store the-shoe-museum.myshopify.com\" \"gulp watch\"",
     "build": "gulp build",
-    "push": "shopify theme push --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
+    "pull": "shopify theme pull --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
+    "push": "shopify theme pull --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\" && gulp build && shopify theme push --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
     "sass": "gulp watch",
     "js": "gulp compileJS"
   },

@@ -1,0 +1,74 @@
+{%- assign exhibit_blog = blogs['exhibits'] -%}
+{%- if exhibit_blog.articles_count > 0 -%}
+
+<section class="related-404 pb-smaller pt-medium pt-md-small">
+  <div class="container">
+
+    <div class="top">
+
+      <h2 class="text-60 uppercase bold">
+        {{ section.settings.title }}
+      </h2>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="text-20 mt-half">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+
+    </div>
+
+    <div class="grid mt-smaller">
+      {%- for article in exhibit_blog.articles limit: 3 -%}
+        {%- render 'exhibit-card', article: article -%}
+      {%- endfor -%}
+    </div>
+
+    <a
+      href="{{ blogs['exhibits'].url | default: '/blogs/exhibits' }}"
+      class="button button--hollow uppercase mt-smallest"
+    >
+      <span class="text">
+        {{ section.settings.button_text }}
+      </span>
+
+      <span class="icon">
+        <i data-lucide="arrow-right"></i>
+      </span>
+    </a>
+
+  </div>
+</section>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "404 Exhibits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Exhibits"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Why not take this opportunity to explore our latest exhibits?"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "View All"
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Exhibits"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,78 @@
+@use '../variables' as *;
+
+.sponsors {
+	overflow: hidden;
+
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: .5rem;
+
+        @media #{$mq-sm-min} {
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        h2 {
+
+        }
+
+        p {
+
+        }
+    }
+
+    .sponsors-marquee {
+        display: flex;
+    }
+
+    .sponsor-block {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: calc(100% / 2);
+        aspect-ratio: 1;
+        background-color: transparent;
+        padding: 1rem;
+        border: 1px solid $gray-lightest;
+        transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+        margin-left: .5rem;
+
+        @media #{$mq-xs-min} {
+            width: calc(100% / 3);
+        }
+
+        @media #{$mq-sm-min} {
+            width: calc(100% / 4);
+            margin-left: .75rem;
+        }
+
+        @media #{$mq-md-min} {
+            width: calc(100% / 5);
+        }
+
+        @media #{$mq-lg-min} {
+            width: calc(100% / 6);
+            margin-left: 1rem;
+        }
+
+        @media #{$mq-xl-min} {
+            width: calc(100% / 7);
+        }
+
+        &:hover {
+            background-color: $pure-white;
+            border-color: $pure-white;
+        }
+
+        img,
+        svg {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+    }
+}

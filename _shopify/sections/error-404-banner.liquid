@@ -1,0 +1,55 @@
+<section class="banner-404">
+
+  <img
+    src="{{ 'banner.jpg' | asset_url }}"
+    alt="Error Banner"
+    width="1920"
+    height="400"
+    loading="eager"
+    class="cover"
+  />
+
+  <img
+    src="{{ 'footprint.svg' | asset_url }}"
+    alt="Footprint"
+    width="300"
+    height="300"
+    class="footprint"
+  />
+
+  <div class="container py-medium">
+
+    <h1 class="text-60 uppercase bold white">
+      Error 404
+    </h1>
+
+    <div class="row mt-half mt-md-1">
+      <div class="col-lg-8">
+        <p class="text-20 white">
+          {{ section.settings.subheading }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "404 Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Oh no! The page you're looking for doesn't exist."
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Banner"
+    }
+  ]
+}
+{% endschema %}

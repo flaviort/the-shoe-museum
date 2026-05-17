@@ -60,6 +60,7 @@
             <script src='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js'></script>
             <script src='https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js'></script>
             <script src='https://unpkg.com/lucide@latest'></script>
+            <script src='assets/js/horizontalLoop.js'></script>
             <script src='assets/js/functions.min.js' defer></script>
         </footer>
 

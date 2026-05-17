@@ -1,26 +1,141 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "home-banner": {
       "type": "home-banner",
-      "settings": {}
+      "settings": {
+        "subtitle": "Welcome to",
+        "title": "The\nShoe\nMuseum",
+        "button_text": "Join our mailing list",
+        "button_url": "#newsletter",
+        "bg_video": ""
+      }
     },
     "home-about": {
       "type": "home-about",
-      "settings": {}
+      "settings": {
+        "line1": "Where passion fuels creation, stories add",
+        "line2": "meaning, and wearing becomes expression."
+      }
     },
     "home-exhibits": {
       "type": "home-exhibits",
-      "settings": {}
+      "settings": {
+        "title": "Exhibits",
+        "subtitle": "Every shoe has a story.",
+        "button_text": "View All",
+        "button_url": ""
+      }
+    },
+    "sponsors": {
+      "type": "sponsors",
+      "blocks": {
+        "sponsor_QcEiiB": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/clo_55e9983f-3191-49dd-b78d-6f325622cc12.png",
+            "label": "CLO",
+            "url": "https://clo3d.com/"
+          }
+        },
+        "sponsor_EjGdgA": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/browzear.svg",
+            "label": "Browzwear",
+            "url": "https://browzwear.com/"
+          }
+        },
+        "sponsor_Mwrbpi": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/figurement.png",
+            "label": "Figurement",
+            "url": "https://figurement.com/"
+          }
+        },
+        "sponsor_bBTqT4": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/zellerfeld.png",
+            "label": "Zellerfeld",
+            "url": "https://www.zellerfeld.com/"
+          }
+        },
+        "sponsor_wenKBL": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/core77.png",
+            "label": "Core77",
+            "url": "https://www.core77.com/"
+          }
+        },
+        "sponsor_D9MCi9": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/pensole.png",
+            "label": "Pensole",
+            "url": ""
+          }
+        },
+        "sponsor_f3Hgtg": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/ortholite.png",
+            "label": "Ortholite",
+            "url": "https://www.ortholite.com/"
+          }
+        },
+        "sponsor_meAJag": {
+          "type": "sponsor",
+          "settings": {
+            "logo": "shopify://shop_images/vibram_f56dc76f-f975-4bbf-9dbc-34ab25b5f4f5.png",
+            "label": "Vibram",
+            "url": "https://www.vibram.com/"
+          }
+        }
+      },
+      "block_order": [
+        "sponsor_QcEiiB",
+        "sponsor_EjGdgA",
+        "sponsor_Mwrbpi",
+        "sponsor_bBTqT4",
+        "sponsor_wenKBL",
+        "sponsor_D9MCi9",
+        "sponsor_f3Hgtg",
+        "sponsor_meAJag"
+      ],
+      "settings": {
+        "title": "Sponsors",
+        "subtitle": "We work with the best in the business."
+      }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "title": "Join our mailing list",
+        "description": "Be the first to receive updates regarding the launch of The Shoe Museum.",
+        "label_first_name": "First Name",
+        "label_last_name": "Last Name",
+        "label_email": "Email",
+        "button_text": "Sign up",
+        "success_message": "Thanks for subscribing!"
+      }
     }
   },
   "order": [
     "home-banner",
     "home-about",
     "home-exhibits",
+    "sponsors",
     "newsletter"
   ]
 }

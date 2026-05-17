@@ -112,6 +112,8 @@
 	</div>
 </section>
 
+<?php include('components/sponsors.php'); ?>
+
 <?php include('components/newsletter-section.php'); ?>
 
 <?php include('components/footer.php'); ?>

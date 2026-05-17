@@ -705,6 +705,15 @@ function initSliders() {
 		})
 	}
 
+	// sponsors marquee
+	const sponsorsMarqueeEl = select('.sponsors-marquee')
+
+	if (sponsorsMarqueeEl) {
+		const sponsorItems = gsap.utils.toArray('.sponsors-marquee .sponsor-block')
+		const gap = parseFloat(getComputedStyle(sponsorItems[0]).marginLeft)
+		horizontalLoop(sponsorItems, { repeat: -1, speed: .75, paddingRight: gap })
+	}
+
 }
 
 // init lucide

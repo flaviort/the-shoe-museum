@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "error-404-banner": {
+      "type": "error-404-banner",
+      "settings": {}
+    },
+    "error-404-exhibits": {
+      "type": "error-404-exhibits",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "error-404-banner",
+    "error-404-exhibits",
+    "newsletter"
+  ]
+}

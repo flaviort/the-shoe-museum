@@ -1,8 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "about-banner": {
       "type": "about-banner",
-      "settings": {}
+      "settings": {
+        "title": "About us",
+        "intro": "At The Shoe Museum we understand the power of personal style and the impact it can have on one's confidence and self-expression. We are committed sharing designer stories while offering a curated collection that seamlessly blends fashion and functionality."
+      }
     },
     "about-timeline": {
       "type": "about-timeline",
@@ -13,7 +25,7 @@
             "year": "2001",
             "title": "Original language used when presenting The Shoe Museum Logo in 2001 — Shoe Label",
             "content": "<ul><li>Referencing the materials and common vernacular of shoes.</li><li>A nod the beauty of shoemaking and craftsmanship.</li><li>Logo and graphic language borrow from the standard utilitarian labels and iconography used on sneakers.</li><li>Simple clean typography and graphics lend modern but approachable sensibility to the brand.</li><li>Classic, timeless, depth, feel, quality, integrity</li></ul>",
-            "video_url": ""
+            "image": "shopify://shop_images/logo.jpg"
           }
         },
         "entry-2025": {
@@ -21,8 +33,7 @@
           "settings": {
             "year": "2025",
             "title": "Website Design & Development",
-            "content": "<ul><li>In 2025, The Shoe Museum started working on the website design and development.</li></ul>",
-            "video_url": ""
+            "content": "<ul><li>In 2025, The Shoe Museum started working on the website design and development.</li></ul>"
           }
         },
         "entry-2026": {
@@ -30,8 +41,7 @@
           "settings": {
             "year": "2026",
             "title": "Website Launch",
-            "content": "<ul><li>In 2026, The Shoe Museum launched its website to showcase its collection of shoes and the stories behind them.</li></ul>",
-            "video_url": ""
+            "content": "<ul><li>In 2026, The Shoe Museum launched its website to showcase its collection of shoes and the stories behind them.</li></ul>"
           }
         }
       },
@@ -44,7 +54,15 @@
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "title": "Join our mailing list",
+        "description": "Be the first to receive updates regarding the launch of The Shoe Museum.",
+        "label_first_name": "First Name",
+        "label_last_name": "Last Name",
+        "label_email": "Email",
+        "button_text": "Sign up",
+        "success_message": "Thanks for subscribing!"
+      }
     }
   },
   "order": [

@@ -33,6 +33,10 @@
 		&__top {
 			display: flex;
 			flex-direction: column;
+
+			&__title {
+				@include line-clamp(5);
+			}
 		}
 
 		&__bottom {
