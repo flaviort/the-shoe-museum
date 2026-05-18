@@ -78,7 +78,7 @@
   <body>
 
     <header>
-      {%- render 'menu-fullscreen' -%}
+      {%- render 'menu-fullscreen', menu: sections['header'].settings.menu -%}
       {%- render 'cart-drawer' -%}
     </header>
 
@@ -117,7 +117,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="{{ 'horizontalLoop.js' | asset_url }}" defer></script>
 
     <!-- JS: Theme -->
     {{ 'main.js' | asset_url | script_tag }}

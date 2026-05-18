@@ -32,6 +32,12 @@
                 </li>
 
                 <li>
+                    <a href='<?= $sponsors; ?>' class='hover-underline'>
+                        Sponsors
+                    </a>
+                </li>
+
+                <li>
                     <a href='<?= $contact; ?>' class='hover-underline'>
                         Contact
                     </a>

@@ -1,0 +1,26 @@
+@use '../variables' as *;
+
+.sponsor-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: transparent;
+    padding: 1rem;
+    border: 1px solid $gray-lightest;
+    transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+
+    &:hover {
+        background-color: $pure-white;
+        border-color: $pure-white;
+    }
+
+    img,
+    svg {
+        width: 60%;
+        height: 60%;
+        object-fit: contain;
+    }
+}

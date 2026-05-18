@@ -1,8 +1,9 @@
-{%- if section.blocks.size > 0 -%}
+{%- assign sponsor_entries = shop.metaobjects.sponsors.values -%}
+{%- if sponsor_entries.size > 0 -%}
 
-<section class="sponsors py-medium py-md-small">
+<section class="sponsors-section py-medium py-md-small">
+
   <div class="container">
-
     <div class="top">
 
       <h2 class="text-60 uppercase bold">
@@ -16,51 +17,45 @@
       {%- endif -%}
 
     </div>
-
-    <div class="sponsors-slider mt-smaller">
-      <div class="swiper-wrapper">
-
-        {%- for block in section.blocks -%}
-          {%- assign logo     = block.settings.logo -%}
-          {%- assign url      = block.settings.url -%}
-          {%- assign label    = block.settings.label -%}
-
-          {%- if logo != blank -%}
-            <div class="swiper-slide" {{ block.shopify_attributes }}>
-
-              {%- if url != blank -%}
-                <a
-                  href="{{ url }}"
-                  class="sponsor-block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-              {%- else -%}
-                <div class="sponsor-block">
-              {%- endif -%}
-
-                <img
-                  src="{{ logo | image_url: width: 300 }}"
-                  alt="{{ label | default: '' }}"
-                  width="100"
-                  height="100"
-                  loading="lazy"
-                />
-
-              {%- if url != blank -%}
-                </a>
-              {%- else -%}
-                </div>
-              {%- endif -%}
-
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-
-      </div>
-    </div>
-
   </div>
+
+  <div class="sponsors-marquee mt-smaller">
+    {%- for entry in sponsor_entries -%}
+      {%- assign logo  = entry.logo.value -%}
+      {%- assign label = entry.label.value -%}
+      {%- assign url   = entry.url.value -%}
+
+      {%- if logo != blank -%}
+
+        {%- if url != blank -%}
+          <a
+            href="{{ url }}"
+            class="sponsor-block"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+        {%- else -%}
+          <div class="sponsor-block">
+        {%- endif -%}
+
+          <img
+            src="{{ logo | image_url: width: 300 }}"
+            alt="{{ label | default: '' }}"
+            width="100"
+            height="100"
+            loading="lazy"
+          />
+
+        {%- if url != blank -%}
+          </a>
+        {%- else -%}
+          </div>
+        {%- endif -%}
+
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
 </section>
 
 {%- endif -%}
@@ -80,31 +75,6 @@
       "id": "subtitle",
       "label": "Subtitle",
       "default": "We work with the best in the business."
-    }
-  ],
-  "blocks": [
-    {
-      "type": "sponsor",
-      "name": "Sponsor",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "info": "Used as the image alt text. Optional."
-        },
-        {
-          "type": "url",
-          "id": "url",
-          "label": "Link URL",
-          "info": "Optional. Opens in a new tab."
-        }
-      ]
     }
   ],
   "presets": [

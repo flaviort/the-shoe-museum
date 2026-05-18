@@ -1,0 +1,60 @@
+{%- assign sponsor_entries = shop.metaobjects.sponsors.values -%}
+
+{%- if sponsor_entries.size > 0 -%}
+
+<section class="sponsors py-medium py-md-small">
+  <div class="container">
+
+    <div class="sponsors-grid">
+      {%- for entry in sponsor_entries -%}
+        {%- assign logo  = entry.logo.value -%}
+        {%- assign label = entry.label.value -%}
+        {%- assign url   = entry.url.value -%}
+
+        {%- if logo != blank -%}
+
+          {%- if url != blank -%}
+            <a
+              href="{{ url }}"
+              class="sponsor-block"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+          {%- else -%}
+            <div class="sponsor-block">
+          {%- endif -%}
+
+            <img
+              src="{{ logo | image_url: width: 400 }}"
+              alt="{{ label | default: '' }}"
+              width="200"
+              height="200"
+              loading="lazy"
+            />
+
+          {%- if url != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Sponsors — Grid",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Sponsors — Grid"
+    }
+  ]
+}
+{% endschema %}

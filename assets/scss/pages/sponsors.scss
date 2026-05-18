@@ -1,0 +1,39 @@
+@use '../variables' as *;
+
+#main-content {
+    &.sponsors {
+        .banner {
+            
+        }
+
+        .middle {
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2px;
+
+                @media #{$mq-sm-min} {
+                    gap: .25rem;
+                }
+
+                @media #{$mq-md-min} {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                @media #{$mq-lg-min} {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+
+                .sponsor-block {
+                    img,
+                    svg {
+                        @media #{$mq-sm-max} {
+                            width: 70%;
+                            height: 70%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

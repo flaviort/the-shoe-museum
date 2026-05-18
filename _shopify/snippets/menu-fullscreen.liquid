@@ -20,29 +20,17 @@
     <div class="middle">
       <ul class="menu text-80 uppercase">
 
-        <li>
-          <a href="{{ routes.root_url }}blogs/exhibits">
-            Exhibits
-          </a>
-        </li>
-
-        <li>
-          <a href="{{ routes.collections_url }}/all">
-            Store
-          </a>
-        </li>
-
-        <li>
-          <a href="{{ routes.root_url }}pages/about">
-            About
-          </a>
-        </li>
-
-        <li>
-          <a href="{{ routes.root_url }}pages/contact">
-            Contact
-          </a>
-        </li>
+        {%- assign fs_menu = menu | default: 'main-menu' -%}
+        {%- for link in linklists[fs_menu].links -%}
+          <li>
+            <a
+              href="{{ link.url }}"
+              {%- if link.active %} aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
 
         <li>
           <button class="open-cart">

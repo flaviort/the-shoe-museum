@@ -1,6 +1,6 @@
 @use '../variables' as *;
 
-.sponsors {
+.sponsors-section {
 	overflow: hidden;
 
     .top {
@@ -29,16 +29,7 @@
     }
 
     .sponsor-block {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
         width: calc(100% / 2);
-        aspect-ratio: 1;
-        background-color: transparent;
-        padding: 1rem;
-        border: 1px solid $gray-lightest;
-        transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
         margin-left: .5rem;
 
         @media #{$mq-xs-min} {
@@ -61,18 +52,6 @@
 
         @media #{$mq-xl-min} {
             width: calc(100% / 7);
-        }
-
-        &:hover {
-            background-color: $pure-white;
-            border-color: $pure-white;
-        }
-
-        img,
-        svg {
-            width: 60%;
-            height: 60%;
-            object-fit: contain;
         }
     }
 }

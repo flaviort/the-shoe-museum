@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sponsors-banner": {
+      "type": "sponsors-banner",
+      "settings": {
+        "title": "Sponsors",
+        "intro": "We work with the best in the business. Want to be part of our family? Get in touch."
+      }
+    },
+    "sponsors-grid": {
+      "type": "sponsors-grid",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Join our mailing list",
+        "description": "Be the first to receive updates regarding the launch of The Shoe Museum.",
+        "label_first_name": "First Name",
+        "label_last_name": "Last Name",
+        "label_email": "Email",
+        "button_text": "Sign up",
+        "success_message": "Thanks for subscribing!"
+      }
+    }
+  },
+  "order": [
+    "sponsors-banner",
+    "sponsors-grid",
+    "newsletter"
+  ]
+}

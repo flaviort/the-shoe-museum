@@ -39,6 +39,12 @@
                 </li>
 
                 <li>
+                    <a href='<?= $sponsors; ?>'>
+                        Sponsors
+                    </a>
+                </li>
+
+                <li>
                     <a href='<?= $contact; ?>'>
                         Contact
                     </a>

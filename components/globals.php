@@ -21,6 +21,7 @@
 	$blogs = 'blog';
 	$blog = 'blog-inner';
 	$about = 'about';
+	$sponsors = 'sponsors';
 	$contact = 'contact';
 
 	$login = 'login';

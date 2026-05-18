@@ -3,16 +3,25 @@
 .footer {
 	overflow: hidden;
 
-	.flex {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
+	@media #{$mq-sm-max} {
+		text-align: center;
+		padding-block: 1rem;
+	}
 
-		.left {
+	.flex {
+		@media #{$mq-sm-min} {
 			display: flex;
 			align-items: center;
-			gap: 2rem;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.left {
+			@media #{$mq-sm-min} {
+				display: flex;
+				align-items: center;
+				gap: 2rem;
+			}
 
 			.logo {
 				display: flex;
@@ -20,6 +29,10 @@
 
 				@media #{$mq-md-min} {
 					width: 3.5rem;
+				}
+
+				@media #{$mq-sm-max} {
+					margin-inline: auto;
 				}
 
 				img {
@@ -30,6 +43,11 @@
 			ul {
 				display: flex;
 				gap: 1rem;
+
+				@media #{$mq-sm-max} {
+					justify-content: center;
+					margin-block: 1.5rem 1rem;
+				}
 			}
 		}
 

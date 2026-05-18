@@ -1,0 +1,45 @@
+<section class="banner bg-gray-lightest">
+  <div class="container py-medium">
+
+    <h1 class="text-60 uppercase bold">
+      {{ section.settings.title }}
+    </h1>
+
+    {%- if section.settings.intro != blank -%}
+      <div class="row mt-half mt-md-1">
+        <div class="col-lg-8">
+          <p class="text-20">
+            {{ section.settings.intro }}
+          </p>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Sponsors — Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Sponsors"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro Text",
+      "default": "We work with the best in the business."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sponsors — Banner"
+    }
+  ]
+}
+{% endschema %}

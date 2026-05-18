@@ -1,4 +1,4 @@
-<section class='sponsors py-medium py-md-small'>
+<section class='sponsors-section py-medium py-md-small'>
 	
 	<div class='container'>
 		
