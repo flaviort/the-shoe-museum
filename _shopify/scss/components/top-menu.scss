@@ -39,6 +39,40 @@
 				display: flex;
 			}
 
+			> li {
+				position: relative;
+
+				&.has-dropdown {
+					> a {
+						display: flex;
+						align-items: center;
+						gap: .35rem;
+
+						i,
+						svg {
+							width: 1rem;
+							height: 1rem;
+							transition: transform .3s ease-in-out;
+						}
+					}
+
+					&:hover {
+						> a {
+							i,
+							svg {
+								transform: rotate(180deg);
+							}
+						}
+
+						.dropdown {
+							visibility: visible;
+							opacity: 1;
+							transform: translateX(-50%) translateY(0);
+						}
+					}
+				}
+			}
+
 			a {
 				display: block;
 				transition: .3s ease-in-out;
@@ -46,6 +80,32 @@
 				&.active,
 				&:hover {
 					color: $green;
+				}
+			}
+
+			.dropdown {
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				transform: translateX(-50%) translateY(.5rem);
+				min-width: 12rem;
+				padding: 1rem 1.25rem;
+				background-color: $white;
+				box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .08);
+				border-radius: .25rem;
+				visibility: hidden;
+				opacity: 0;
+				transition: opacity .25s ease-in-out, transform .25s ease-in-out, visibility .25s ease-in-out;
+
+				li {
+					+ li {
+						margin-top: .5rem;
+					}
+				}
+
+				a {
+					white-space: nowrap;
+					font-size: .9rem;
 				}
 			}
 		}

@@ -5,7 +5,14 @@
   All product tags are shown as badges.
 {%- endcomment -%}
 
-<a href="{{ product.url }}" class="product-block">
+{%- assign block_designer = product.metafields.product.designer_name.value -%}
+<a
+  href="{{ product.url }}"
+  class="product-block"
+  data-price="{{ product.price_min }}"
+  data-name="{{ product.title | escape }}"
+  {%- if block_designer != blank %} data-designer="{{ block_designer.name | handle }}"{% endif -%}
+>
 
   {%- if product.tags.size > 0 -%}
     <span class="product-block__tags">

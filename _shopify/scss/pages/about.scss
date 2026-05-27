@@ -98,6 +98,19 @@
                                 margin-left: 0;
                             }
                         }
+
+                        &__wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            gap: .5rem;
+
+                            img {
+                                display: block;
+                                width: 4rem;
+                                height: 4rem;
+                                object-fit: contain;
+                            }
+                        }
                     }
                 }
 

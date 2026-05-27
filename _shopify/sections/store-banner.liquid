@@ -2,6 +2,18 @@
   document.getElementById('main-content').classList.add('store');
 </script>
 
+{%- assign designer_keys = '' -%}
+{%- for product in collection.products -%}
+  {%- assign d = product.metafields.product.designer_name.value -%}
+  {%- if d != blank -%}
+    {%- assign d_slug = d.name | handle -%}
+    {%- assign key = d_slug | append: '|' | append: d.name -%}
+    {%- unless designer_keys contains key -%}
+      {%- assign designer_keys = designer_keys | append: key | append: '~' -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+
 <section class="banner">
 
   <img
@@ -15,31 +27,83 @@
 
   <div class="container py-smaller white">
 
-    <h1 class="text-60 uppercase bold">
-      {{ section.settings.title }}
-    </h1>
+    <div class="banner-inner">
 
-    {%- assign filter_collections = collections | where: 'products_count', '> 0' -%}
+      <div class="banner-left">
 
-    <div class="categories text-20 mt-1">
+        <h1 class="text-60 uppercase bold">
+          {{ section.settings.title }}
+        </h1>
 
-      <a
-        href="{{ routes.root_url }}collections/all"
-        class="{% if collection.handle == 'all' %}selected{% endif %}"
-      >
-        All
-      </a>
+        <div class="categories text-20 mt-1">
 
-      {%- for col in collections -%}
-        {%- unless col.handle == 'all' or col.handle == 'frontpage' or col.products_count == 0 -%}
           <a
-            href="{{ col.url }}"
-            class="{% if collection.handle == col.handle %}selected{% endif %}"
+            href="{{ routes.root_url }}collections/all"
+            class="{% if collection.handle == 'all' %}selected{% endif %}"
           >
-            {{ col.title }}
+            All
           </a>
-        {%- endunless -%}
-      {%- endfor -%}
+
+          {%- for col in collections -%}
+            {%- unless col.handle == 'all' or col.handle == 'frontpage' or col.products_count == 0 -%}
+              <a
+                href="{{ col.url }}"
+                class="{% if collection.handle == col.handle %}selected{% endif %}"
+              >
+                {{ col.title }}
+              </a>
+            {%- endunless -%}
+          {%- endfor -%}
+
+        </div>
+
+      </div>
+
+      <div class="banner-right">
+
+        <button class="filters">
+          <span>Filters</span>
+          <i data-lucide="funnel"></i>
+        </button>
+
+        {%- if designer_keys != blank -%}
+          <div class="designer-filter">
+            <label for="designer-select" class="text-16 medium">Filter by designer</label>
+            <div class="relative">
+              <select id="designer-select">
+                <option value="">View all</option>
+                {%- assign designer_list = designer_keys | split: '~' -%}
+                {%- for entry in designer_list -%}
+                  {%- if entry != blank -%}
+                    {%- assign parts = entry | split: '|' -%}
+                    <option value="{{ parts[0] }}">{{ parts[1] }}</option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+
+              <i data-lucide="chevron-down"></i>
+
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="sort-filter">
+          <label for="sort-select" class="text-16 medium">Sort by</label>
+          <div class="relative">
+            <select id="sort-select">
+              <option value="">Default</option>
+              <option value="price-desc">Price: highest to lowest</option>
+              <option value="price-asc">Price: lowest to highest</option>
+              <option value="name-asc">Alphabetical: A to Z</option>
+              <option value="name-desc">Alphabetical: Z to A</option>
+            </select>
+
+            <i data-lucide="chevron-down"></i>
+
+          </div>
+        </div>
+
+      </div>
 
     </div>
 

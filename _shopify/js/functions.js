@@ -1070,6 +1070,96 @@ function initFormSending() {
 	})
 }
 
+// toggle mobile filters button on store / collection pages
+function initFiltersToggle() {
+	let btn = select('.banner .filters')
+	if (!btn) return
+	btn.addEventListener('click', (e) => {
+		e.preventDefault()
+		btn.classList.toggle('is-active')
+	})
+}
+
+// filter + sort product grid (store / collection pages)
+function initStoreToolbar() {
+	let grid = select('.product-blocks')
+	if (!grid) return
+
+	let designerSelect = selectId('designer-select')
+	let sortSelect = selectId('sort-select')
+	if (!designerSelect && !sortSelect) return
+
+	function applyDesigner(value) {
+		grid.querySelectorAll('.product-block').forEach(block => {
+			if (!value) {
+				block.classList.remove('is-hidden')
+			} else {
+				let matches = block.dataset.designer === value
+				block.classList.toggle('is-hidden', !matches)
+			}
+		})
+	}
+
+	function applySort(value) {
+		let blocks = Array.from(grid.querySelectorAll('.product-block'))
+		if (!value) {
+			// restore original order (preserved via data-original-index)
+			blocks.sort((a, b) => parseInt(a.dataset.originalIndex) - parseInt(b.dataset.originalIndex))
+		} else if (value === 'price-asc') {
+			blocks.sort((a, b) => parseInt(a.dataset.price) - parseInt(b.dataset.price))
+		} else if (value === 'price-desc') {
+			blocks.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price))
+		} else if (value === 'name-asc') {
+			blocks.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name))
+		} else if (value === 'name-desc') {
+			blocks.sort((a, b) => b.dataset.name.localeCompare(a.dataset.name))
+		}
+		blocks.forEach(b => grid.appendChild(b))
+	}
+
+	// remember original DOM order so "Default" sort can restore it
+	grid.querySelectorAll('.product-block').forEach((block, i) => {
+		block.dataset.originalIndex = i
+	})
+
+	function syncUrl(key, value) {
+		let url = new URL(window.location)
+		if (value) {
+			url.searchParams.set(key, value)
+		} else {
+			url.searchParams.delete(key)
+		}
+		window.history.replaceState({}, '', url)
+	}
+
+	// apply state from URL on load
+	let params = new URLSearchParams(window.location.search)
+
+	if (designerSelect) {
+		let initial = params.get('designer') || ''
+		if (initial) {
+			designerSelect.value = initial
+			applyDesigner(initial)
+		}
+		designerSelect.addEventListener('change', () => {
+			applyDesigner(designerSelect.value)
+			syncUrl('designer', designerSelect.value)
+		})
+	}
+
+	if (sortSelect) {
+		let initial = params.get('sort') || ''
+		if (initial) {
+			sortSelect.value = initial
+			applySort(initial)
+		}
+		sortSelect.addEventListener('change', () => {
+			applySort(sortSelect.value)
+			syncUrl('sort', sortSelect.value)
+		})
+	}
+}
+
 // fire all scripts
 function initScripts() {
 	initLenis()
@@ -1086,6 +1176,8 @@ function initScripts() {
 	initNewsletterForm()
 	initContactForm()
 	initFormSending()
+	initFiltersToggle()
+	initStoreToolbar()
 }
 
 

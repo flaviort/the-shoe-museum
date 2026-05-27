@@ -22,14 +22,32 @@
 
       <ul class="menu">
         {%- for link in linklists[section.settings.menu].links -%}
-          <li>
+          {%- assign is_store = false -%}
+          {%- if link.url contains '/collections' -%}
+            {%- assign is_store = true -%}
+          {%- endif -%}
+
+          <li{% if is_store %} class="has-dropdown"{% endif %}>
             <a
               href="{{ link.url }}"
               class="hover-underline"
               {%- if link.active %} aria-current="page"{% endif %}
             >
               {{ link.title }}
+              {%- if is_store -%}
+                <i data-lucide="chevron-down"></i>
+              {%- endif -%}
             </a>
+
+            {%- if is_store -%}
+              <ul class="dropdown">
+                {%- for collection in collections -%}
+                  <li>
+                    <a href="{{ collection.url }}">{{ collection.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           </li>
         {%- endfor -%}
       </ul>

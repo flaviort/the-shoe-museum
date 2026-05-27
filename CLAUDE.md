@@ -19,6 +19,10 @@ A Shopify theme being translated from an existing PHP/SCSS site. The site is a m
 - Same JS libraries as PHP site (loaded via CDN)
 - Store: `the-shoe-museum.myshopify.com`
 
+#### Styling Rules
+- **NEVER** use inline `style="..."` attributes in Liquid/HTML. All styles must live in SCSS partials under `_shopify/scss/` (page-specific styles go in `scss/pages/<page>.scss`).
+- Add a class to the element and write the rule in the appropriate SCSS file — Gulp will compile it on save.
+
 #### NPM Scripts (always use these — never suggest raw `shopify` or `gulp` CLI commands directly)
 All commands must be run from inside `_shopify/`:
 
@@ -26,6 +30,7 @@ All commands must be run from inside `_shopify/`:
 |---|---|---|
 | `npm run dev` | `shopify theme dev` + `gulp watch` | Local development with live reload |
 | `npm run build` | `gulp build` | Production SCSS (no sourcemaps) |
+| `npm run pull` | `shopify theme pull` (JSON templates + `settings_data.json`) | Pull theme editor changes back to local |
 | `npm run push` | `shopify theme push` | Push all files to the live theme |
 | `npm run sass` | `gulp watch` | SCSS watch only |
 | `npm run js` | `gulp compileJS` | JS compile only |

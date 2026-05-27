@@ -6,9 +6,23 @@
 
         <div class="line">
           <div class="point">
-            <p class="text-18 medium">
-              {{ block.settings.year }}
-            </p>
+            
+            <div class="point__wrapper">
+              <p class="text-18 medium">
+                {{ block.settings.year }}
+              </p>
+
+              {%- if block.settings.icon != blank -%}
+                <img
+                  src="{{ block.settings.icon | image_url: width: 128 }}"
+                  alt="{{ block.settings.icon.alt }}"
+                  width="128"
+                  height="128"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </div>
+
           </div>
         </div>
 
@@ -76,6 +90,11 @@
           "id": "year",
           "label": "Year",
           "default": "2001"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
         },
         {
           "type": "text",
