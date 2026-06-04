@@ -2,9 +2,15 @@
   document.getElementById('main-content').classList.add('exhibit');
 </script>
 
-{%- assign designer        = article.metafields.custom.designer.value -%}
-{%- assign year            = article.metafields.custom.year.value -%}
-{%- assign related_product = article.metafields.custom.product.value -%}
+{%- assign designer          = article.metafields.custom.designer.value -%}
+{%- assign year              = article.metafields.custom.year.value -%}
+{%- assign related_product   = article.metafields.custom.product.value -%}
+{%- assign ideation_sketches = article.metafields.custom.ideation_sketches.value -%}
+{%- assign featured_video    = article.metafields.custom.featured_video.value -%}
+{%- assign inspiration       = article.metafields.custom.inspiration.value -%}
+{%- assign ideation_text     = article.metafields.custom.ideation_text.value -%}
+{%- assign video_text        = article.metafields.custom.video_text.value -%}
+{%- assign inspiration_text  = article.metafields.custom.inspiration_text.value -%}
 
 <section class="main-content">
   <div class="container z2">
@@ -61,6 +67,126 @@
             {{ article.content }}
           </div>
         </div>
+
+        {%- comment -%} ── IDEATION SKETCHES (stacked full-width images) ── {%- endcomment -%}
+        {%- if ideation_sketches != blank and ideation_sketches.size > 0 -%}
+          <h2 class="exhibit-extra__title text-32 bold uppercase">Ideation Sketches</h2>
+          {%- if ideation_text != blank -%}
+            <div class="exhibit-extra__text rich-text">{{ ideation_text | newline_to_br }}</div>
+          {%- endif -%}
+          <div class="ideation-sketches" aria-label="Ideation Sketches">
+            {%- for sketch in ideation_sketches -%}
+              <a
+                class="ideation-sketches__item"
+                href="{{ sketch | image_url }}"
+                data-fancybox="ideation-{{ article.id }}"
+              >
+                <img
+                  src="{{ sketch | image_url: width: 1600 }}"
+                  alt="{{ sketch.alt | default: article.title }}"
+                  width="{{ sketch.width }}"
+                  height="{{ sketch.height }}"
+                  loading="lazy"
+                />
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} ── VIDEO (YouTube / Vimeo / mp4) ── {%- endcomment -%}
+        {%- if featured_video != blank -%}
+          <h2 class="exhibit-extra__title text-32 bold uppercase">Video</h2>
+          {%- if video_text != blank -%}
+            <div class="exhibit-extra__text rich-text">{{ video_text | newline_to_br }}</div>
+          {%- endif -%}
+          <div class="exhibit-video" aria-label="Video">
+            {%- if featured_video contains 'youtube.com' or featured_video contains 'youtu.be' -%}
+              {%- if featured_video contains 'youtu.be/' -%}
+                {%- assign yt_id = featured_video | split: 'youtu.be/' | last | split: '?' | first -%}
+              {%- else -%}
+                {%- assign yt_id = featured_video | split: 'v=' | last | split: '&' | first -%}
+              {%- endif -%}
+              <div class="exhibit-video__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/{{ yt_id }}"
+                  title="{{ article.title }}"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- elsif featured_video contains 'vimeo.com' -%}
+              {%- assign vimeo_id = featured_video | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first -%}
+              <div class="exhibit-video__frame">
+                <iframe
+                  src="https://player.vimeo.com/video/{{ vimeo_id }}"
+                  title="{{ article.title }}"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- else -%}
+              <div class="exhibit-video__frame">
+                <video controls playsinline preload="metadata">
+                  <source src="{{ featured_video }}" type="video/mp4" />
+                </video>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} ── INSPIRATION IMAGES (count-based grid) ── {%- endcomment -%}
+        {%- if inspiration != blank and inspiration.size > 0 -%}
+          {%- assign inspiration_count = inspiration.size -%}
+          {%- if inspiration_count == 1 -%}
+            {%- assign inspiration_class = 'is-single' -%}
+          {%- elsif inspiration_count == 2 -%}
+            {%- assign inspiration_class = 'is-two' -%}
+          {%- else -%}
+            {%- assign inspiration_class = 'is-three' -%}
+          {%- endif -%}
+          <h2 class="exhibit-extra__title text-32 bold uppercase">Inspiration Images</h2>
+          {%- if inspiration_text != blank -%}
+            <div class="exhibit-extra__text rich-text">{{ inspiration_text | newline_to_br }}</div>
+          {%- endif -%}
+          <div class="inspiration-grid {{ inspiration_class }}" aria-label="Inspiration Images">
+            {%- for item in inspiration -%}
+              {%- comment -%} Naming convention: "Post Name | Custom Title" — display only the part after the last "|", trimmed {%- endcomment -%}
+              {%- assign clean_title = item.title | split: '|' | last | strip -%}
+              <div class="inspiration-grid__item">
+                {%- if item.image != blank -%}
+                  <a
+                    href="{{ item.image | image_url: width: 2000 }}"
+                    class="inspiration-grid__image"
+                    data-fancybox="inspiration-{{ article.id }}"
+                    data-caption="<strong>{{ clean_title | escape }}: </strong>{{ item.text | strip_html | escape }}"
+                  >
+                    <img
+                      src="{{ item.image | image_url: width: 1000 }}"
+                      alt="{{ item.image.alt | default: clean_title }}"
+                      loading="lazy"
+                      class="cover"
+                    />
+                  </a>
+                {%- endif -%}
+                {%- if item.title != blank or item.text != blank -%}
+                  <div class="inspiration-grid__content">
+                    {%- if clean_title != blank -%}
+                      <h3 class="inspiration-grid__title text-16 bold">{{ clean_title }}</h3>
+                    {%- endif -%}
+                    {%- if item.text != blank -%}
+                      <div class="inspiration-grid__text text-14">{{ item.text | newline_to_br }}</div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
 
       </div>
 
@@ -193,7 +319,7 @@
 {%- endfor -%}
 
 {%- if has_related -%}
-  <section class="related pt-medium pt-md-small">
+  <section class="related py-medium py-md-small">
     <div class="container">
 
       <div class="top">

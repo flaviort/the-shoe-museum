@@ -111,6 +111,156 @@
                         aspect-ratio: 4 / 2.75;
                     }
                 }
+
+                .exhibit-extra__title {
+                    display: block;
+                    margin-block: var(--smaller) 1.25rem;
+                    padding-block-start: var(--smaller);
+                    border-top: 1px solid $green;
+                }
+
+                .exhibit-extra__text {
+                    display: block;
+                    margin-block: -.5rem 1.25rem;
+                }
+
+                .ideation-sketches {
+                    display: flex;
+                    flex-direction: column;
+                    gap: var(--smaller);
+                    margin-block: 0 var(--smaller);
+
+                    &__item {
+                        position: relative;
+                        overflow: hidden;
+                        display: block;
+                        width: 100%;
+
+                        img {
+                            display: block;
+                            width: 100%;
+                            height: auto;
+                        }
+                    }
+                }
+
+                .exhibit-video {
+                    margin-block: 0 var(--smaller);
+
+                    &__frame {
+                        position: relative;
+                        overflow: hidden;
+                        width: 100%;
+                        aspect-ratio: 16 / 9;
+
+                        iframe,
+                        video {
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: 0;
+                            object-fit: cover;
+                        }
+                    }
+                }
+
+                .inspiration-grid {
+                    display: grid;
+                    gap: 0;
+                    margin-block: 0 var(--smaller);
+                    grid-template-columns: 1fr;
+
+                    &.is-two {
+                        @media #{$mq-sm-min} {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+                    }
+
+                    &.is-three {
+                        @media #{$mq-sm-min} {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+
+                        @media #{$mq-lg-min} {
+                            grid-template-columns: repeat(3, 1fr);
+                        }
+                    }
+
+                    &__item {
+                        position: relative;
+
+                        // mobile: space between blocks, except the last
+                        @media #{$mq-sm-max} {
+                            &:not(:last-child) {
+                                margin-block-end: var(--smallest);
+                            }
+                        }
+                    }
+
+                    &__image {
+                        position: relative;
+                        overflow: hidden;
+                        display: block;
+                        width: 100%;
+                        aspect-ratio: 1 / 1;
+                        cursor: pointer;
+
+                        img {
+                            transition: transform .4s ease-in-out;
+                        }
+
+                        &:hover img,
+                        &:focus-visible img {
+                            transform: scale(1.04);
+                        }
+                    }
+
+                    &__content {
+                        // mobile (base): static, displayed below the image
+                        margin-block-start: .75rem;
+
+                        // desktop: overlay inside the box, revealed on hover
+                        @media #{$mq-sm-min} {
+                            position: absolute;
+                            inset: 0;
+                            z-index: 2;
+                            display: flex;
+                            flex-direction: column;
+                            gap: .5rem;
+                            padding: 1.5rem;
+                            margin-block-start: 0;
+                            overflow-y: auto;
+                            background-color: rgba($green, .95);
+                            color: $white;
+                            opacity: 0;
+                            visibility: hidden;
+                            pointer-events: none;
+                            transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+                        }
+                    }
+
+                    // reveal the overlay on hover/focus (desktop only)
+                    @media #{$mq-sm-min} {
+                        &__item:hover .inspiration-grid__content,
+                        &__item:focus-within .inspiration-grid__content {
+                            opacity: 1;
+                            visibility: visible;
+                        }
+                    }
+
+                    &__title {
+                        display: block;
+                    }
+
+                    &__text {
+                        display: block;
+
+                        @media #{$mq-sm-max} {
+                            font-size: .9rem;
+                        }
+                    }
+                }
             }
 
             .right-side {

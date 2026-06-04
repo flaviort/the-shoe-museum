@@ -6,6 +6,8 @@
 	gap: 1.5rem;
 
 	@media #{$mq-md-min} {
+		@include text-20;
+		line-height: 1.8;
 		gap: 2rem;
 	}
 

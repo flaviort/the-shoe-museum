@@ -49,6 +49,11 @@ svg:not(.lucide) {
     fill: currentColor;
 }
 
+.fancybox__container svg:not(.lucide) {
+    max-width: none;
+    fill: none;
+}
+
 button {
 	appearance: none;
 	border: none;
