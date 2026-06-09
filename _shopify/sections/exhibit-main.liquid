@@ -93,52 +93,6 @@
           </div>
         {%- endif -%}
 
-        {%- comment -%} ── VIDEO (YouTube / Vimeo / mp4) ── {%- endcomment -%}
-        {%- if featured_video != blank -%}
-          <h2 class="exhibit-extra__title text-32 bold uppercase">Video</h2>
-          {%- if video_text != blank -%}
-            <div class="exhibit-extra__text rich-text">{{ video_text | newline_to_br }}</div>
-          {%- endif -%}
-          <div class="exhibit-video" aria-label="Video">
-            {%- if featured_video contains 'youtube.com' or featured_video contains 'youtu.be' -%}
-              {%- if featured_video contains 'youtu.be/' -%}
-                {%- assign yt_id = featured_video | split: 'youtu.be/' | last | split: '?' | first -%}
-              {%- else -%}
-                {%- assign yt_id = featured_video | split: 'v=' | last | split: '&' | first -%}
-              {%- endif -%}
-              <div class="exhibit-video__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/{{ yt_id }}"
-                  title="{{ article.title }}"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                  loading="lazy"
-                ></iframe>
-              </div>
-            {%- elsif featured_video contains 'vimeo.com' -%}
-              {%- assign vimeo_id = featured_video | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first -%}
-              <div class="exhibit-video__frame">
-                <iframe
-                  src="https://player.vimeo.com/video/{{ vimeo_id }}"
-                  title="{{ article.title }}"
-                  frameborder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowfullscreen
-                  loading="lazy"
-                ></iframe>
-              </div>
-            {%- else -%}
-              <div class="exhibit-video__frame">
-                <video controls playsinline preload="metadata">
-                  <source src="{{ featured_video }}" type="video/mp4" />
-                </video>
-              </div>
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-
         {%- comment -%} ── INSPIRATION IMAGES (count-based grid) ── {%- endcomment -%}
         {%- if inspiration != blank and inspiration.size > 0 -%}
           {%- assign inspiration_count = inspiration.size -%}
@@ -185,6 +139,52 @@
                 {%- endif -%}
               </div>
             {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} ── VIDEO (YouTube / Vimeo / mp4) ── {%- endcomment -%}
+        {%- if featured_video != blank -%}
+          <h2 class="exhibit-extra__title text-32 bold uppercase">Video</h2>
+          {%- if video_text != blank -%}
+            <div class="exhibit-extra__text rich-text">{{ video_text | newline_to_br }}</div>
+          {%- endif -%}
+          <div class="exhibit-video" aria-label="Video">
+            {%- if featured_video contains 'youtube.com' or featured_video contains 'youtu.be' -%}
+              {%- if featured_video contains 'youtu.be/' -%}
+                {%- assign yt_id = featured_video | split: 'youtu.be/' | last | split: '?' | first -%}
+              {%- else -%}
+                {%- assign yt_id = featured_video | split: 'v=' | last | split: '&' | first -%}
+              {%- endif -%}
+              <div class="exhibit-video__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/{{ yt_id }}"
+                  title="{{ article.title }}"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- elsif featured_video contains 'vimeo.com' -%}
+              {%- assign vimeo_id = featured_video | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first -%}
+              <div class="exhibit-video__frame">
+                <iframe
+                  src="https://player.vimeo.com/video/{{ vimeo_id }}"
+                  title="{{ article.title }}"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            {%- else -%}
+              <div class="exhibit-video__frame">
+                <video controls playsinline preload="metadata">
+                  <source src="{{ featured_video }}" type="video/mp4" />
+                </video>
+              </div>
+            {%- endif -%}
           </div>
         {%- endif -%}
 
