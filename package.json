@@ -1,40 +1,28 @@
 {
-  "name": "the-shoe-museum",
+  "name": "the-shoe-museum-shopify",
   "version": "1.0.0",
-  "description": "The Shoe Museum - Static website with PHP templating and optimized build process",
+  "description": "The Shoe Museum - Shopify theme",
   "main": "gulpfile.mjs",
   "scripts": {
-    "dev": "concurrently \"php -S localhost:8000 router.php\" \"gulp servePHP\"",
-    "php": "php -S localhost:8000 router.php",
+    "dev": "concurrently \"shopify theme dev --store the-shoe-museum.myshopify.com\" \"gulp watch\"",
     "build": "gulp build",
-    "clean": "gulp clean"
+    "pull": "shopify theme pull --only \"templates/*.json\" --only \"config/settings_data.json\" --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
+    "push": "shopify theme pull --only \"templates/*.json\" --only \"config/settings_data.json\" --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\" && gulp build && shopify theme push --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
+    "sass": "gulp watch",
+    "js": "gulp compileJS"
   },
-  "keywords": [
-    "static-site",
-    "php",
-    "gulp",
-    "sass",
-    "museum",
-    "website"
-  ],
-  "author": "",
-  "license": "ISC",
   "type": "module",
   "devDependencies": {
     "concurrently": "^9.2.0",
-    "del": "^8.0.0",
     "gulp": "^5.0.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-rename": "^2.0.0",
-    "through2": "^4.0.2"
+    "gulp-rename": "^2.0.0"
   },
   "dependencies": {
-    "browser-sync": "^3.0.2",
     "gulp-autoprefixer": "^9.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
-    "sass": "^1.77.7"
+    "sass": "^1.77.7",
+    "gulp-uglify": "^3.0.2"
   }
 }

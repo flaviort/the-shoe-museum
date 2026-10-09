@@ -1,4 +1,10 @@
-node_modules
-**/*.DS_Store
-**/passcode.php
-out/**
+node_modules/
+.DS_Store
+.env
+.shopify/
+
+# Build output: rebuilt by every push, and minified files conflict on every merge
+assets/main.min.css
+assets/main.min.css.map
+assets/main.js
+assets/main.js.map
