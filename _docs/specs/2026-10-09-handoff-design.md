@@ -39,12 +39,12 @@ the-shoe-museum/
 Deleted: every PHP file and `components/`, the root `assets/` (PHP site assets), root `gulpfile.mjs`, `package.json`, `package-lock.json`, `vercel.json`, `.htaccess`, `router.php`, `robots.txt`, `out/`, and `memory/` (its content moves into `_docs/07-gotchas.md`).
 
 `.gitignore`:
-- `node_modules/`, `.DS_Store`
+- `node_modules/`, `.DS_Store`, `.env`
 - Compiled output: `assets/main.min.css`, `assets/main.js`, `assets/*.map`. These are minified single lines that conflict on every merge between two people, and every push rebuilds them.
 
 `.shopifyignore` (files that never upload to Shopify):
 - Existing: `scss/*`, `js/*`, `node_modules/*`, `gulpfile.mjs`, `package.json`, `package-lock.json`, `.DS_Store`
-- New: `_docs/*`, `scripts/*`, `CLAUDE.md`, `README.md`, `.claude/*`, `.gitignore`, `.shopifyignore`
+- New: `_docs/*`, `scripts/*`, `CLAUDE.md`, `README.md`, `.claude/*`, `.gitignore`, `.shopifyignore`, `.env`, `.env.example`
 - Also exclude `assets/*.map`, since source maps should never go live.
 
 ## 2. Commands
@@ -53,15 +53,36 @@ All commands run from the repo root. Theme targeting uses `--live` (the publishe
 
 The logic lives in `scripts/shop.mjs` (Node, no extra dependencies), called from `package.json`.
 
+Both commands print a preflight checklist in the style of the Magnolia Hemp project: one line per check, tagged `[ok]`, `[warn]` or `[ERROR]`. Only `[ERROR]` stops the command.
+
 ### `npm run dev`
 
-1. Refuse to start if the working tree has uncommitted changes. Print a plain-language message saying so.
-2. `git pull --ff-only`. If it cannot fast-forward, stop and explain.
-3. Pull `templates/*.json` and `config/settings_data.json` from the live theme.
-4. If those files changed, commit them as `sync: customizer changes from live` and `git push`.
-5. Start `shopify theme dev` and `gulp watch` together (same as today's `dev`).
+`dev` never blocks on git state. It warns and keeps going.
+
+1. `[ERROR]` if the Shopify CLI is not installed. If `node_modules` is missing, run `npm install` (`[ERROR]` only if that fails).
+2. `[warn]` if the working tree has uncommitted changes.
+3. `git pull --ff-only --autostash`. On failure (offline, diverged history), `[warn]` with a plain explanation and continue.
+4. Pull `templates/*.json` and `config/settings_data.json` from the live theme:
+   - Any of those files with uncommitted local edits is skipped, with a `[warn]`, so local work is never overwritten.
+   - If the pulled files changed, commit only those files as `sync: customizer changes from live` and `git push`. If the push fails, `[warn]` and continue.
+   - If the pull itself fails, `[warn]` that the preview may show stale customizer content.
+5. Always start `shopify theme dev` and `gulp watch` together.
+
+### Optional `.env`
+
+As in Magnolia Hemp, a git-ignored `.env` (template in `.env.example`) may hold:
+- `SHOPIFY_CLI_THEME_TOKEN`: Theme Access token, passed as `--password`. When empty, the CLI uses the browser login (the owner's normal path).
+- `SHOPIFY_STOREFRONT_PASSWORD`: passed to `theme dev` as `--store-password` if the storefront is password protected.
+
+`scripts/shop.mjs` reads it directly (no `dotenv-cli`, no bash), so the same commands work on macOS and Windows without Magnolia's `.bat` wrappers.
+
+### No interactive prompts
+
+Claude runs the commands non-interactively, so the scripts never ask for input. The "are you sure" step for going live lives in CLAUDE.md: Claude asks in chat before every `npm run push`.
 
 ### `npm run push`
+
+Unlike `dev`, `push` is strict: every check below is an `[ERROR]` that stops before anything reaches live.
 
 1. Refuse if the working tree has uncommitted changes.
 2. `git fetch`. Refuse if local `main` is behind `origin/main`.
