@@ -33,13 +33,13 @@ the-shoe-museum/
 ├── .shopifyignore, .gitignore
 ├── scss/  js/
 ├── assets/ config/ layout/ locales/ sections/ snippets/ templates/
-└── .shopify/metafields.json
+└── .shopify/              CLI cache (metafields.json), git-ignored
 ```
 
 Deleted: every PHP file and `components/`, the root `assets/` (PHP site assets), root `gulpfile.mjs`, `package.json`, `package-lock.json`, `vercel.json`, `.htaccess`, `router.php`, `robots.txt`, `out/`, and `memory/` (its content moves into `_docs/07-gotchas.md`).
 
 `.gitignore`:
-- `node_modules/`, `.DS_Store`, `.env`
+- `node_modules/`, `.DS_Store`, `.env`, `.shopify/` (Shopify CLI cache)
 - Compiled output: `assets/main.min.css`, `assets/main.js`, `assets/*.map`. These are minified single lines that conflict on every merge between two people, and every push rebuilds them.
 
 `.shopifyignore` (files that never upload to Shopify):
