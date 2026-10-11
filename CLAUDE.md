@@ -1,185 +1,69 @@
-# The Shoe Museum — Project Context
+# The Shoe Museum
 
-## Overview
-A Shopify theme being translated from an existing PHP/SCSS site. The site is a mix of editorial content (Exhibits / blog) and e-commerce (Store / products). The PHP source lives in the root; the Shopify theme lives in `_shopify/`.
+Custom Shopify theme for `the-shoe-museum.myshopify.com` (live at theshoemuseum.com). It mixes editorial content (Exhibits, a blog with handle `exhibits`) with a store. Two people work on it: the store owner, who works only through Claude, and Flávio, the developer. The owner is not technical. You edit the files and run every command for him.
 
----
+Requires Node 22 or newer (the test script depends on it).
 
-## Tech Stack
+## The two commands
 
-### PHP Source (reference only, do not edit)
-- PHP templating with shared components in `/components/`
-- SCSS compiled via Gulp to `assets/css/main.min.css`
-- JS: Lenis (smooth scroll), GSAP + ScrollTrigger + SplitText, Swiper, Fancybox, Lucide icons
-- Build tool: Gulp (`gulpfile.mjs`)
+Always run commands from the repo root, and only through npm scripts.
 
-### Shopify Theme (`_shopify/`)
-- Liquid templating
-- SCSS source in `_shopify/scss/`, compiled by Gulp to `_shopify/assets/main.min.css`
-- Same JS libraries as PHP site (loaded via CDN)
-- Store: `the-shoe-museum.myshopify.com`
-
-#### Styling Rules
-- **NEVER** use inline `style="..."` attributes in Liquid/HTML. All styles must live in SCSS partials under `_shopify/scss/` (page-specific styles go in `scss/pages/<page>.scss`).
-- Add a class to the element and write the rule in the appropriate SCSS file — Gulp will compile it on save.
-
-#### NPM Scripts (always use these — never suggest raw `shopify` or `gulp` CLI commands directly)
-All commands must be run from inside `_shopify/`:
-
-| Script | Command | Purpose |
-|---|---|---|
-| `npm run dev` | `shopify theme dev` + `gulp watch` | Local development with live reload |
-| `npm run build` | `gulp build` | Production SCSS (no sourcemaps) |
-| `npm run pull` | `shopify theme pull` (JSON templates + `settings_data.json`) | Pull theme editor changes back to local |
-| `npm run push` | `shopify theme push` | Push all files to the live theme |
-| `npm run sass` | `gulp watch` | SCSS watch only |
-| `npm run js` | `gulp compileJS` | JS compile only |
-
----
-
-## Site Structure & Shopify Template Mapping
-
-| Page | PHP file | Shopify template | Notes |
-|---|---|---|---|
-| Home | `index.php` | `templates/index.json` | |
-| Exhibits (blog list) | `exhibits.php` | `templates/blog.json` | Blog handle: `exhibits` |
-| Exhibit (blog post) | `exhibit.php` | `templates/article.json` | Has designer metafields |
-| Store (products) | `store.php` | `templates/collection.json` | Single page with filters |
-| Product | `product.php` | `templates/product.json` | Has extra metafields |
-| About | `about.php` | `templates/page.about.json` | |
-| Contact | `contact.php` | `templates/page.contact.json` | |
-| Privacy Policy | `privacy-policy.php` | `templates/page.privacy.json` | |
-| Terms of Service | `terms-of-service.php` | `templates/page.terms.json` | |
-| 404 | — | `templates/404.liquid` | Simple placeholder, design TBD |
-
-### Account Pages
-Using **Shopify Accounts 2.0** — no custom account templates needed. Account icon links to `/account` and Shopify handles all auth UI (login, register, forgot password, dashboard, orders) outside the theme.
-
-### Collections / Store
-No individual collection pages. All products live on a single store page (`/collections/all` or similar). Collection URLs like `/collections/shoes` should redirect or filter the main products page with the relevant filter pre-activated.
-
----
-
-## PHP Components → Shopify Snippets/Sections
-
-| PHP component | Shopify equivalent |
+| Command | What it does |
 |---|---|
-| `components/head.php` | `layout/theme.liquid` (head block) |
-| `components/top-menu.php` | `sections/header.liquid` |
-| `components/fs-menu.php` | `snippets/menu-fullscreen.liquid` |
-| `components/cart-menu.php` | `snippets/cart-drawer.liquid` |
-| `components/footer.php` | `sections/footer.liquid` |
-| `components/newsletter-section.php` | `sections/newsletter.liquid` |
-| `components/exhibit-block.php` | `snippets/exhibit-card.liquid` |
-| `components/faq-section.php` | `sections/faq.liquid` |
+| `npm run dev` | Checks tools, pulls the latest code from GitHub, copies customizer changes from the live theme into git, then starts the local preview (`shopify theme dev` plus `gulp watch`). It never blocks on git state: problems show up as `[warn]` lines and the preview still starts. It runs until stopped, so start it in the background at the start of every session. |
+| `npm run push` | Publishes to the live site. Strict: stops if there are uncommitted changes, if GitHub has newer commits, or if the customizer changed on live since the last sync. Then it builds, pushes to GitHub, uploads the theme with `shopify theme push --live --allow-live`, and saves Shopify's reformatted JSON. |
 
----
+`npm run push -- --dry-run` runs every check and the build without pushing. Use it to answer "is this ready?". `build`, `sass`, `js` and `test` exist for internal use.
 
-## Global Variables (from `globals.php`)
+## Session routine
 
-| Variable | Value |
+1. Start `npm run dev` in the background. Read its output and report any `[warn]` line in plain language.
+2. Make the change. Commit after each logical change with a plain-language message.
+3. Tell the owner what changed and which page to check in the preview: `http://127.0.0.1:9292` plus the path.
+4. Before `npm run push`, run `npm run push -- --dry-run`. Then ask the owner in chat: "Ready to publish to the live site?" and wait for a yes. Every push goes live immediately.
+5. If push stops because of customizer changes: run `git diff`, explain in plain language what was changed in the customizer, merge it with the local edits (keep both), commit, and push again. Never discard live customizer content.
+
+## Hard rules
+
+- Never run `shopify theme push`, `shopify theme pull` or `shopify theme publish` directly. Only `npm run push`.
+- Never `git push --force`, never rewrite history, never `git reset --hard` on shared commits.
+- Never edit `assets/main.min.css` or `assets/main.js`. They are build output and git-ignored. Edit `scss/` and `js/functions.js`.
+- Never use inline `style="..."`. Add a class and write the rule in `scss/` (page styles go in `scss/pages/<page>.scss`).
+- `templates/*.json` and `config/settings_data.json` hold customizer content. Edit them only after `npm run dev` has synced in this session, and prefer the customizer for content changes.
+- Never call third-party APIs with `fetch` from theme JS. Shopify wraps `fetch`; see `_docs/07-gotchas.md`.
+- Content (products, exhibits, designers, pages, menus) is edited in Shopify admin, not in code. When that is the right place, point the owner to admin.
+- Never read, print or commit `.env`. It holds secrets.
+
+## Talking to the owner
+
+Use plain language and skip jargon. Say what changed and where to look. Ask before anything that goes live. If something fails, say what happened and what you will do next.
+
+## Writing style
+
+No em dashes, no emojis, human voice. This applies to all text you write: copy, code comments, commit messages and docs.
+
+## Where things are
+
+| Path | What lives there |
 |---|---|
-| `$site_title` | The Shoe Museum, Inc. |
-| `$site_desc` | Where Passion fuels Creation, Stories add Meaning, and Wearing becomes Expression. |
-| `$email` | info@theshoemuseum.com |
+| `layout/theme.liquid` | Page shell: head, CDN libraries, header and footer sections |
+| `sections/` | Page sections with customizer schemas |
+| `snippets/` | Reusable partials (cart drawer, fullscreen menu, product and exhibit cards) |
+| `templates/` | JSON templates (customizer content) and a few Liquid ones |
+| `config/settings_schema.json` | Global theme settings |
+| `scss/` | Styles: `atoms`, `components`, `pages`, `variables`, `mixins`, `utils`. Entry is `scss/main.scss` |
+| `js/functions.js` | All theme JS |
+| `assets/` | Fonts, images, and the git-ignored build output |
+| `scripts/` | The code behind `npm run dev` and `npm run push` |
+| `_docs/` | Longer documentation |
 
-These should live in `config/settings_schema.json` as global theme settings.
+## Docs index
 
----
-
-## Navigation
-
-### Top Menu (sticky bar)
-- Logo → home
-- Links: Exhibits, Store, About, Contact
-- Icons (right side): Cart (opens drawer), Account (`/account`), Hamburger (opens fullscreen menu)
-
-### Fullscreen Menu (overlay)
-- Large text links: Exhibits, Store, About, Contact, Cart (button), Login
-- Triggered by hamburger icon
-
----
-
-## Metafields
-
-### Article (Exhibit) Metafields
-Namespace: `custom`
-
-| Key | Type | Notes |
-|---|---|---|
-| `designer` | metaobject_reference | References `designer` metaobject (see below) |
-| `year` | single_line_text_field | |
-| `product` | product_reference | Links exhibit to a product |
-
-Access pattern in Liquid:
-```liquid
-{%- assign designer = article.metafields.custom.designer.value -%}
-{{ designer.name }}
-{{ designer.title }}
-{{ designer.photo | image_url: width: 400 }}
-```
-
-### Metaobject: `designer`
-Referenced from exhibit articles. Fields:
-
-| Key | Type |
-|---|---|
-| `name` | single_line_text_field |
-| `title` | single_line_text_field |
-| `bio` | multi_line_text_field |
-| `photo` | file_reference (image) |
-| `website` | url |
-| `linkedin` | url |
-| `instagram` | url |
-| `facebook` | url |
-| `twitter` | url |
-
-### Product Metafields
-Namespace: `product`
-
-| Key | Type | Notes |
-|---|---|---|
-| `designer_name` | metaobject_reference (designer) | Shown below title as "Designer: …" — reads `.name` from the metaobject |
-| `year` | single_line_text_field | |
-| `short_description` | single_line_text_field | |
-| `product_details` | rich_text_field | HTML area for extra details (second specs tab) |
-| `exhibit_link` | mixed_reference (article) | Links product back to its exhibit |
-| `featured_video` | url | MP4, YouTube or Vimeo URL |
-
----
-
-## JS Libraries (CDN, loaded in theme.liquid)
-
-```html
-<!-- Head -->
-<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.4/dist/lenis.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.css" />
-
-<!-- Footer (before </body>) -->
-<script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-{{ 'main.js' | asset_url | script_tag }}
-```
-
----
-
-## SEO / Meta Tags (from `head.php`)
-Already implemented: charset, viewport, format-detection, favicon, author, title, description, canonical, og:locale, og:type, og:title, og:description, og:url, og:site_name, og:image (1200×630).
-
-Still to add in `theme.liquid`: Twitter/X card meta tags, structured data (JSON-LD).
-
----
-
-## Notes & Decisions
-- No search functionality (for now)
-- No pagination (for now, may add later)
-- No individual collection pages — single store page with filter support. Collection URLs pre-activate the relevant filter via URL params.
-- Password protection disabled on store during development
-- `content_for_header` must be present in `theme.liquid` for Shopify scripts/apps to inject correctly
-- Customizer-editable content uses section schemas; global settings use `config/settings_schema.json`
+- `_docs/01-setup.md`: first-time setup on a new machine.
+- `_docs/02-daily-workflow.md`: how a normal working day goes, including conflicts with the customizer.
+- `_docs/03-architecture.md`: template and section mapping, navigation, global settings. Read before adding pages or sections.
+- `_docs/04-content-model.md`: metafields, the designer metaobject, blog and product fields. Read before touching anything that reads metafields.
+- `_docs/05-styling-and-js.md`: SCSS structure, the JS libraries and how they load. Read before styling or scripting.
+- `_docs/06-patterns.md`: recipes for common changes.
+- `_docs/07-gotchas.md`: known traps, including the `fetch` issue. Read when something behaves oddly.
+- `_docs/08-troubleshooting.md`: error messages and fixes. Read when a command fails.
