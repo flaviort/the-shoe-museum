@@ -4,13 +4,12 @@
   "description": "The Shoe Museum - Shopify theme",
   "main": "gulpfile.mjs",
   "scripts": {
-    "dev": "concurrently \"shopify theme dev --store the-shoe-museum.myshopify.com\" \"gulp watch\"",
+    "dev": "node scripts/dev.mjs",
+    "push": "node scripts/push.mjs",
     "build": "gulp build",
-    "pull": "shopify theme pull --only \"templates/*.json\" --only \"config/settings_data.json\" --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
-    "push": "shopify theme pull --only \"templates/*.json\" --only \"config/settings_data.json\" --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\" && gulp build && shopify theme push --theme \"The Shoe Museum\" --store=\"the-shoe-museum.myshopify.com\"",
-    "test": "node --test \"scripts/**/*.test.mjs\"",
     "sass": "gulp watch",
-    "js": "gulp compileJS"
+    "js": "gulp compileJS",
+    "test": "node --test \"scripts/**/*.test.mjs\""
   },
   "type": "module",
   "devDependencies": {
