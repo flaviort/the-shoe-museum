@@ -1,6 +1,8 @@
 // Optional .env support. SHOPIFY_CLI_THEME_TOKEN lets someone use a Theme Access
-// token instead of the browser login; SHOPIFY_STOREFRONT_PASSWORD gets the local
-// preview past a password-protected storefront.
+// token instead of the browser login. It is handed to the CLI through the
+// environment, never as a flag, so it does not show up in command output.
+// SHOPIFY_STOREFRONT_PASSWORD gets the local preview past a password-protected
+// storefront.
 
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -23,12 +25,13 @@ export function parseEnv(text) {
 
 export function loadEnv(root) {
     const file = join(root, '.env')
-    return existsSync(file) ? parseEnv(readFileSync(file, 'utf8')) : {}
+    const env = existsSync(file) ? parseEnv(readFileSync(file, 'utf8')) : {}
+    if (env.SHOPIFY_CLI_THEME_TOKEN) process.env.SHOPIFY_CLI_THEME_TOKEN = env.SHOPIFY_CLI_THEME_TOKEN
+    return env
 }
 
 export function shopifyArgs(command, env = {}) {
     const args = ['--store', STORE]
-    if (env.SHOPIFY_CLI_THEME_TOKEN) args.push('--password', env.SHOPIFY_CLI_THEME_TOKEN)
     if (command === 'dev' && env.SHOPIFY_STOREFRONT_PASSWORD) {
         args.push('--store-password', env.SHOPIFY_STOREFRONT_PASSWORD)
     }
