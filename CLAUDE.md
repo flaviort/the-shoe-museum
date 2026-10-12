@@ -4,6 +4,8 @@ Custom Shopify theme for `the-shoe-museum.myshopify.com` (live at theshoemuseum.
 
 Requires Node 22 or newer (the test script depends on it).
 
+**First time on this Mac, or setup looks incomplete** (no `node_modules`, no `.env`, `node`, `shopify` or `gh` missing, no `origin` remote of his own)? Use the `setup` skill in `.claude/skills/setup/SKILL.md` before anything else. It also handles "configure this project for me" and "check my setup".
+
 ## The two commands
 
 Always run commands from the repo root, and only through npm scripts.

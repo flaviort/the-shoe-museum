@@ -11,7 +11,7 @@ Run these from the repo root. Node 22 or newer is required.
 
 ## Getting started
 
-New here? Start with [`_docs/01-setup.md`](_docs/01-setup.md).
+New here? Open this folder in Claude and type "configure this project for me". Details in [`_docs/01-setup.md`](_docs/01-setup.md).
 
 Working with Claude? It reads `CLAUDE.md` automatically, so there is nothing to explain first.
 

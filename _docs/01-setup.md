@@ -1,83 +1,51 @@
 # Setup
 
-Do this once on your Mac. It takes about 15 minutes. You do not need to understand any of it. If a step fails, copy the message and paste it to Claude.
+Do this once on your Mac. Claude does almost all of it for you.
 
-## What you need
+## The short version
 
-- A Mac.
-- The Claude desktop app.
-- A GitHub account.
-- The login for the Shopify store (the owner account for `the-shoe-museum.myshopify.com`).
+1. Put the project folder somewhere you will keep it (Claude will suggest `Sites/the-shoe-museum` in your home folder).
+2. Open the Claude desktop app, go to the Code tab and choose the `the-shoe-museum` folder.
+3. Type: **configure this project for me**
 
-## 1. Install the tools
+Claude checks your Mac, installs what is missing, and asks before each step. It takes about 15 minutes. A few times it will ask you to click something in your browser or in a macOS window. It never needs your Mac password, and you never paste passwords into the chat.
 
-Open the Terminal app (press Cmd+Space, type "Terminal", press Enter). Run each block below, one at a time.
+You can run it again any time by saying **check my setup**. Steps that are already done are skipped.
 
-Homebrew is a tool that installs other tools. Check whether you have it:
+## What Claude sets up
 
-```bash
-brew --version
-```
+| Step | What it is | Who does it |
+|---|---|---|
+| Git | Saves the history of every change | Claude. If macOS asks to install "developer tools", you click Install. |
+| Node | Runs the project's tools | Claude |
+| Shopify CLI | Talks to your store | Claude |
+| GitHub | Keeps the project safe online and shared with Flávio | Claude installs and creates the repository. You create an account (if you have none) and approve the sign-in in your browser. |
+| Theme Access token | Lets this Mac update your store | You install the free Theme Access app and create a password. Claude opens a file where you paste it. |
+| First run | Starts the preview of your site | Claude |
 
-If you see "command not found", install it from https://brew.sh (copy the one command shown on that page into Terminal). Then:
+The full runbook Claude follows is in `.claude/skills/setup/SKILL.md`.
 
-```bash
-brew install node git
-```
+## About the `.env` file
 
-```bash
-npm install -g @shopify/cli@latest
-```
+The Theme Access token lives in a file called `.env` in the project folder. It is never uploaded to GitHub or to Shopify, and Claude never shows it. If you ever need a new token, create one in the Theme Access app and ask Claude to update `.env`.
 
-Check that it worked:
+`SHOPIFY_STOREFRONT_PASSWORD` stays empty: your store is public (Online Store > Preferences > Store access > Private mode is off).
 
-```bash
-node -v
-shopify version
-```
+## If you prefer to do it by hand
 
-`node -v` must show 22 or higher (for example `v22.11.0`). `shopify version` shows a number like `4.9.0`.
+The steps Claude runs, in order: install git (`xcode-select --install`), install Node 22 with nvm, `npm install -g @shopify/cli@latest`, install the GitHub CLI and run `gh auth login`, create a private repository and push, add `flaviort` as a collaborator, create a Theme Access password and put it in `.env` as `SHOPIFY_CLI_THEME_TOKEN=shptka_...`, then `npm install` and `npm run dev`. The exact commands are in the runbook above.
 
-## 2. Get the code
+## For Flávio: sending the project
 
-Use the address of the repo on your GitHub account. Right now it is `https://github.com/flaviort/the-shoe-museum`. After Flávio transfers it to you, replace `flaviort` with your GitHub username.
-
-```bash
-git clone https://github.com/flaviort/the-shoe-museum.git
-cd the-shoe-museum
-npm install
-```
-
-## 3. Log in to Shopify once
-
-Still in Terminal, inside the `the-shoe-museum` folder:
-
-```bash
-npm run dev
-```
-
-Your browser opens and asks you to log in to Shopify. Use the store owner account. After you log in, go back to Terminal. It prints a checklist and then a preview link (usually `http://127.0.0.1:9292`). Press Ctrl+C to stop it.
-
-You only do this once. From now on Claude can start the preview for you.
-
-## 4. Open the folder in Claude
-
-In the Claude desktop app, open the Code tab and choose the `the-shoe-museum` folder. Claude reads the file `CLAUDE.md` by itself, so there is nothing to explain first. Try saying: "Start the preview."
-
-## 5. Optional: the `.env` file
-
-You can skip this. The file `.env.example` lists two optional secrets. To use them, copy it to a file named `.env` and fill in only what you need.
-
-- `SHOPIFY_CLI_THEME_TOKEN`: a Theme Access password, for people who work on several stores and do not want the browser login. Create it in Shopify admin under Apps > Theme Access > Create password. The token arrives by email, starts with `shptka_`, and is shown only once.
-- `SHOPIFY_STOREFRONT_PASSWORD`: only for stores with a storefront password. Yours has none (Online Store > Preferences > Store access > Private mode is off), so leave it empty.
-
-The `.env` file is never uploaded to GitHub. Do not paste its contents into chat.
-
-## Handoff checklist
-
-- [ ] Flávio transfers the GitHub repo to the owner's account (repo Settings > Transfer ownership).
-- [ ] The owner accepts the transfer and adds Flávio as a collaborator (Settings > Collaborators).
-- [ ] Both update their copy if the address changed: `git remote set-url origin <new address>`.
-- [ ] The owner installs the tools and logs in (steps 1 to 3 above).
-- [ ] The owner runs `npm run dev` and sees the preview.
-- [ ] Flávio shuts down the Vercel project for the old PHP site, if it is still running.
+1. Zip the project folder including its hidden `.git` folder (it keeps the history and the `live` branch). Leave out `.env`, `node_modules/`, `.shopify/` and your personal `.claude/settings.local.json`:
+   ```bash
+   cd ..
+   zip -r the-shoe-museum.zip the-shoe-museum -x 'the-shoe-museum/.env' 'the-shoe-museum/node_modules/*' 'the-shoe-museum/.shopify/*' 'the-shoe-museum/.claude/settings.local.json' '*.DS_Store'
+   ```
+2. Send the zip. He unzips it and follows "The short version" above.
+3. When he gives you access, accept the GitHub invitation, then point your copy at his repository:
+   ```bash
+   git remote set-url origin https://github.com/<his username>/the-shoe-museum.git
+   git fetch origin
+   ```
+4. Your own `.env` keeps your token. His Mac gets its own.
