@@ -58,8 +58,11 @@ export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; no
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | PROFILE="$HOME/.zshrc" bash
   export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"
   nvm install 22 && nvm alias default 22
+  touch ~/.zprofile
+  grep -q 'NVM_DIR' ~/.zprofile || printf '\nexport NVM_DIR="$HOME/.nvm"\n[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"\n' >> ~/.zprofile
   node -v
   ```
+  (The `.zprofile` lines make Node available to login shells too, which is how Claude starts its shell.)
 - Verify: `node -v` prints `v22.x`.
 - From now on, prefix Node commands in this session with: `export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh";`
 
@@ -88,7 +91,7 @@ curl -sL "https://github.com/cli/cli/releases/download/$TAG/gh_${VER}_macOS_${AR
 unzip -q "$TMP/gh.zip" -d "$TMP"
 cp "$TMP/gh_${VER}_macOS_${ARCH}/bin/gh" ~/.local/bin/gh
 rm -rf "$TMP"
-grep -q '.local/bin' ~/.zshrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+for f in ~/.zshrc ~/.zprofile; do touch "$f"; grep -q '.local/bin' "$f" || echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$f"; done
 export PATH="$HOME/.local/bin:$PATH"; gh --version
 ```
 From now on, prefix gh commands with `export PATH="$HOME/.local/bin:$PATH";`.

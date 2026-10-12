@@ -6,6 +6,8 @@ Requires Node 22 or newer (the test script depends on it).
 
 **First time on this Mac, or setup looks incomplete** (no `node_modules`, no `.env`, `node`, `shopify` or `gh` missing, no `origin` remote of his own)? Use the `setup` skill in `.claude/skills/setup/SKILL.md` before anything else. It also handles "configure this project for me" and "check my setup".
 
+If `node`, `npm` or `shopify` is "command not found" but setup was done before, Node was installed with nvm and the shell did not load it. Prefix the command with `export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh";` and the GitHub CLI with `export PATH="$HOME/.local/bin:$PATH";`.
+
 ## The two commands
 
 Always run commands from the repo root, and only through npm scripts.
