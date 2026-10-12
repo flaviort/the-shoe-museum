@@ -36,7 +36,7 @@ node -v
 shopify version
 ```
 
-`node -v` must show 22 or higher (for example `v22.11.0`). `shopify version` shows a number like `3.80.0`.
+`node -v` must show 22 or higher (for example `v22.11.0`). `shopify version` shows a number like `4.9.0`.
 
 ## 2. Get the code
 
@@ -69,7 +69,7 @@ In the Claude desktop app, open the Code tab and choose the `the-shoe-museum` fo
 You can skip this. The file `.env.example` lists two optional secrets. To use them, copy it to a file named `.env` and fill in only what you need.
 
 - `SHOPIFY_CLI_THEME_TOKEN`: a Theme Access password, for people who work on several stores and do not want the browser login. Create it in Shopify admin under Apps > Theme Access > Create password. The token arrives by email, starts with `shptka_`, and is shown only once.
-- `SHOPIFY_STOREFRONT_PASSWORD`: only for stores with a storefront password. Yours has none (Online Store > Preferences > Private mode is off), so leave it empty.
+- `SHOPIFY_STOREFRONT_PASSWORD`: only for stores with a storefront password. Yours has none (Online Store > Preferences > Store access > Private mode is off), so leave it empty.
 
 The `.env` file is never uploaded to GitHub. Do not paste its contents into chat.
 

@@ -20,10 +20,12 @@ The 404 page is a JSON template with sections, like every other page: `error-404
 
 ## Customizer JSON must be pulled before it is pushed
 
-Shopify stores customizer content (section settings, block order, page content) in `templates/*.json` and `config/settings_data.json` on the live theme. Uploading a stale local copy of those files overwrites everything the owner did in the customizer, with no undo. That is why both commands sync them first:
+Shopify stores customizer content (section settings, block order, page content) in `templates/*.json`, `sections/*.json` and `config/settings_data.json` on the live theme, and the language editor writes `locales/*.json`. Uploading a stale local copy of those files overwrites everything the owner did in the customizer, with no undo. That is why both commands sync them first:
 
 - `npm run dev` brings live changes into git before you start editing.
-- `npm run push` refuses to publish if live has changes it has not synced, and writes them into your working tree so you can merge.
+- `npm run push` refuses to publish if live has changes it has not synced. Files changed only on live are written into your working tree; files changed on both sides are left alone and need a hand merge.
+
+The compare uses the `live` branch on GitHub as its base: it marks the commit last published, so the scripts can tell a code edit (keep it) from a customizer edit (take it). Only `npm run push` moves it. Do not move or delete it by hand, and do not write commit messages starting with `sync:`; the scripts treat those commits as exact copies of live. See `03-architecture.md` for the full table.
 
 Pull only those files, never the whole theme. A full `shopify theme pull` replaces local code with the live theme's older code. This is why the scripts compare in a temp folder and copy files themselves, and why you should never run `shopify theme pull` or `push` by hand.
 
@@ -31,7 +33,8 @@ Shopify also reformats JSON on upload, so the scripts re-pull after each push an
 
 ## Small ones
 
-- `.shopifyignore` excludes source, tooling and docs from the upload, not `config/settings_data.json`. That file is uploaded, which is safe because of the sync above.
+- `.shopifyignore` excludes source, tooling and docs from the upload, not `config/settings_data.json` or `locales/`. Those are uploaded, which is safe because of the sync above.
+- Do not use the customizer while a publish is running. The upload sends the files checked a few minutes earlier.
 - `snippets/cart-drawer.liquid` and `snippets/menu-fullscreen.liquid` start hidden with an inline `style="display: none"` that the JS toggles. It is the one place inline styles remain; do not copy it.
 - Product `designer_name` is defined as a `mixed_reference` but the theme reads `.value.name`, so it must point at a `designer` metaobject entry.
 - Contact and newsletter forms use Shopify's `{% form 'contact' %}` and `{% form 'customer' %}`. Their success and error popups come from a `?customer_posted=` URL parameter and from `window.__contactPosted` and `window.__contactErrors`, handled in `initNewsletterForm()` and `initContactForm()`.

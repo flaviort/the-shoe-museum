@@ -13,7 +13,7 @@ You work by talking to Claude. Claude edits the files, runs the commands and tel
 
 Each line starts with a tag. `[ok]` means fine. `[..]` is a progress note. `[warn]` means something to know about, but the preview still starts. `[ERROR]` means it stopped.
 
-Normal lines: `Shopify CLI found`, `Dependencies installed`, `No uncommitted changes`, `Up to date with GitHub`, `Customizer content is up to date`. It also says whether it uses a token from `.env` or your Shopify login.
+Normal lines: `Shopify CLI found`, `Dependencies installed`, `No uncommitted changes`, `Up to date with GitHub`, `Customizer content is up to date`. It also says whether it uses a token from `.env` or your Shopify login. Until the first publish with the current scripts you also see `Change tracking for customizer files starts with the first publish`; that is expected.
 
 The `[warn]` lines, and what to do:
 
@@ -22,9 +22,12 @@ The `[warn]` lines, and what to do:
 | `N uncommitted change(s). Starting anyway; commit them when you are done.` | There are edits that are not saved in git yet. | Nothing now. Ask Claude to commit them before publishing. |
 | `Could not get the latest code from GitHub (offline, or you both committed at once). ...` | Your copy could not catch up with GitHub. | Check your internet. If it is fine, tell Claude. Do not publish until it is sorted. |
 | `Could not read the live theme, so the preview may show old customizer content: ...` | It could not fetch what you changed in the Shopify customizer. | Usually a login problem. See [troubleshooting](08-troubleshooting.md). |
-| `Skipped <file>: it changed on live, but it also has unsaved edits here. ...` | Someone changed that file in the customizer while you have unsaved edits to the same file. | Ask Claude to commit your edits and merge the two versions. |
+| `Skipped <file>: it changed in the customizer, but it also has uncommitted edits here. ...` | Someone changed that file in the customizer while you have unsaved edits to the same file. | Ask Claude to commit your edits and merge the two versions. |
+| `<file> changed both here and in the customizer. Claude needs to merge before publishing ...` | The same page was changed in the code and in the customizer since the last publish. Neither version was touched. | Nothing now. Before publishing, Claude merges the two (see below). |
+| `<file> was deleted in the customizer but is still here. ...` or `<file> was deleted here but changed in the customizer. ...` | One side removed a template, the other kept or changed it. | Before publishing, Claude asks you which one you want. |
 | `Copied N customizer file(s) from live but could not commit them: ...` | The customizer changes were copied but not saved in git. | Tell Claude. |
 | `Saved N customizer change(s) from live, but could not send them to GitHub` | Saved here, not yet on GitHub. | Tell Claude. The next publish will send them. |
+| `Saved N customizer change(s) from live here. Other commits here are not published yet, so they all go to GitHub with the next publish.` | Normal when there is unpublished work. The preview only sends its own commit to GitHub when nothing else is waiting. | Nothing. |
 
 Two other lines you may see: `<file> still exists on live but was deleted here; the next push removes it` (informational), and `Saved N customizer change(s) from live and sent them to GitHub` (good: it picked up your customizer edits).
 
@@ -36,11 +39,12 @@ Claude runs `npm run push -- --dry-run` first. That does every check and the bui
 
 1. Checks the tools are installed.
 2. Checks nothing is unsaved, and that GitHub has nothing newer.
-3. Checks the customizer was not changed on the live site since the last sync.
-4. Builds the styles and scripts.
+3. Builds the styles and scripts.
+4. Checks the customizer was not changed on the live site since the last sync.
 5. Sends the code to GitHub.
 6. Uploads the theme to the live store.
 7. Saves Shopify's reformatted copy of the customizer files.
+8. Moves the `live` branch on GitHub to what it just published. The next sync compares against it, which is how it tells a code edit from a customizer edit.
 
 It ends with `Done. Live at https://theshoemuseum.com`.
 
@@ -55,11 +59,13 @@ If a check fails it prints an `[ERROR]` line and `Nothing was pushed.` The live 
 | `This branch is not linked to GitHub. Ask for help before pushing.` | Ask Flávio. |
 | `GitHub has N newer commit(s) that are not here yet. ...` | Ask Claude to start the preview (it fetches them), then publish again. |
 | `Could not read the live theme: ...` | Usually a login problem. See [troubleshooting](08-troubleshooting.md). |
-| `These were changed in the Shopify customizer since the last sync:` | Someone edited in the customizer. Ask Claude to review and merge the changes, commit, and publish again. |
+| `The live theme has customizer changes that are not in git yet.` | Someone edited in the customizer. Files "changed only in the customizer" are copied in for review. Files "changed both here and in the customizer" are left alone and Claude merges them by hand, keeping both. Then it commits and publishes again. See [troubleshooting](08-troubleshooting.md). |
 | `The build failed. See the errors above.` | Tell Claude. It will fix the styles or script. |
 | `GitHub rejected the push (someone pushed a moment ago). ...` | Ask Claude to start the preview, then publish again. |
 
-Two errors come after the code is already on GitHub: `The theme upload failed. ... the live site may be partly updated. Run npm run push again.` Just ask Claude to publish again. And a `[warn]`, `Could not re-read the live theme...`, which is harmless.
+One error comes after the code is already on GitHub: `The theme upload failed. ... the live site may be partly updated. Run npm run push again.` Just ask Claude to publish again. Three `[warn]` lines can follow a finished upload, and none of them undo the publish: `Could not re-read the live theme...` (harmless), `Saved Shopify formatting locally but could not send it to GitHub...` (the next preview start sends it), and `Could not move the live branch on GitHub...` (the next publish may report conflicts that are not real; Claude handles them).
+
+A dry run that passes ends with `Dry run: every check passed. Nothing was pushed.` A real publish prints `Marked this version as published (the live branch on GitHub)` just before `Done.`
 
 ## Things to say to Claude
 
@@ -85,4 +91,4 @@ Content lives in Shopify admin, not in the code:
 - Menu links: Online Store > Navigation.
 - Text, images and order of sections on a page: the theme customizer (Online Store > Themes > Customize).
 
-The customizer is safe to use at any time. Both commands copy what you changed there into the code before they do anything else, so nothing gets overwritten.
+Use the customizer whenever you like, with one exception: not while a publish is running. A publish uploads the files it checked a moment earlier, so an edit saved during those few minutes can be replaced. Otherwise both commands check the customizer first. Edits made only there are copied into the code. If the same page was also changed in the code, they stop and Claude merges the two by hand instead of picking one.

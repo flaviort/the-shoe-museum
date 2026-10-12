@@ -30,11 +30,22 @@ Claude should: look at `git status`, commit with a plain message, and run the ch
 Why: Flávio (or the preview itself) saved something to GitHub that is not on your Mac yet.
 What to do: say "start the preview", then "publish" again. The preview fetches the new work first.
 
-## Publishing stops: "These were changed in the Shopify customizer"
+## Publishing stops: "The live theme has customizer changes that are not in git yet"
 
 Why: someone changed the site in the Shopify customizer after the last sync. Publishing now would erase that.
 What to do: tell Claude. It reads what changed, keeps both your edit and the customizer edit, commits, and tries again.
-Claude should: run `git diff`, explain it in plain words, never discard the live content.
+Claude should: for files listed as "changed only in the customizer", run `git diff` and explain it in plain words; the live version is already in the working copy. For files "changed both here and in the customizer", see the next entry. Then run the `git add -A` and `git commit` lines the message prints, unchanged, and push again. Never discard the live content.
+
+## "Changed both here and in the customizer"
+
+Why: since the last publish, the same file was edited in the code and in the customizer. The scripts compare three versions: the local file, the live file, and the last version both shared (the base, normally `git show origin/live:<path>`). When both moved away from the base, neither can be picked automatically. `npm run dev` only warns; `npm run push` stops.
+What to do: nothing yourself. Ask Claude to merge and publish.
+Claude should:
+1. Run `npm run push -- --dry-run`. It leaves these files alone (only files changed on the customizer side alone are copied in) and prints a temp folder with `live/<path>` (the live copy) and `base/<path>` (the shared base, when known).
+2. For each file, run the printed `git merge-file <path> <base copy> <live copy>`. It merges into the local file and marks overlapping edits with `<<<<<<<`, `=======` and `>>>>>>>`. Resolve those by hand so both edits survive, and check the JSON is still valid. When there is no base copy, merge the live copy in by reading both.
+3. For a template deleted on one side: ask the owner whether to keep it. To delete it, `git rm <path>`; to restore it, copy the live copy back.
+4. Run the printed `git add -A` and `git commit ... -m "Live-Merged: <path> <code>"` lines exactly. Each `Live-Merged` line records which live version is merged in. Without it the next push stops on the same file again. If the customizer changes the file again before the publish, the code no longer matches and it stops again, which is correct.
+5. Dry run again, then ask the owner before the real `npm run push`.
 
 ## The preview link does not load
 
@@ -56,5 +67,5 @@ What to do: tell Claude. The messages above the `[ERROR]` line say which file.
 ## Something broke on the live site, undo it
 
 What to do: tell Claude "undo the last change and publish".
-Claude should: find the bad commit with `git log --oneline`, run `git revert <commit>`, then `npm run push -- --dry-run` and, after the owner says yes, `npm run push`.
+Claude should: find the bad commit with `git log --oneline`, run `git revert <commit>`, then `npm run push -- --dry-run` and, after the owner says yes, `npm run push`. This also works for customizer files: the revert counts as a code edit, so the push publishes it instead of taking the live version back. If the customizer changed the same file since the last publish, it is reported as a conflict to merge.
 Emergency, if you cannot wait: in Shopify admin go to Online Store > Themes and publish an earlier copy of the theme if you have one. Then tell Claude, so the code matches.

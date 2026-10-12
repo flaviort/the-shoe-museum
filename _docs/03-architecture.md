@@ -9,7 +9,7 @@
 | `sections/` | Page blocks with customizer schemas. |
 | `snippets/` | Partials called with `render`: `cart-drawer`, `menu-fullscreen`, `exhibit-card`, `product-block`, `payment-icons`. |
 | `config/` | `settings_schema.json` (global setting definitions) and `settings_data.json` (their saved values). |
-| `locales/en.default.json` | Default locale file. |
+| `locales/en.default.json` | Default locale file. The language editor in Shopify admin writes it on live, so it is synced like customizer content. |
 | `scss/`, `js/functions.js` | Source for the compiled `assets/main.min.css` and `assets/main.js`. |
 | `assets/` | Fonts (Futura PT), images, `bootstrap-grid.min.css`, plus the git-ignored build output. |
 | `scripts/` | Code behind `npm run dev` and `npm run push`. |
@@ -80,11 +80,25 @@ The shop name comes from `shop.name`, not from a setting.
 
 ## Customizer JSON vs code
 
-The Shopify customizer writes `templates/*.json` and `config/settings_data.json` on the live theme. Those are the only files it owns; everything else is code. A push uploads the local copies, so a stale local JSON would erase customizer work. Both scripts therefore pull exactly those files (`LIVE_JSON` in `scripts/lib/live.mjs`) into a temp folder and compare them with the local ones:
+The Shopify customizer writes `templates/*.json`, `sections/*.json` (section groups, if the theme ever uses them) and `config/settings_data.json` on the live theme, and the language editor writes `locales/*.json` (not the `.schema.json` files). Those are the only files Shopify admin owns; everything else is code. A push uploads the local copies, so a stale local JSON would erase customizer work. Both scripts therefore pull exactly those files (`LIVE_JSON` in `scripts/lib/live.mjs`) into a temp folder and compare them with the local ones.
 
-- `npm run dev` copies differing files into the working tree, commits them as `sync: customizer changes from live` and pushes that commit. A file with unsaved local edits is skipped with a `[warn]`.
-- `npm run push` stops if any file differs, after writing the live versions into the working tree so you can review them with `git diff`, merge and commit.
-- After uploading, `push` pulls again, because Shopify reformats JSON on upload, and commits any difference as `sync: normalize after push`.
+The compare is three-way. For each file the base is the last version both sides agreed on, newest first: a `Live-Merged: <path> <fingerprint>` line in a commit message (written after a hand merge), the content in a `sync: customizer changes from live` or `sync: normalize after push` commit (the scripts write the live file byte for byte), or the content in `origin/live`. Only commits after `origin/live` count.
+
+The `live` branch on GitHub marks the commit last published. `npm run push` moves it after each upload (fast-forward only), and `npm run dev` fetches it. Nobody moves it by hand.
+
+| Live vs base | Local vs base | Result |
+|---|---|---|
+| same | changed, or added here | kept; the next push uploads it |
+| same | deleted here | the next push removes it from live |
+| changed, or created in the customizer | same | `dev` copies and commits it; `push` stops and copies it in for review |
+| deleted in the customizer | same | conflict |
+| changed | changed differently | conflict |
+
+A file with uncommitted local edits is never overwritten: `dev` skips it with a `[warn]`. On a conflict `dev` warns and leaves both versions alone; `push` stops, writes the live copy and the base into a temp folder outside the repo, and prints the `git merge-file` and `git commit` lines to use. `dev` sends its sync commit to GitHub only when no other commit is waiting to be published.
+
+Before the first publish there is no `live` branch. Files without a sync commit then use a two-way compare: live content that git history already had counts as old (the local copy wins), a file never edited here takes the live version, and anything else is a conflict.
+
+After uploading, `push` pulls again, because Shopify reformats JSON on upload, commits any difference as `sync: normalize after push`, and then moves `live`.
 
 Every JSON template starts with Shopify's auto-generated comment block. Leave it in.
 
