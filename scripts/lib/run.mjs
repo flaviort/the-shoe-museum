@@ -8,6 +8,7 @@ export function run(cmd, args, { cwd, live = false, timeout } = {}) {
         cwd,
         timeout,
         encoding: 'utf8',
+        maxBuffer: 64 * 1024 * 1024,
         stdio: live ? 'inherit' : 'pipe',
     })
     return {
