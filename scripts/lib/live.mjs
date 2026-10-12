@@ -52,6 +52,14 @@ export function readThemeJson(dir) {
     return files
 }
 
+// Paths of files that still hold git conflict markers (a line starting with
+// "<<<<<<< " or ">>>>>>> ", or "=======" alone). Such a file is not valid JSON,
+// and Shopify rejects it partway through an upload.
+export function findConflictMarkers(files) {
+    const marker = /^(<<<<<<< |>>>>>>> |=======\r?$)/m
+    return [...files].filter(([, content]) => marker.test(content)).map(([path]) => path).sort()
+}
+
 // The CLI frames its errors in a box. Keep the last one or two lines of text.
 export function cliError(text) {
     return text

@@ -11,7 +11,7 @@ import { loadEnv, shopifyArgs } from './lib/env.mjs'
 import { git, dirtyPaths, countCommits, commitPaths } from './lib/git.mjs'
 import {
     pullLiveJson, readThemeJson, compareLive, writeLiveFiles, writeMergeFiles,
-    loadBase, historyOf, fingerprint, NORMALIZE_SUBJECT,
+    loadBase, historyOf, fingerprint, findConflictMarkers, NORMALIZE_SUBJECT,
 } from './lib/live.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -38,6 +38,15 @@ const env = loadEnv(root)
 const pending = dirtyPaths(root)
 if (pending.length) stop(`There are uncommitted changes. Commit or discard them first:\n${indent(pending)}`)
 ok('No uncommitted changes')
+
+const unmerged = findConflictMarkers(readThemeJson(root))
+if (unmerged.length) {
+    stop(
+        `These files still contain unfinished merge markers (<<<<<<<, =======, >>>>>>>):\n${indent(unmerged)}\n` +
+        `${pad}They must be merged by hand and committed before publishing.`,
+    )
+}
+ok('No unfinished merge markers')
 
 if (git(root, 'fetch', '-q').code !== 0) stop('Could not reach GitHub to check for newer changes.')
 const behind = countCommits(root, 'HEAD..@{u}')

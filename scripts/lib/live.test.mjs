@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { git } from './git.mjs'
 import {
     compareLive, readThemeJson, writeLiveFiles, fingerprint, cliError,
-    isCustomizerPath, loadBase, historyOf, writeMergeFiles, SYNC_SUBJECT,
+    isCustomizerPath, findConflictMarkers, loadBase, historyOf, writeMergeFiles, SYNC_SUBJECT,
 } from './live.mjs'
 
 const map = (obj) => new Map(Object.entries(obj))
@@ -325,4 +325,24 @@ test('writeMergeFiles puts the live and base versions in a temp folder, never in
         rmSync(root, { recursive: true, force: true })
         if (dir) rmSync(dir, { recursive: true, force: true })
     }
+})
+
+// Merge markers
+
+test('files with any kind of merge marker are listed, sorted', () => {
+    const r = findConflictMarkers(map({
+        'templates/b.json': '{\n<<<<<<< HEAD\n"a": 1\n}',
+        'config/settings_data.json': '{\n"a": 1,\n=======\n"a": 2\n}',
+        'sections/c.json': '{\n"a": 1\n>>>>>>> live\n}',
+        'templates/ok.json': '{"a": 1}',
+    }))
+    assert.deepEqual(r, ['config/settings_data.json', 'sections/c.json', 'templates/b.json'])
+})
+
+test('clean files return an empty list', () => {
+    assert.deepEqual(findConflictMarkers(map({ [P]: '{"a": 1}', 'sections/x.json': '{}' })), [])
+})
+
+test('a run of equals signs inside a longer line is not a marker', () => {
+    assert.deepEqual(findConflictMarkers(map({ [P]: '{\n"text": "a =======",\n"b": "======= x"\n}' })), [])
 })

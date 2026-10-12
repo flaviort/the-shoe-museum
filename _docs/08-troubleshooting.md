@@ -46,6 +46,7 @@ Claude should:
 3. For a template deleted on one side: ask the owner whether to keep it. To delete it, `git rm <path>`; to restore it, copy the live copy back.
 4. Run the printed `git add -A` and `git commit ... -m "Live-Merged: <path> <code>"` lines exactly. Each `Live-Merged` line records which live version is merged in. Without it the next push stops on the same file again. If the customizer changes the file again before the publish, the code no longer matches and it stops again, which is correct.
 5. Dry run again, then ask the owner before the real `npm run push`.
+If a push stops with "These files still contain unfinished merge markers", a merged file was committed with `<<<<<<<`, `=======` or `>>>>>>>` lines still in it. Open each listed file, finish the merge by hand, commit, and push again.
 
 ## The preview link does not load
 
